@@ -16,8 +16,8 @@ namespace SistemaAtendimento // Nome do projeto
             try // Aqui o sistema vai tentar se conectar ao banco de dados
             {
                 // Tenta abrir a conexão com o banco de dados
-                using (SqlConnection conexao = ConexaoDB.GetConexao()) 
-                { 
+                using (SqlConnection conexao = ConexaoDB.GetConexao())
+                {
                     conexao.Open();
                     MessageBox.Show("Conexão Realizada com sucesso!."); // Se não der erro, mostra mensagem de sucesso
                 }
@@ -26,6 +26,19 @@ namespace SistemaAtendimento // Nome do projeto
             {
                 MessageBox.Show("Erro ao conectar:" + ex.Message); // Se der erro, mostra mensagem de erro com detalhes
             }
+        }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Para chamar um formulario e abri-lo (abrir a tela de clientes)
+            FrmCadastroClientes frmCadastroClientes = new FrmCadastroClientes();
+            frmCadastroClientes.ShowDialog();
+        }
+
+        private void sairToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //programação do botão sair, para sair da tela atual(fecha a tela)
+            Application.Exit();
         }
     }
 }
