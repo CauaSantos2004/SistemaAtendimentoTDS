@@ -79,14 +79,14 @@
             txtCodigo.Location = new Point(24, 46);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(100, 23);
-            txtCodigo.TabIndex = 2;
+            txtCodigo.TabIndex = 1;
             // 
             // txtNome
             // 
             txtNome.Location = new Point(169, 46);
             txtNome.Name = "txtNome";
             txtNome.Size = new Size(588, 23);
-            txtNome.TabIndex = 3;
+            txtNome.TabIndex = 2;
             // 
             // grbDadosUsuario
             // 
@@ -112,14 +112,14 @@
             cbxPerfil.Location = new Point(335, 102);
             cbxPerfil.Name = "cbxPerfil";
             cbxPerfil.Size = new Size(245, 23);
-            cbxPerfil.TabIndex = 7;
+            cbxPerfil.TabIndex = 4;
             // 
             // txtSenha
             // 
             txtSenha.Location = new Point(24, 102);
             txtSenha.Name = "txtSenha";
             txtSenha.Size = new Size(270, 23);
-            txtSenha.TabIndex = 6;
+            txtSenha.TabIndex = 3;
             // 
             // lblPerfil
             // 
@@ -153,7 +153,7 @@
             txtPesquisar.Location = new Point(512, 228);
             txtPesquisar.Name = "txtPesquisar";
             txtPesquisar.Size = new Size(215, 23);
-            txtPesquisar.TabIndex = 21;
+            txtPesquisar.TabIndex = 10;
             // 
             // btnPesquisar
             // 
@@ -162,7 +162,7 @@
             btnPesquisar.Location = new Point(741, 226);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(41, 25);
-            btnPesquisar.TabIndex = 22;
+            btnPesquisar.TabIndex = 11;
             btnPesquisar.UseVisualStyleBackColor = true;
             // 
             // imlIcones
@@ -185,7 +185,7 @@
             btnNovo.Location = new Point(12, 214);
             btnNovo.Name = "btnNovo";
             btnNovo.Size = new Size(63, 37);
-            btnNovo.TabIndex = 23;
+            btnNovo.TabIndex = 5;
             btnNovo.Text = "Novo";
             btnNovo.TextAlign = ContentAlignment.MiddleRight;
             btnNovo.UseVisualStyleBackColor = true;
@@ -198,7 +198,7 @@
             btnSalvar.Location = new Point(190, 214);
             btnSalvar.Name = "btnSalvar";
             btnSalvar.Size = new Size(63, 37);
-            btnSalvar.TabIndex = 24;
+            btnSalvar.TabIndex = 7;
             btnSalvar.Text = "Salvar";
             btnSalvar.TextAlign = ContentAlignment.MiddleRight;
             btnSalvar.UseVisualStyleBackColor = true;
@@ -211,7 +211,7 @@
             btnEditar.Location = new Point(101, 214);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(63, 37);
-            btnEditar.TabIndex = 25;
+            btnEditar.TabIndex = 6;
             btnEditar.Text = "Editar";
             btnEditar.TextAlign = ContentAlignment.MiddleRight;
             btnEditar.UseVisualStyleBackColor = true;
@@ -224,7 +224,7 @@
             btnCancelar.Location = new Point(374, 214);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(79, 37);
-            btnCancelar.TabIndex = 26;
+            btnCancelar.TabIndex = 9;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
@@ -237,7 +237,7 @@
             btnExcluir.Location = new Point(280, 214);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(69, 37);
-            btnExcluir.TabIndex = 27;
+            btnExcluir.TabIndex = 8;
             btnExcluir.Text = "Excluir";
             btnExcluir.TextAlign = ContentAlignment.MiddleRight;
             btnExcluir.UseVisualStyleBackColor = true;

@@ -26,5 +26,10 @@ namespace SistemaAtendimento.View
         {
 
         }
+
+        private void grbListaEtapas_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

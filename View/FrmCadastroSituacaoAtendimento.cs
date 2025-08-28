@@ -16,5 +16,15 @@ namespace SistemaAtendimento.View
         {
             InitializeComponent();
         }
+
+        private void pnlSituacao_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void FrmCadastroSituacaoAtendimento_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
