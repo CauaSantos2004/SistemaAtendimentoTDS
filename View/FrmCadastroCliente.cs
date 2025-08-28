@@ -66,5 +66,10 @@ namespace SistemaAtendimento
         {
 
         }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

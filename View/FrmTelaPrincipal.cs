@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient; // Biblioteca para conectar com SQL Server
-using SistemaAtendimento.Database; // Onde está a classe ConexaoDB
+using SistemaAtendimento.Database;
+using SistemaAtendimento.View; // Onde está a classe ConexaoDB
 
 namespace SistemaAtendimento // Nome do projeto
 {
@@ -39,6 +40,18 @@ namespace SistemaAtendimento // Nome do projeto
         {
             //programação do botão sair, para sair da tela atual(fecha a tela)
             Application.Exit();
+        }
+
+        private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCadastroUsuario frmCadastroUsuario = new FrmCadastroUsuario();
+            frmCadastroUsuario.ShowDialog();
+        }
+
+        private void etapasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
+            frmCadastroEtapa.ShowDialog();
         }
     }
 }

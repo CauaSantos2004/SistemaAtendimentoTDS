@@ -16,5 +16,15 @@ namespace SistemaAtendimento.View
         {
             InitializeComponent();
         }
+
+        private void rdbInativo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmCadastroEtapa_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
