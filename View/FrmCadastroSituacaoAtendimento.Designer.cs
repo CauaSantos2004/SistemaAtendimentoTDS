@@ -36,15 +36,16 @@
             lblPesquisar = new Label();
             lblNome = new Label();
             grbDadosSituacaoAtendimento = new GroupBox();
-            lblSituacao = new Label();
+            txtNome = new TextBox();
+            txtCodigo = new TextBox();
+            txtCor = new TextBox();
             pnlSituacao = new Panel();
             rdbInativo = new RadioButton();
             rdbAtivo = new RadioButton();
-            txtCor = new TextBox();
-            txtCodigo = new TextBox();
-            txtNome = new TextBox();
-            textBox1 = new TextBox();
+            lblSituacao = new Label();
+            textPesquisar = new TextBox();
             btnPesquisar = new Button();
+            imageList1 = new ImageList(components);
             btnCancelar = new Button();
             btnExcluir = new Button();
             btnEditar = new Button();
@@ -52,7 +53,6 @@
             btnNovo = new Button();
             grbListaSituacoesAtendimento = new GroupBox();
             dgvListaSituacoesAtendimento = new DataGridView();
-            imageList1 = new ImageList(components);
             grbDadosSituacaoAtendimento.SuspendLayout();
             pnlSituacao.SuspendLayout();
             grbListaSituacoesAtendimento.SuspendLayout();
@@ -62,7 +62,7 @@
             // lblCodigo
             // 
             lblCodigo.AutoSize = true;
-            lblCodigo.Location = new Point(26, 30);
+            lblCodigo.Location = new Point(21, 30);
             lblCodigo.Name = "lblCodigo";
             lblCodigo.Size = new Size(46, 15);
             lblCodigo.TabIndex = 0;
@@ -71,7 +71,7 @@
             // lblCor
             // 
             lblCor.AutoSize = true;
-            lblCor.Location = new Point(26, 88);
+            lblCor.Location = new Point(22, 88);
             lblCor.Name = "lblCor";
             lblCor.Size = new Size(26, 15);
             lblCor.TabIndex = 1;
@@ -97,7 +97,7 @@
             // lblNome
             // 
             lblNome.AutoSize = true;
-            lblNome.Location = new Point(187, 30);
+            lblNome.Location = new Point(185, 30);
             lblNome.Name = "lblNome";
             lblNome.Size = new Size(40, 15);
             lblNome.TabIndex = 4;
@@ -120,14 +120,26 @@
             grbDadosSituacaoAtendimento.TabStop = false;
             grbDadosSituacaoAtendimento.Text = "Dados da Situação do Atendimento";
             // 
-            // lblSituacao
+            // txtNome
             // 
-            lblSituacao.AutoSize = true;
-            lblSituacao.Location = new Point(317, 88);
-            lblSituacao.Name = "lblSituacao";
-            lblSituacao.Size = new Size(52, 15);
-            lblSituacao.TabIndex = 7;
-            lblSituacao.Text = "Situação";
+            txtNome.Location = new Point(185, 48);
+            txtNome.Name = "txtNome";
+            txtNome.Size = new Size(569, 23);
+            txtNome.TabIndex = 2;
+            // 
+            // txtCodigo
+            // 
+            txtCodigo.Location = new Point(22, 48);
+            txtCodigo.Name = "txtCodigo";
+            txtCodigo.Size = new Size(100, 23);
+            txtCodigo.TabIndex = 1;
+            // 
+            // txtCor
+            // 
+            txtCor.Location = new Point(22, 105);
+            txtCor.Name = "txtCor";
+            txtCor.Size = new Size(270, 23);
+            txtCor.TabIndex = 3;
             // 
             // pnlSituacao
             // 
@@ -161,33 +173,21 @@
             rdbAtivo.Text = "Ativo";
             rdbAtivo.UseVisualStyleBackColor = true;
             // 
-            // txtCor
+            // lblSituacao
             // 
-            txtCor.Location = new Point(26, 105);
-            txtCor.Name = "txtCor";
-            txtCor.Size = new Size(270, 23);
-            txtCor.TabIndex = 3;
+            lblSituacao.AutoSize = true;
+            lblSituacao.Location = new Point(317, 88);
+            lblSituacao.Name = "lblSituacao";
+            lblSituacao.Size = new Size(52, 15);
+            lblSituacao.TabIndex = 7;
+            lblSituacao.Text = "Situação";
             // 
-            // txtCodigo
+            // textPesquisar
             // 
-            txtCodigo.Location = new Point(26, 48);
-            txtCodigo.Name = "txtCodigo";
-            txtCodigo.Size = new Size(100, 23);
-            txtCodigo.TabIndex = 1;
-            // 
-            // txtNome
-            // 
-            txtNome.Location = new Point(187, 48);
-            txtNome.Name = "txtNome";
-            txtNome.Size = new Size(569, 23);
-            txtNome.TabIndex = 2;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(518, 222);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(220, 23);
-            textBox1.TabIndex = 10;
+            textPesquisar.Location = new Point(518, 222);
+            textPesquisar.Name = "textPesquisar";
+            textPesquisar.Size = new Size(220, 23);
+            textPesquisar.TabIndex = 10;
             // 
             // btnPesquisar
             // 
@@ -198,6 +198,18 @@
             btnPesquisar.Size = new Size(44, 25);
             btnPesquisar.TabIndex = 11;
             btnPesquisar.UseVisualStyleBackColor = true;
+            // 
+            // imageList1
+            // 
+            imageList1.ColorDepth = ColorDepth.Depth32Bit;
+            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
+            imageList1.TransparentColor = Color.Transparent;
+            imageList1.Images.SetKeyName(0, "icone-cancelar.png");
+            imageList1.Images.SetKeyName(1, "icone-editar.png");
+            imageList1.Images.SetKeyName(2, "icone-excluir.png");
+            imageList1.Images.SetKeyName(3, "icone-novo.png");
+            imageList1.Images.SetKeyName(4, "icone-pesquisar.png");
+            imageList1.Images.SetKeyName(5, "icone-salvar.png");
             // 
             // btnCancelar
             // 
@@ -282,25 +294,13 @@
             dgvListaSituacoesAtendimento.Size = new Size(764, 139);
             dgvListaSituacoesAtendimento.TabIndex = 0;
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "icone-cancelar.png");
-            imageList1.Images.SetKeyName(1, "icone-editar.png");
-            imageList1.Images.SetKeyName(2, "icone-excluir.png");
-            imageList1.Images.SetKeyName(3, "icone-novo.png");
-            imageList1.Images.SetKeyName(4, "icone-pesquisar.png");
-            imageList1.Images.SetKeyName(5, "icone-salvar.png");
-            // 
             // FrmCadastroSituacaoAtendimento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(grbListaSituacoesAtendimento);
-            Controls.Add(textBox1);
+            Controls.Add(textPesquisar);
             Controls.Add(btnPesquisar);
             Controls.Add(btnCancelar);
             Controls.Add(btnExcluir);
@@ -338,7 +338,7 @@
         private TextBox txtCor;
         private TextBox txtNome;
         private TextBox txtCodigo;
-        private TextBox textBox1;
+        private TextBox textPesquisar;
         private Button btnPesquisar;
         private Button btnNovo;
         private Button btnSalvar;

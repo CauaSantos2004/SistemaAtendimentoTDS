@@ -67,7 +67,7 @@
             // lblCodigo
             // 
             lblCodigo.AutoSize = true;
-            lblCodigo.Location = new Point(24, 28);
+            lblCodigo.Location = new Point(20, 28);
             lblCodigo.Name = "lblCodigo";
             lblCodigo.Size = new Size(46, 15);
             lblCodigo.TabIndex = 1;
@@ -76,7 +76,7 @@
             // 
             // txtCodigo
             // 
-            txtCodigo.Location = new Point(24, 46);
+            txtCodigo.Location = new Point(20, 46);
             txtCodigo.Name = "txtCodigo";
             txtCodigo.Size = new Size(100, 23);
             txtCodigo.TabIndex = 1;
@@ -116,7 +116,7 @@
             // 
             // txtSenha
             // 
-            txtSenha.Location = new Point(24, 102);
+            txtSenha.Location = new Point(20, 102);
             txtSenha.Name = "txtSenha";
             txtSenha.Size = new Size(270, 23);
             txtSenha.TabIndex = 3;
@@ -133,7 +133,7 @@
             // lblSenha
             // 
             lblSenha.AutoSize = true;
-            lblSenha.Location = new Point(24, 84);
+            lblSenha.Location = new Point(20, 84);
             lblSenha.Name = "lblSenha";
             lblSenha.Size = new Size(39, 15);
             lblSenha.TabIndex = 4;
