@@ -66,6 +66,7 @@
             txtCodigo = new TextBox();
             lblCodigo = new Label();
             btnNovo = new Button();
+            imlIcones = new ImageList(components);
             btnSalvar = new Button();
             btnEditar = new Button();
             btnCancelar = new Button();
@@ -75,7 +76,6 @@
             lblPesquisar = new Label();
             grbListaClientes = new GroupBox();
             dgvClientes = new DataGridView();
-            imlIcones = new ImageList(components);
             grdDadosCliente.SuspendLayout();
             pnlSituacao.SuspendLayout();
             pnlTipoPessoa.SuspendLayout();
@@ -435,6 +435,18 @@
             btnNovo.UseVisualStyleBackColor = true;
             btnNovo.Click += btnNovo_Click;
             // 
+            // imlIcones
+            // 
+            imlIcones.ColorDepth = ColorDepth.Depth32Bit;
+            imlIcones.ImageStream = (ImageListStreamer)resources.GetObject("imlIcones.ImageStream");
+            imlIcones.TransparentColor = Color.Transparent;
+            imlIcones.Images.SetKeyName(0, "icone-cancelar.png");
+            imlIcones.Images.SetKeyName(1, "icone-editar.png");
+            imlIcones.Images.SetKeyName(2, "icone-excluir.png");
+            imlIcones.Images.SetKeyName(3, "icone-novo.png");
+            imlIcones.Images.SetKeyName(4, "icone-pesquisar.png");
+            imlIcones.Images.SetKeyName(5, "icone-salvar.png");
+            // 
             // btnSalvar
             // 
             btnSalvar.ImageAlign = ContentAlignment.MiddleLeft;
@@ -532,18 +544,6 @@
             dgvClientes.Size = new Size(826, 93);
             dgvClientes.TabIndex = 0;
             // 
-            // imlIcones
-            // 
-            imlIcones.ColorDepth = ColorDepth.Depth32Bit;
-            imlIcones.ImageStream = (ImageListStreamer)resources.GetObject("imlIcones.ImageStream");
-            imlIcones.TransparentColor = Color.Transparent;
-            imlIcones.Images.SetKeyName(0, "icone-cancelar.png");
-            imlIcones.Images.SetKeyName(1, "icone-editar.png");
-            imlIcones.Images.SetKeyName(2, "icone-excluir.png");
-            imlIcones.Images.SetKeyName(3, "icone-novo.png");
-            imlIcones.Images.SetKeyName(4, "icone-pesquisar.png");
-            imlIcones.Images.SetKeyName(5, "icone-salvar.png");
-            // 
             // FrmCadastroClientes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -561,6 +561,7 @@
             Controls.Add(grdDadosCliente);
             Name = "FrmCadastroClientes";
             Text = "Cadastro de Clientes";
+            Load += FrmCadastroClientes_Load;
             grdDadosCliente.ResumeLayout(false);
             grdDadosCliente.PerformLayout();
             pnlSituacao.ResumeLayout(false);
