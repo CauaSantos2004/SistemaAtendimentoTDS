@@ -80,6 +80,14 @@ namespace SistemaAtendimento
         {
             _clienteController.ListarClientes();
         }
+
+        //criamos uma função na qual exibe um alerta na tela
+        public void ExibirMensagem(string mensagem)
+        {
+            MessageBox.Show(mensagem);
+        }
+
+
         //feita alteração a partir daqui
         public void ExibirClientes(List<Clientes> clientes) 
         {

@@ -31,7 +31,7 @@ namespace SistemaAtendimento // Nome do projeto
 
         private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Para chamar um formulario e abri-lo (abrir a tela de clientes)
+            //Para chamar um formulario (abrir a tela de clientes no sistema)
             FrmCadastroClientes frmCadastroClientes = new FrmCadastroClientes();
             frmCadastroClientes.ShowDialog();
         }
@@ -44,12 +44,14 @@ namespace SistemaAtendimento // Nome do projeto
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //para chamar o formulario (abrir a tela de usuarios no sistema)
             FrmCadastroUsuario frmCadastroUsuario = new FrmCadastroUsuario();
             frmCadastroUsuario.ShowDialog();
         }
 
         private void etapasToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //para chamar o formulario (abrir a tela de etapas no sistema)
             FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
             frmCadastroEtapa.ShowDialog();
         }
