@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace SistemaAtendimento.Model
 {
-    public class Usuarios
+    public class Etapas
     {
         public int Id { get; set; }
-        public string? Nome { get; set; }
-        public string? Email { get; set; }
-        public string? Senha { get; set; }
-        public string? Perfil { get; set; }
+        public string Nome { get; set; }
+        public string Ordem { get; set; }
+        public bool Ativo { get; set; }
     }
 }

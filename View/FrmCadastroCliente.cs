@@ -88,7 +88,7 @@ namespace SistemaAtendimento
         }
 
 
-        //feita alteração a partir daqui
+        //alteração...
         public void ExibirClientes(List<Clientes> clientes) 
         {
             dgvClientes.DataSource = clientes;

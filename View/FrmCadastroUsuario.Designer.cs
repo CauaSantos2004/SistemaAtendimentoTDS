@@ -277,6 +277,7 @@
             Controls.Add(grbDadosUsuario);
             Name = "FrmCadastroUsuario";
             Text = "Cadastro de Usúario";
+            Load += FrmCadastroUsuario_Load;
             grbDadosUsuario.ResumeLayout(false);
             grbDadosUsuario.PerformLayout();
             grbListaUsuario.ResumeLayout(false);
