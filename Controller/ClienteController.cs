@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 
 namespace SistemaAtendimento.Controller
@@ -29,5 +30,22 @@ namespace SistemaAtendimento.Controller
                 _frmCadastroClientes.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}"); //mostra a mensagem junto com o erro
             }
         }
-    }
+        public void Salvar(Clientes cliente)
+        {
+            //criar o try catch
+            try
+            {
+                _clienteRepository.Inserir(cliente);
+                _frmCadastroClientes.ExibirMensagem($"Cliente cadastrado com sucesso!");
+                
+                ListarClientes();
+                //Atualizar DataGrid
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroClientes.ExibirMensagem($"Erro ao cadastrar o cliente: {ex.Message}");
+            }
+        }
+    
+    }   
 }

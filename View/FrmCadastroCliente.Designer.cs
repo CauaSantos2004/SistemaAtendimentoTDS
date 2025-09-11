@@ -53,7 +53,7 @@
             rdbJuridico = new RadioButton();
             rdbFisica = new RadioButton();
             lblTipoPessoa = new Label();
-            txtCpf = new TextBox();
+            txtCpfCnpj = new TextBox();
             lblCpfCnpj = new Label();
             txtCelular = new TextBox();
             txtTelefone = new TextBox();
@@ -103,7 +103,7 @@
             grdDadosCliente.Controls.Add(lblCep);
             grdDadosCliente.Controls.Add(pnlTipoPessoa);
             grdDadosCliente.Controls.Add(lblTipoPessoa);
-            grdDadosCliente.Controls.Add(txtCpf);
+            grdDadosCliente.Controls.Add(txtCpfCnpj);
             grdDadosCliente.Controls.Add(lblCpfCnpj);
             grdDadosCliente.Controls.Add(txtCelular);
             grdDadosCliente.Controls.Add(txtTelefone);
@@ -147,7 +147,6 @@
             rdbInativo.Name = "rdbInativo";
             rdbInativo.Size = new Size(61, 19);
             rdbInativo.TabIndex = 1;
-            rdbInativo.TabStop = true;
             rdbInativo.Text = "Inativo";
             rdbInativo.UseVisualStyleBackColor = true;
             rdbInativo.CheckedChanged += radioButton1_CheckedChanged;
@@ -155,6 +154,7 @@
             // rdbAtivo
             // 
             rdbAtivo.AutoSize = true;
+            rdbAtivo.Checked = true;
             rdbAtivo.Location = new Point(4, 2);
             rdbAtivo.Name = "rdbAtivo";
             rdbAtivo.Size = new Size(53, 19);
@@ -297,13 +297,13 @@
             rdbJuridico.Name = "rdbJuridico";
             rdbJuridico.Size = new Size(66, 19);
             rdbJuridico.TabIndex = 1;
-            rdbJuridico.TabStop = true;
             rdbJuridico.Text = "Jurídico";
             rdbJuridico.UseVisualStyleBackColor = true;
             // 
             // rdbFisica
             // 
             rdbFisica.AutoSize = true;
+            rdbFisica.Checked = true;
             rdbFisica.Location = new Point(4, 4);
             rdbFisica.Name = "rdbFisica";
             rdbFisica.Size = new Size(54, 19);
@@ -321,12 +321,12 @@
             lblTipoPessoa.TabIndex = 12;
             lblTipoPessoa.Text = "Tipo Pessoa";
             // 
-            // txtCpf
+            // txtCpfCnpj
             // 
-            txtCpf.Location = new Point(602, 107);
-            txtCpf.Name = "txtCpf";
-            txtCpf.Size = new Size(215, 23);
-            txtCpf.TabIndex = 6;
+            txtCpfCnpj.Location = new Point(602, 107);
+            txtCpfCnpj.Name = "txtCpfCnpj";
+            txtCpfCnpj.Size = new Size(215, 23);
+            txtCpfCnpj.TabIndex = 6;
             // 
             // lblCpfCnpj
             // 
@@ -459,6 +459,7 @@
             btnSalvar.Text = "Salvar";
             btnSalvar.TextAlign = ContentAlignment.MiddleRight;
             btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnEditar
             // 
@@ -588,7 +589,7 @@
         private Label lblCelular;
         private Label lblTelefone;
         private Label lblTipoPessoa;
-        private TextBox txtCpf;
+        private TextBox txtCpfCnpj;
         private Label lblCpfCnpj;
         private Panel pnlTipoPessoa;
         private Label lblNumero;
