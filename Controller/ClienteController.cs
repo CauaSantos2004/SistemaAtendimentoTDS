@@ -40,6 +40,8 @@ namespace SistemaAtendimento.Controller
                 
                 ListarClientes();
                 //Atualizar DataGrid
+
+                _frmCadastroClientes.DesabilitarCampos();
             }
             catch (Exception ex)
             {

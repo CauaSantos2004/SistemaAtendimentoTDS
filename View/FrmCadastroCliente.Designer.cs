@@ -124,6 +124,7 @@
             // 
             // cbxEstado
             // 
+            cbxEstado.Enabled = false;
             cbxEstado.FormattingEnabled = true;
             cbxEstado.Items.AddRange(new object[] { "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MS", "MT", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" });
             cbxEstado.Location = new Point(17, 262);
@@ -185,6 +186,7 @@
             // 
             txtCidade.Location = new Point(528, 208);
             txtCidade.Name = "txtCidade";
+            txtCidade.ReadOnly = true;
             txtCidade.Size = new Size(289, 23);
             txtCidade.TabIndex = 12;
             // 
@@ -201,6 +203,7 @@
             // 
             txtComplemento.Location = new Point(267, 208);
             txtComplemento.Name = "txtComplemento";
+            txtComplemento.ReadOnly = true;
             txtComplemento.Size = new Size(243, 23);
             txtComplemento.TabIndex = 11;
             txtComplemento.TextChanged += textBox1_TextChanged_2;
@@ -218,6 +221,7 @@
             // 
             txtBairro.Location = new Point(17, 208);
             txtBairro.Name = "txtBairro";
+            txtBairro.ReadOnly = true;
             txtBairro.Size = new Size(228, 23);
             txtBairro.TabIndex = 10;
             txtBairro.TextChanged += textBox1_TextChanged_1;
@@ -235,6 +239,7 @@
             // 
             txtNumero.Location = new Point(646, 159);
             txtNumero.Name = "txtNumero";
+            txtNumero.ReadOnly = true;
             txtNumero.Size = new Size(171, 23);
             txtNumero.TabIndex = 9;
             txtNumero.TextChanged += textBox1_TextChanged;
@@ -243,6 +248,7 @@
             // 
             txtEndereco.Location = new Point(203, 159);
             txtEndereco.Name = "txtEndereco";
+            txtEndereco.ReadOnly = true;
             txtEndereco.Size = new Size(418, 23);
             txtEndereco.TabIndex = 8;
             // 
@@ -250,6 +256,7 @@
             // 
             txtCep.Location = new Point(17, 159);
             txtCep.Name = "txtCep";
+            txtCep.ReadOnly = true;
             txtCep.Size = new Size(165, 23);
             txtCep.TabIndex = 7;
             // 
@@ -285,6 +292,7 @@
             // 
             pnlTipoPessoa.Controls.Add(rdbJuridico);
             pnlTipoPessoa.Controls.Add(rdbFisica);
+            pnlTipoPessoa.Enabled = false;
             pnlTipoPessoa.Location = new Point(427, 107);
             pnlTipoPessoa.Name = "pnlTipoPessoa";
             pnlTipoPessoa.Size = new Size(133, 29);
@@ -299,6 +307,7 @@
             rdbJuridico.TabIndex = 1;
             rdbJuridico.Text = "Jurídico";
             rdbJuridico.UseVisualStyleBackColor = true;
+            rdbJuridico.CheckedChanged += rdbJuridico_CheckedChanged;
             // 
             // rdbFisica
             // 
@@ -311,6 +320,7 @@
             rdbFisica.TabStop = true;
             rdbFisica.Text = "Física";
             rdbFisica.UseVisualStyleBackColor = true;
+            rdbFisica.CheckedChanged += rdbFisica_CheckedChanged;
             // 
             // lblTipoPessoa
             // 
@@ -325,6 +335,7 @@
             // 
             txtCpfCnpj.Location = new Point(602, 107);
             txtCpfCnpj.Name = "txtCpfCnpj";
+            txtCpfCnpj.ReadOnly = true;
             txtCpfCnpj.Size = new Size(215, 23);
             txtCpfCnpj.TabIndex = 6;
             // 
@@ -333,14 +344,15 @@
             lblCpfCnpj.AutoSize = true;
             lblCpfCnpj.Location = new Point(602, 89);
             lblCpfCnpj.Name = "lblCpfCnpj";
-            lblCpfCnpj.Size = new Size(60, 15);
+            lblCpfCnpj.Size = new Size(28, 15);
             lblCpfCnpj.TabIndex = 10;
-            lblCpfCnpj.Text = "CPF/CNPJ";
+            lblCpfCnpj.Text = "CPF";
             // 
             // txtCelular
             // 
             txtCelular.Location = new Point(201, 107);
             txtCelular.Name = "txtCelular";
+            txtCelular.ReadOnly = true;
             txtCelular.Size = new Size(190, 23);
             txtCelular.TabIndex = 4;
             txtCelular.TextChanged += txtCelular_TextChanged;
@@ -349,6 +361,7 @@
             // 
             txtTelefone.Location = new Point(17, 107);
             txtTelefone.Name = "txtTelefone";
+            txtTelefone.ReadOnly = true;
             txtTelefone.Size = new Size(163, 23);
             txtTelefone.TabIndex = 3;
             // 
@@ -375,6 +388,7 @@
             // 
             txtEmail.Location = new Point(510, 51);
             txtEmail.Name = "txtEmail";
+            txtEmail.ReadOnly = true;
             txtEmail.Size = new Size(307, 23);
             txtEmail.TabIndex = 2;
             txtEmail.TextChanged += txtEmail_TextChanged;
@@ -393,6 +407,7 @@
             // 
             txtNome.Location = new Point(142, 51);
             txtNome.Name = "txtNome";
+            txtNome.ReadOnly = true;
             txtNome.Size = new Size(345, 23);
             txtNome.TabIndex = 1;
             // 
@@ -409,6 +424,7 @@
             // 
             txtCodigo.Location = new Point(17, 51);
             txtCodigo.Name = "txtCodigo";
+            txtCodigo.ReadOnly = true;
             txtCodigo.Size = new Size(100, 23);
             txtCodigo.TabIndex = 0;
             // 
@@ -449,6 +465,7 @@
             // 
             // btnSalvar
             // 
+            btnSalvar.Enabled = false;
             btnSalvar.ImageAlign = ContentAlignment.MiddleLeft;
             btnSalvar.ImageIndex = 5;
             btnSalvar.ImageList = imlIcones;
@@ -463,6 +480,7 @@
             // 
             // btnEditar
             // 
+            btnEditar.Enabled = false;
             btnEditar.ImageAlign = ContentAlignment.MiddleLeft;
             btnEditar.ImageIndex = 1;
             btnEditar.ImageList = imlIcones;
@@ -476,6 +494,7 @@
             // 
             // btnCancelar
             // 
+            btnCancelar.Enabled = false;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
             btnCancelar.ImageIndex = 0;
             btnCancelar.ImageList = imlIcones;
@@ -486,9 +505,11 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnExcluir
             // 
+            btnExcluir.Enabled = false;
             btnExcluir.ImageAlign = ContentAlignment.MiddleLeft;
             btnExcluir.ImageIndex = 2;
             btnExcluir.ImageList = imlIcones;
@@ -504,6 +525,7 @@
             // 
             txtPesquisar.Location = new Point(561, 337);
             txtPesquisar.Name = "txtPesquisar";
+            txtPesquisar.ReadOnly = true;
             txtPesquisar.Size = new Size(218, 23);
             txtPesquisar.TabIndex = 20;
             // 

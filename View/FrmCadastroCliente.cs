@@ -73,7 +73,7 @@ namespace SistemaAtendimento
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
-
+            HabilitarCampos();
         }
 
         private void FrmCadastroClientes_Load(object sender, EventArgs e)
@@ -100,7 +100,7 @@ namespace SistemaAtendimento
         {
             //forma de criar um objeto
             Clientes cliente = new Clientes
-            { 
+            {
                 Nome = txtNome.Text,
                 Email = txtEmail.Text,
                 Cpf_Cnpj = txtCpfCnpj.Text,
@@ -116,8 +116,8 @@ namespace SistemaAtendimento
                 Estado = cbxEstado.Text,
                 Ativo = rdbAtivo.Checked,
             };
-            
-            if(!ValidarDados(cliente))
+
+            if (!ValidarDados(cliente))
                 return;
 
             _clienteController.Salvar(cliente);
@@ -127,7 +127,7 @@ namespace SistemaAtendimento
         //se os campos forem preenchidos da meneira correta ele retornará verdadeiro e exibirá uma mensagem dizendo que o campo deve ser preenchido
         public bool ValidarDados(Clientes clientes)
         {
-            if(string .IsNullOrWhiteSpace(txtNome.Text))
+            if (string.IsNullOrWhiteSpace(txtNome.Text))
             {
                 ExibirMensagem("O campo Nome é obrigatório. Por favor, preencha-o.");
                 txtNome.Focus();
@@ -144,17 +144,28 @@ namespace SistemaAtendimento
             //validação do cpf e cnpj, para pessoa fisica exibe uma mensagem e para pessoa juridica exibe outra mensagem
             if (string.IsNullOrWhiteSpace(txtCpfCnpj.Text))
             {
-                if (rdbFisica.Checked)
+                if (rdbFisica.Checked) //se o rdbFisica estiver marcado:
                 {
                     ExibirMensagem("O campo CPF é obrigatório. Por favor, preencha-o.");
                 }
-                else 
+                else // caso contrário:
                 {
                     ExibirMensagem("O campo CNPJ é obrigatório. Por favor, preencha-o.");
                 }
 
                 txtCpfCnpj.Focus();
                 return false;
+            }
+            else
+            {
+                if (rdbFisica.Checked)
+                {
+                    //verificar se o cpf é valido  
+                }
+                else if (rdbJuridico.Checked)
+                {
+                    //verificar se o cnpj é valido 
+                }
             }
 
 
@@ -195,5 +206,92 @@ namespace SistemaAtendimento
 
             return true;
         }
+
+        private void rdbJuridico_CheckedChanged(object sender, EventArgs e)
+        {
+            lblCpfCnpj.Text = "CNPJ"; // Quando o usuário marcar o RadioButton "Jurídico",
+                                      // o texto do Label lblCpfCnpj será alterado para "CNPJ".
+        }
+
+        private void rdbFisica_CheckedChanged(object sender, EventArgs e)
+        {
+            lblCpfCnpj.Text = "CPF"; // Quando o usuário marcar o RadioButton "Fisico",
+                                     // o texto do Label lblCpfCnpj será alterado para "CPF".
+        }
+
+        private void HabilitarCampos()
+        {
+            txtNome.ReadOnly = false;
+            txtEmail.ReadOnly = false;
+            txtTelefone.ReadOnly = false;
+            txtCelular.ReadOnly = false;
+            txtCpfCnpj.ReadOnly = false;
+            txtCep.ReadOnly = false;
+            txtEndereco.ReadOnly = false;
+            txtNumero.ReadOnly = false;
+            txtBairro.ReadOnly = false;
+            txtComplemento.ReadOnly = false;
+            txtCidade.ReadOnly = false;
+            cbxEstado.Enabled = true;
+            pnlTipoPessoa.Enabled = true;
+            pnlSituacao.Enabled = true;
+
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
+
+        }
+
+        private void LimparCampos()
+        {
+            txtNome.Clear();
+            txtEmail.Clear();
+            txtTelefone.Clear();
+            txtCelular.Clear();
+            txtCpfCnpj.Clear();
+            txtCep.Clear();
+            txtEndereco.Clear();
+            txtNumero.Clear();
+            txtBairro.Clear();
+            txtComplemento.Clear();
+            txtCidade.Clear();
+            rdbFisica.Checked = true;
+            rdbAtivo.Checked = true;
+            cbxEstado.Text = "";
+        }
+
+        public void DesabilitarCampos()
+        {
+            LimparCampos();
+            txtNome.ReadOnly = true;
+            txtEmail.ReadOnly = true;
+            txtTelefone.ReadOnly = true;
+            txtCelular.ReadOnly = true;
+            txtCpfCnpj.ReadOnly = true;
+            txtCep.ReadOnly = true;
+            txtEndereco.ReadOnly = true;
+            txtNumero.ReadOnly = true;
+            txtBairro.ReadOnly = true;
+            txtComplemento.ReadOnly = true;
+            txtCidade.ReadOnly = true;
+            cbxEstado.Enabled = false;
+            pnlSituacao.Enabled = true;
+            pnlTipoPessoa.Enabled = false;
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
+
+            btnNovo.Enabled = true;
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
+            btnEditar.Enabled = false;
+            btnExcluir.Enabled = false;
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            DesabilitarCampos();
+        }
     }
-}
+
+}       
