@@ -1,6 +1,6 @@
 ﻿namespace SistemaAtendimento.View
 {
-    partial class FrmCadastroSituacaoAtendimento
+    partial class FrmCadastroStatusAtendimento
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastroSituacaoAtendimento));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastroStatusAtendimento));
             lblCodigo = new Label();
             lblCor = new Label();
             label3 = new Label();
