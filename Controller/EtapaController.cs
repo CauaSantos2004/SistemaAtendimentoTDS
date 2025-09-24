@@ -24,7 +24,7 @@ namespace SistemaAtendimento.Controller
             {
                 var listaretapas = _EtapasRepository.Listar();
 
-                _frmCadastroEtapas.ExibirEtapas(listaretapas);
+                _frmCadastroEtapas.ExibirEtapas(listaretapas); 
             }
             catch (Exception ex)
             {
