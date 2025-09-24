@@ -38,6 +38,14 @@ namespace SistemaAtendimento.View
             dgvUsuario.DataSource = usuarios;
         }
 
+        public void DesabilitarCampos()
+        {
+            txtNome.Enabled = false;
+            txtSenha.Enabled = false;
+            txtCodigo.Enabled = false;
+            // continue com os outros campos do formulário
+        }
+
         private void FrmCadastroUsuario_Load(object sender, EventArgs e)
         {
             _usuarioController.ListarUsuarios();

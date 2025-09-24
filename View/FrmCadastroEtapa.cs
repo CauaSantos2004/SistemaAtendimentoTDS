@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SistemaAtendimento.Controller;
+using SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.View
 {
@@ -24,7 +26,7 @@ namespace SistemaAtendimento.View
 
         private void FrmCadastroEtapa_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void grbListaEtapas_Enter(object sender, EventArgs e)
@@ -36,6 +38,25 @@ namespace SistemaAtendimento.View
         {
 
         }
+        private void FrmCadastroEtapas_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        public void ExibirMensagem(string mensagem)
+        {
+            MessageBox.Show(mensagem);
+        }
+
+        // Método para exibir as etapas no DataGridView
+        public void ExibirEtapas(List<Etapas> etapas)
+        {
+            dgvEtapas.DataSource = etapas;
+            // 🔹 Atenção: verifique se o seu DataGridView realmente se chama "dgvEtapas".
+            // Se o nome for outro (ex: dgvListaEtapas), troque aqui também.
+        }
+
+
         private void HabilitarCampos()
         {
             txtNome.ReadOnly = false;

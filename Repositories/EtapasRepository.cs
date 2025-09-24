@@ -6,7 +6,7 @@ using SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.Repositories
 {
-    public class EtapaRepository
+    public class EtapasRepository
     {
         public List<Etapas> Listar()
         {

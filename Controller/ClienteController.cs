@@ -48,6 +48,24 @@ namespace SistemaAtendimento.Controller
                 _frmCadastroClientes.ExibirMensagem($"Erro ao cadastrar o cliente: {ex.Message}");
             }
         }
-    
+
+        public void Atualizar(Clientes cliente)
+        {
+            //criar o try catch
+            try
+            {
+                _clienteRepository.Atualizar(cliente);
+                _frmCadastroClientes.ExibirMensagem($"Cliente atualizado com sucesso!");
+
+                ListarClientes();
+                //Atualizar DataGrid
+
+                _frmCadastroClientes.DesabilitarCampos();
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroClientes.ExibirMensagem($"Erro ao atualizar cliente: {ex.Message}");
+            }
+        }
     }   
 }
