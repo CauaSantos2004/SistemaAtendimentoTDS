@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Identity.Client;
+using SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
 
@@ -24,7 +28,7 @@ namespace SistemaAtendimento.Controller
             {
                 var listaretapas = _EtapasRepository.Listar();
 
-                _frmCadastroEtapas.ExibirEtapas(listaretapas); 
+                _frmCadastroEtapas.ExibirEtapas(listaretapas);
             }
             catch (Exception ex)
             {
@@ -34,8 +38,44 @@ namespace SistemaAtendimento.Controller
             {
                 // _frmCadastroEtapas.ExibirMensagem($"erro ao Cadastrar o Clientes: {ex.Message}");
             }
+        }
+        public void Atualizar(Etapas etapa) //método de atualizar
+        {
+            //criar o try catch
+            try
+            {
+                _EtapasRepository.Atualizar(etapa);
+                _frmCadastroEtapas.ExibirMensagem($"Etapa atualizada com sucesso!");
 
+                ListarEtapas();
+                //Atualizar DataGrid
+
+                _frmCadastroEtapas.DesabilitarCampos();
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroEtapas.ExibirMensagem($"Erro ao atualizar etapa: {ex.Message}");
+            }
+        }
+
+        public void Excluir(int id) //método de excluir
+        {
+            try
+            {
+                _EtapasRepository.Equals(id);
+                _frmCadastroEtapas.ExibirMensagem("Etapa excluida com sucesso!");
+
+                ListarEtapas();
+
+                _frmCadastroEtapas.DesabilitarCampos();
+
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroEtapas.ExibirMensagem($"Erro ao excluir a etapa: {ex.Message}");
+            }
 
         }
+
     }
 }

@@ -262,6 +262,7 @@
             btnSalvar.Text = "Salvar";
             btnSalvar.TextAlign = ContentAlignment.MiddleRight;
             btnSalvar.UseVisualStyleBackColor = true;
+            btnSalvar.Click += btnSalvar_Click;
             // 
             // btnNovo
             // 
@@ -275,6 +276,7 @@
             btnNovo.Text = "Novo";
             btnNovo.TextAlign = ContentAlignment.MiddleRight;
             btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // grbListaSituacoesAtendimento
             // 
@@ -294,7 +296,7 @@
             dgvListaSituacoesAtendimento.Size = new Size(764, 139);
             dgvListaSituacoesAtendimento.TabIndex = 0;
             // 
-            // FrmCadastroSituacaoAtendimento
+            // FrmCadastroStatusAtendimento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -310,7 +312,7 @@
             Controls.Add(grbDadosSituacaoAtendimento);
             Controls.Add(lblPesquisar);
             Controls.Add(label3);
-            Name = "FrmCadastroSituacaoAtendimento";
+            Name = "FrmCadastroStatusAtendimento";
             Text = "Cadastro de Status de Atendimentos";
             Load += FrmCadastroSituacaoAtendimento_Load;
             grbDadosSituacaoAtendimento.ResumeLayout(false);

@@ -94,7 +94,6 @@
             rdbInativo.TabStop = true;
             rdbInativo.Text = "Inativo";
             rdbInativo.UseVisualStyleBackColor = true;
-            rdbInativo.CheckedChanged += rdbInativo_CheckedChanged;
             // 
             // rdbAtivo
             // 
@@ -176,6 +175,7 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.TextAlign = ContentAlignment.MiddleRight;
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // ImlIcones
             // 
@@ -215,6 +215,7 @@
             btnEditar.Text = "Editar";
             btnEditar.TextAlign = ContentAlignment.MiddleRight;
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnSalvar
             // 
@@ -278,7 +279,6 @@
             grbListaEtapas.TabIndex = 32;
             grbListaEtapas.TabStop = false;
             grbListaEtapas.Text = "Lista de Etapas";
-            grbListaEtapas.Enter += grbListaEtapas_Enter;
             // 
             // dgvEtapas
             // 
@@ -287,6 +287,7 @@
             dgvEtapas.Name = "dgvEtapas";
             dgvEtapas.Size = new Size(764, 142);
             dgvEtapas.TabIndex = 0;
+            dgvEtapas.CellDoubleClick += dgvEtapas_CellDoubleClick;
             // 
             // FrmCadastroEtapa
             // 

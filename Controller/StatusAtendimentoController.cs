@@ -32,7 +32,13 @@ namespace SistemaAtendimento.Controller
             }
 
         }
+        public void Salvar(SatusAtendimento satusAtendimento)
+        {
+            try
+            {
 
+            }
+        }   
 
     }
 

@@ -30,7 +30,7 @@ namespace SistemaAtendimento.Controller
                 _frmCadastroClientes.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}"); //mostra a mensagem junto com o erro
             }
         }
-        public void Salvar(Clientes cliente)
+        public void Salvar(Clientes cliente) //método de salvar
         {
             //criar o try catch
             try
@@ -49,7 +49,7 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Atualizar(Clientes cliente)
+        public void Atualizar(Clientes cliente) //método de atualizar
         {
             //criar o try catch
             try
@@ -67,5 +67,25 @@ namespace SistemaAtendimento.Controller
                 _frmCadastroClientes.ExibirMensagem($"Erro ao atualizar cliente: {ex.Message}");
             }
         }
+
+        public void Excluir(int id) //método de excluir
+        {
+            try
+            {
+                _clienteRepository.Excluir(id);
+                _frmCadastroClientes.ExibirMensagem("Cliente excluido com sucesso!");
+                
+                ListarClientes();
+
+                _frmCadastroClientes.DesabilitarCampos();
+            
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroClientes.ExibirMensagem($"Erro ao excluir o cliente: {ex.Message}");
+            }
+
+        }
+
     }   
 }

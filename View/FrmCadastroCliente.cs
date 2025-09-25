@@ -21,55 +21,7 @@ namespace SistemaAtendimento
             _clienteController = new ClienteController(this);
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void lblCelular_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblPesquisar_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtEmail_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCelular_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnNovo_Click(object sender, EventArgs e)
         {
@@ -335,7 +287,7 @@ namespace SistemaAtendimento
                 btnEditar.Enabled = true;
                 btnNovo.Enabled = false;
                 btnCancelar.Enabled = true;
-
+                btnExcluir.Enabled = true;
 
 
 
@@ -349,6 +301,27 @@ namespace SistemaAtendimento
             HabilitarCampos();
             btnEditar.Enabled = false;
         }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                ExibirMensagem("Selecione um Cliente");
+                return;
+            }
+
+            //craindo um alerta
+            DialogResult resultado = MessageBox.Show("Tem certeza que deseja excluir este cliente?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            
+            if (resultado == DialogResult.Yes)
+            {
+                int id = Convert.ToInt32(txtCodigo.Text);
+                _clienteController.Excluir(id);
+            }
+        }   
     }
 
 }       

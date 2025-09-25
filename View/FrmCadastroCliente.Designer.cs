@@ -150,7 +150,6 @@
             rdbInativo.TabIndex = 1;
             rdbInativo.Text = "Inativo";
             rdbInativo.UseVisualStyleBackColor = true;
-            rdbInativo.CheckedChanged += radioButton1_CheckedChanged;
             // 
             // rdbAtivo
             // 
@@ -206,7 +205,6 @@
             txtComplemento.ReadOnly = true;
             txtComplemento.Size = new Size(243, 23);
             txtComplemento.TabIndex = 11;
-            txtComplemento.TextChanged += textBox1_TextChanged_2;
             // 
             // lblComplemento
             // 
@@ -224,7 +222,6 @@
             txtBairro.ReadOnly = true;
             txtBairro.Size = new Size(228, 23);
             txtBairro.TabIndex = 10;
-            txtBairro.TextChanged += textBox1_TextChanged_1;
             // 
             // lblBairro
             // 
@@ -242,7 +239,6 @@
             txtNumero.ReadOnly = true;
             txtNumero.Size = new Size(171, 23);
             txtNumero.TabIndex = 9;
-            txtNumero.TextChanged += textBox1_TextChanged;
             // 
             // txtEndereco
             // 
@@ -268,7 +264,6 @@
             lblNumero.Size = new Size(51, 15);
             lblNumero.TabIndex = 16;
             lblNumero.Text = "Número";
-            lblNumero.Click += label3_Click;
             // 
             // lblEndereco
             // 
@@ -355,7 +350,6 @@
             txtCelular.ReadOnly = true;
             txtCelular.Size = new Size(190, 23);
             txtCelular.TabIndex = 4;
-            txtCelular.TextChanged += txtCelular_TextChanged;
             // 
             // txtTelefone
             // 
@@ -373,7 +367,6 @@
             lblCelular.Size = new Size(44, 15);
             lblCelular.TabIndex = 7;
             lblCelular.Text = "Celular";
-            lblCelular.Click += lblCelular_Click;
             // 
             // lblTelefone
             // 
@@ -391,7 +384,6 @@
             txtEmail.ReadOnly = true;
             txtEmail.Size = new Size(307, 23);
             txtEmail.TabIndex = 2;
-            txtEmail.TextChanged += txtEmail_TextChanged;
             // 
             // lblEmail
             // 
@@ -401,7 +393,6 @@
             lblEmail.Size = new Size(41, 15);
             lblEmail.TabIndex = 4;
             lblEmail.Text = "E-mail";
-            lblEmail.Click += label2_Click;
             // 
             // txtNome
             // 
@@ -521,6 +512,7 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.TextAlign = ContentAlignment.MiddleRight;
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // txtPesquisar
             // 
@@ -548,7 +540,6 @@
             lblPesquisar.Size = new Size(57, 15);
             lblPesquisar.TabIndex = 32;
             lblPesquisar.Text = "Pesquisar";
-            lblPesquisar.Click += lblPesquisar_Click;
             // 
             // grbListaClientes
             // 

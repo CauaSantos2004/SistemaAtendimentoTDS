@@ -14,54 +14,76 @@ namespace SistemaAtendimento.View
 {
     public partial class FrmCadastroEtapa : Form
     {
+        private EtapasController _etapaController;
         public FrmCadastroEtapa()
         {
             InitializeComponent();
+            _etapaController = new EtapasController(this);
         }
 
-        private void rdbInativo_CheckedChanged(object sender, EventArgs e)
+        public void ExibirEtapas(List<Etapas> etapas)
         {
-
+            dgvEtapas.DataSource = etapas;
         }
 
         private void FrmCadastroEtapa_Load(object sender, EventArgs e)
         {
-            
-        }
-
-        private void grbListaEtapas_Enter(object sender, EventArgs e)
-        {
-
+            _etapaController.ListarEtapas();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            Etapas etapa = new Etapas()
+            {
+                Nome = txtNome.Text,
+                Ordem = Convert.ToInt32(txtOrdem.Text),
+                Ativo = rdbAtivo.Checked,
+            };
 
+            if (!ValidarDados(etapa))
+                return;
+
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                _etapaController.Atualizar(etapa);
+            }
+            else
+            {
+                etapa.Id = Convert.ToInt32(txtCodigo.Text);
+                _etapaController.Atualizar(etapa);
+            }
         }
-        private void FrmCadastroEtapas_Load(object sender, EventArgs e)
+
+        public bool ValidarDados(Etapas etapa)
         {
+            if (string.IsNullOrWhiteSpace(txtNome.Text))
+            {
+                ExibirMensagem("O campo Nome da Etapa é obrigatório. Por favor, preencha-o.");
+                txtNome.Focus();
+                return false;
+            }
 
+            if (string.IsNullOrWhiteSpace(txtOrdem.Text))
+            {
+                ExibirMensagem("O campo Ordem é obrigatório. Por favor, preencha-o.");
+                txtOrdem.Focus();
+                return false;
+            }
+
+            // retorno garantido em todos os casos
+            return true;
         }
+
 
         public void ExibirMensagem(string mensagem)
         {
             MessageBox.Show(mensagem);
         }
 
-        // Método para exibir as etapas no DataGridView
-        public void ExibirEtapas(List<Etapas> etapas)
-        {
-            dgvEtapas.DataSource = etapas;
-            // 🔹 Atenção: verifique se o seu DataGridView realmente se chama "dgvEtapas".
-            // Se o nome for outro (ex: dgvListaEtapas), troque aqui também.
-        }
-
-
         private void HabilitarCampos()
         {
             txtNome.ReadOnly = false;
-            txtNome.ReadOnly = false;
-            txtOrdem.ReadOnly = false;
+            pnlSituacao.Enabled = true;
 
             btnNovo.Enabled = false;
             btnSalvar.Enabled = true;
@@ -94,6 +116,57 @@ namespace SistemaAtendimento.View
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             DesabilitarCampos();
+        }
+
+        private void dgvEtapas_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow linhaSelecionada = dgvEtapas.Rows[e.RowIndex];
+
+                txtCodigo.Text = linhaSelecionada.Cells["Id"].Value.ToString();
+                txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
+
+                rdbAtivo.Checked = Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
+                rdbInativo.Checked = !Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
+
+                btnEditar.Enabled = true;
+                btnNovo.Enabled = false;
+                btnCancelar.Enabled = true;
+                btnExcluir.Enabled = true;
+
+
+
+
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+            btnEditar.Enabled = false;
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                ExibirMensagem("Selecione um Etapa");
+                return;
+            }
+
+            //craindo um alerta
+            DialogResult resultado = MessageBox.Show("Tem certeza que deseja excluir esta etapa?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.Yes)
+            {
+                int id = Convert.ToInt32(txtCodigo.Text);
+                _etapaController.Excluir(id);
+            }
+
         }
     }
 }
