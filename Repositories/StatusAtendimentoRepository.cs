@@ -13,11 +13,11 @@ namespace SistemaAtendimento.Repositories
     {
         public List<StatusAtendimento> Listar()
         {
-            var statusAtendimentos = new List<StatusAtendimento>();
+            var lista = new List<StatusAtendimento>();
 
-            using (var conexao = ConexaoDB.GetConexao()) // Cria a conexão com o banco
+            using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "SELECT * FROM status_atendimento"; // comando SQL
+                string sql = "SELECT * FROM status_atendimento";
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
@@ -25,27 +25,28 @@ namespace SistemaAtendimento.Repositories
 
                     using (var linhas = comando.ExecuteReader())
                     {
-                        while (linhas.Read()) // percorre cada linha retornada
+                        while (linhas.Read())
                         {
-                            statusAtendimentos.Add(new StatusAtendimento()
+                            lista.Add(new StatusAtendimento()
                             {
                                 Id = Convert.ToInt32(linhas["id"]),
                                 Nome = linhas["nome"].ToString(),
-                                Cor = linhas["ordem"].ToString(),
+                                Cor = linhas["cor"].ToString(),
                                 Ativo = Convert.ToBoolean(linhas["ativo"])
                             });
                         }
                     }
                 }
             }
-            return statusAtendimentos;
+
+            return lista;
         }
+
         public void Inserir(StatusAtendimento status)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "INSERT INTO status_atendimento (nome, cor, ativo) " +
-                             "VALUES (@nome, @cor, @ativo)";
+                string sql = "INSERT INTO status_atendimento (nome, cor, ativo) VALUES (@nome, @cor, @ativo)";
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
@@ -58,6 +59,7 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
+
         public void Atualizar(StatusAtendimento status)
         {
             using (var conexao = ConexaoDB.GetConexao())
@@ -76,6 +78,7 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
+
         public void Excluir(int id)
         {
             using (var conexao = ConexaoDB.GetConexao())

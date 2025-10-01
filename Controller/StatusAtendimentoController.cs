@@ -11,77 +11,73 @@ namespace SistemaAtendimento.Controller
 {
     public class StatusAtendimentoController
     {
-        private FrmCadastroStatusAtendimento _frmCadastroStatusAtendimento;
-        private StatusAtendimentoRepository _statusAtendimentoRepository;
+        private FrmCadastroSituacaoAtendimento _frmStatus;
+        private StatusAtendimentoRepository _repository;
 
-        public StatusAtendimentoController(FrmCadastroStatusAtendimento view)
+        public StatusAtendimentoController(FrmCadastroSituacaoAtendimento view)
         {
-            _frmCadastroStatusAtendimento = view;
-            _statusAtendimentoRepository = new StatusAtendimentoRepository();
+            _frmStatus = view;
+            _repository = new StatusAtendimentoRepository();
         }
 
         public void ListarStatus()
         {
             try
             {
-                var listaStatus = _statusAtendimentoRepository.Listar();
-                _frmCadastroStatusAtendimento.ExibirStatus(listaStatus);
+                var lista = _repository.Listar();
+                _frmStatus.ExibirStatus(lista);
             }
             catch (Exception ex)
             {
-                _frmCadastroStatusAtendimento.ExibirMensagem($"Erro ao carregar os status de atendimento: {ex.Message}");
+                _frmStatus.ExibirMensagem($"Erro ao carregar os status de atendimento: {ex.Message}");
             }
         }
 
-        public void Salvar(StatusAtendimento statusAtendimento) //método de salvar
+        public void Salvar(StatusAtendimento status)
         {
             try
             {
-                _statusAtendimentoRepository.Inserir(statusAtendimento);
-                _frmCadastroStatusAtendimento.ExibirMensagem("Status do atendimento cadastrado com sucesso!");
+                _repository.Inserir(status);
+                _frmStatus.ExibirMensagem("Status de atendimento cadastrado com sucesso!");
 
                 ListarStatus();
-                // Atualizar DataGrid
-
-                _frmCadastroStatusAtendimento.DesabilitarCampos();
+                _frmStatus.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroStatusAtendimento.ExibirMensagem($"Erro ao cadastrar o status do atendimento: {ex.Message}");
+                _frmStatus.ExibirMensagem($"Erro ao cadastrar status: {ex.Message}");
             }
         }
 
-        public void Atualizar(StatusAtendimento statusAtendimento) //método de atualizar
+        public void Atualizar(StatusAtendimento status)
         {
             try
             {
-                _statusAtendimentoRepository.Atualizar(statusAtendimento);
-                _frmCadastroStatusAtendimento.ExibirMensagem("Status do atendimento atualizado com sucesso!");
+                _repository.Atualizar(status);
+                _frmStatus.ExibirMensagem("Status de atendimento atualizado com sucesso!");
 
                 ListarStatus();
-                // Atualizar DataGrid
-
-                _frmCadastroStatusAtendimento.DesabilitarCampos();
+                _frmStatus.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroStatusAtendimento.ExibirMensagem($"Erro ao atualizar o status do atendimento: {ex.Message}");
+                _frmStatus.ExibirMensagem($"Erro ao atualizar status: {ex.Message}");
             }
         }
 
-        public void Excluir(int id) //método de excluir
+        public void Excluir(int id)
         {
             try
             {
-                _statusAtendimentoRepository.Excluir(id);
-                _frmCadastroStatusAtendimento.ExibirMensagem("Status do atendimento excluído com sucesso!");
+                _repository.Excluir(id);
+                _frmStatus.ExibirMensagem("Status de atendimento excluído com sucesso!");
 
                 ListarStatus();
-                _frmCadastroStatusAtendimento.DesabilitarCampos();
+                _frmStatus.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroStatusAtendimento.ExibirMensagem($"Erro ao excluir o status do atendimento: {ex.Message}");
+                _frmStatus.ExibirMensagem($"Erro ao excluir status: {ex.Message}");
             }
         }
     }

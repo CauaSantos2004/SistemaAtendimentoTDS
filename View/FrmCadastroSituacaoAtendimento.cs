@@ -12,10 +12,10 @@ using SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.View
 {
-    public partial class FrmCadastroStatusAtendimento : Form
+    public partial class FrmCadastroSituacaoAtendimento : Form
     {
         private StatusAtendimentoController _statusAtendimentoController;
-        public FrmCadastroStatusAtendimento()
+        public FrmCadastroSituacaoAtendimento()
         {
             InitializeComponent();
             _statusAtendimentoController = new StatusAtendimentoController(this);

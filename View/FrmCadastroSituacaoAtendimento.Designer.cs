@@ -1,6 +1,6 @@
 ﻿namespace SistemaAtendimento.View
 {
-    partial class FrmCadastroStatusAtendimento
+    partial class FrmCadastroSituacaoAtendimento
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastroStatusAtendimento));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCadastroSituacaoAtendimento));
             lblCodigo = new Label();
             lblCor = new Label();
             label3 = new Label();
@@ -298,7 +298,7 @@
             dgvListaSituacoesAtendimento.TabIndex = 0;
             dgvListaSituacoesAtendimento.CellDoubleClick += dgvListaSituacoesAtendimento_CellDoubleClick;
             // 
-            // FrmCadastroStatusAtendimento
+            // FrmCadastroSituacaoAtendimento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -314,7 +314,7 @@
             Controls.Add(grbDadosSituacaoAtendimento);
             Controls.Add(lblPesquisar);
             Controls.Add(label3);
-            Name = "FrmCadastroStatusAtendimento";
+            Name = "FrmCadastroSituacaoAtendimento";
             Text = "Cadastro de Status de Atendimentos";
             Load += FrmCadastroSituacaoAtendimento_Load;
             grbDadosSituacaoAtendimento.ResumeLayout(false);
