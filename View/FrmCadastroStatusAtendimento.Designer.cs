@@ -223,6 +223,7 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnExcluir
             // 
@@ -295,6 +296,7 @@
             dgvListaSituacoesAtendimento.Name = "dgvListaSituacoesAtendimento";
             dgvListaSituacoesAtendimento.Size = new Size(764, 139);
             dgvListaSituacoesAtendimento.TabIndex = 0;
+            dgvListaSituacoesAtendimento.CellDoubleClick += dgvListaSituacoesAtendimento_CellDoubleClick;
             // 
             // FrmCadastroStatusAtendimento
             // 
