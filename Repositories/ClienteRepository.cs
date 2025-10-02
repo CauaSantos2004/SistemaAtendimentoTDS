@@ -28,7 +28,7 @@ namespace SistemaAtendimento.Repositories
 
                 using (var comando = new SqlCommand(sql, conexao)) //comandos a ser executados
                 {
-                    if (string.IsNullOrEmpty(termo))
+                    if (!string.IsNullOrEmpty(termo))
                     {
                         comando.Parameters.AddWithValue("@termo", "%" + termo + "%");
                     }

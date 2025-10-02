@@ -517,9 +517,9 @@
             // 
             // txtPesquisar
             // 
+            txtPesquisar.AccessibleRole = AccessibleRole.SplitButton;
             txtPesquisar.Location = new Point(561, 337);
             txtPesquisar.Name = "txtPesquisar";
-            txtPesquisar.ReadOnly = true;
             txtPesquisar.Size = new Size(218, 23);
             txtPesquisar.TabIndex = 20;
             txtPesquisar.TextChanged += txtPesquisar_TextChanged;
