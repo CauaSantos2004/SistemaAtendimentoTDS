@@ -105,11 +105,11 @@ namespace SistemaAtendimento.View
             txtOrdem.ReadOnly = true;
             pnlSituacao.Enabled = true;
 
-            btnNovo.Enabled = true;
-            btnSalvar.Enabled = false;
-            btnCancelar.Enabled = false;
+            btnNovo.Enabled = false;
             btnEditar.Enabled = false;
             btnExcluir.Enabled = false;
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
 
         }
 

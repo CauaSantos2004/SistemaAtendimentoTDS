@@ -52,11 +52,11 @@
             btnSalvar = new Button();
             btnNovo = new Button();
             grbListaSituacoesAtendimento = new GroupBox();
-            dgvListaSituacoesAtendimento = new DataGridView();
+            dgvListaSituacaoAtendimento = new DataGridView();
             grbDadosSituacaoAtendimento.SuspendLayout();
             pnlSituacao.SuspendLayout();
             grbListaSituacoesAtendimento.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvListaSituacoesAtendimento).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvListaSituacaoAtendimento).BeginInit();
             SuspendLayout();
             // 
             // lblCodigo
@@ -149,7 +149,6 @@
             pnlSituacao.Name = "pnlSituacao";
             pnlSituacao.Size = new Size(141, 31);
             pnlSituacao.TabIndex = 4;
-            pnlSituacao.Paint += pnlSituacao_Paint;
             // 
             // rdbInativo
             // 
@@ -237,6 +236,7 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.TextAlign = ContentAlignment.MiddleRight;
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // btnEditar
             // 
@@ -250,6 +250,7 @@
             btnEditar.Text = "Editar";
             btnEditar.TextAlign = ContentAlignment.MiddleRight;
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnSalvar
             // 
@@ -281,7 +282,7 @@
             // 
             // grbListaSituacoesAtendimento
             // 
-            grbListaSituacoesAtendimento.Controls.Add(dgvListaSituacoesAtendimento);
+            grbListaSituacoesAtendimento.Controls.Add(dgvListaSituacaoAtendimento);
             grbListaSituacoesAtendimento.Location = new Point(12, 276);
             grbListaSituacoesAtendimento.Name = "grbListaSituacoesAtendimento";
             grbListaSituacoesAtendimento.Size = new Size(776, 170);
@@ -289,14 +290,14 @@
             grbListaSituacoesAtendimento.TabStop = false;
             grbListaSituacoesAtendimento.Text = "Lista de Situações do Atendimento";
             // 
-            // dgvListaSituacoesAtendimento
+            // dgvListaSituacaoAtendimento
             // 
-            dgvListaSituacoesAtendimento.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvListaSituacoesAtendimento.Location = new Point(6, 22);
-            dgvListaSituacoesAtendimento.Name = "dgvListaSituacoesAtendimento";
-            dgvListaSituacoesAtendimento.Size = new Size(764, 139);
-            dgvListaSituacoesAtendimento.TabIndex = 0;
-            dgvListaSituacoesAtendimento.CellDoubleClick += dgvListaSituacoesAtendimento_CellDoubleClick;
+            dgvListaSituacaoAtendimento.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvListaSituacaoAtendimento.Location = new Point(6, 22);
+            dgvListaSituacaoAtendimento.Name = "dgvListaSituacaoAtendimento";
+            dgvListaSituacaoAtendimento.Size = new Size(764, 139);
+            dgvListaSituacaoAtendimento.TabIndex = 0;
+            dgvListaSituacaoAtendimento.CellDoubleClick += dgvListaSituacoesAtendimento_CellDoubleClick;
             // 
             // FrmCadastroSituacaoAtendimento
             // 
@@ -322,7 +323,7 @@
             pnlSituacao.ResumeLayout(false);
             pnlSituacao.PerformLayout();
             grbListaSituacoesAtendimento.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dgvListaSituacoesAtendimento).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvListaSituacaoAtendimento).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -350,7 +351,7 @@
         private Button btnExcluir;
         private Button btnCancelar;
         private GroupBox grbListaSituacoesAtendimento;
-        private DataGridView dgvListaSituacoesAtendimento;
+        private DataGridView dgvListaSituacaoAtendimento;
         private ImageList imageList1;
     }
 }

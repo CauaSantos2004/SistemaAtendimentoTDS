@@ -55,5 +55,12 @@ namespace SistemaAtendimento // Nome do projeto
             FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
             frmCadastroEtapa.ShowDialog();
         }
+
+        private void statusAtendimentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //para chamar o formulario (abrir a tela de sistema atendimento no sistema)
+            FrmCadastroSituacaoAtendimento frmCadastroSituacaoAtendimento = new FrmCadastroSituacaoAtendimento();
+            frmCadastroSituacaoAtendimento.ShowDialog();
+        }
     }
 }

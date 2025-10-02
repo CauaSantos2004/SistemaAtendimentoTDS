@@ -85,6 +85,7 @@
             statusAtendimentosToolStripMenuItem.Name = "statusAtendimentosToolStripMenuItem";
             statusAtendimentosToolStripMenuItem.Size = new Size(192, 22);
             statusAtendimentosToolStripMenuItem.Text = "Situação Atendimento";
+            statusAtendimentosToolStripMenuItem.Click += statusAtendimentosToolStripMenuItem_Click;
             // 
             // atendimentosToolStripMenuItem
             // 

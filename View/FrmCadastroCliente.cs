@@ -348,7 +348,7 @@ namespace SistemaAtendimento
                         txtBairro.Text = dadosEndereco?.bairro;
                         txtCidade.Text = dadosEndereco?.localidade;
                         cbxEstado.Text = dadosEndereco?.uf;
-                        
+
                     }
 
                 }
@@ -367,6 +367,17 @@ namespace SistemaAtendimento
             {
                 await BuscarEnderecoPorCep(txtCep.Text);
             }
+        }
+
+        private void txtPesquisar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+            _clienteController.ListarClientes(termo);
         }
     }
 

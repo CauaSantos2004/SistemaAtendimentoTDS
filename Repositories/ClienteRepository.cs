@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
 using SistemaAtendimento.Model;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
 namespace SistemaAtendimento.Repositories
 {
     public class ClienteRepository
     {
-        public List<Clientes> Listar()
+        public List<Clientes> Listar(string termo = "")
         {
             var clientes = new List<Clientes>();
 
@@ -19,8 +21,18 @@ namespace SistemaAtendimento.Repositories
             {
                 string sql = "SELECT * FROM clientes"; //comando para trazer os dados da tabela cliente
 
+                if (!string.IsNullOrEmpty(termo))
+                {
+                    sql = "SELECT * FROM clientes where nome LIKE @termo OR email LIKE @termo";
+                }
+
                 using (var comando = new SqlCommand(sql, conexao)) //comandos a ser executados
-                { 
+                {
+                    if (string.IsNullOrEmpty(termo))
+                    {
+                        comando.Parameters.AddWithValue("@termo", "%" + termo + "%");
+                    }
+
                     conexao.Open();
 
                     using (var linhas = comando.ExecuteReader())

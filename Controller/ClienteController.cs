@@ -18,11 +18,11 @@ namespace SistemaAtendimento.Controller
             _clienteRepository = new ClienteRepository();
         }
 
-        public void ListarClientes()
+        public void ListarClientes(string termo = "")
         {
             try //try e catch pega erros do sistema guarda numa variavel e podemos mostrar o erro de uma forma personalizada (com uma mensagem personalizada)
             {
-                var listaClientes = _clienteRepository.Listar();
+                var listaClientes = _clienteRepository.Listar(termo);
                 _frmCadastroClientes.ExibirClientes(listaClientes);
             }
             catch (Exception ex) //guardamos a mensagem de erro aqui em "ex"

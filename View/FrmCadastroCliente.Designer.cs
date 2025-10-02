@@ -522,6 +522,7 @@
             txtPesquisar.ReadOnly = true;
             txtPesquisar.Size = new Size(218, 23);
             txtPesquisar.TabIndex = 20;
+            txtPesquisar.TextChanged += txtPesquisar_TextChanged;
             // 
             // btnPesquisar
             // 
@@ -532,6 +533,7 @@
             btnPesquisar.Size = new Size(44, 25);
             btnPesquisar.TabIndex = 21;
             btnPesquisar.UseVisualStyleBackColor = true;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // lblPesquisar
             // 
