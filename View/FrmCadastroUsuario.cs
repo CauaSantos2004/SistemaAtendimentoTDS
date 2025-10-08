@@ -87,6 +87,20 @@ namespace SistemaAtendimento.View
             HabilitarCampos();
             LimparCampos(); // opcional, mas recomendado para limpar campos antes de criar novo usuário
         }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            Usuarios usuario = new Usuarios
+            {
+                Id = string.IsNullOrEmpty(txtCodigo.Text) ? 0 : Convert.ToInt32(txtCodigo.Text),
+                Nome = txtNome.Text,
+                Senha = txtSenha.Text,
+                Perfil = cbxPerfil.Text,
+            };
+
+            _controller.Salvar(usuario);
+
+        }
     }
 
 
