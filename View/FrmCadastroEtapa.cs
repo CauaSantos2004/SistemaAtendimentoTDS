@@ -29,29 +29,37 @@ namespace SistemaAtendimento.View
         private void FrmCadastroEtapa_Load(object sender, EventArgs e)
         {
             _etapaController.ListarEtapas();
+            DesabilitarCampos();
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            // Primeiro valida os campos antes de tentar converter
+            if (!ValidarDados(null))
+                return;
+
+            // Agora que sabemos que os campos estão preenchidos,
+            // podemos criar o objeto com segurança
             Etapas etapa = new Etapas()
             {
                 Nome = txtNome.Text,
-                Ordem = Convert.ToInt32(txtOrdem.Text),
+                Ordem = int.Parse(txtOrdem.Text), // agora é seguro converter
                 Ativo = rdbAtivo.Checked,
             };
 
-            if (!ValidarDados(etapa))
-                return;
-
+            // Se não tiver código, é uma nova etapa → INSERIR
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
                 _etapaController.Atualizar(etapa);
             }
-            else
+            else // senão, é edição → ATUALIZAR
             {
                 etapa.Id = Convert.ToInt32(txtCodigo.Text);
                 _etapaController.Atualizar(etapa);
             }
+
+            // Depois de salvar, desabilita os campos novamente
+            DesabilitarCampos();
         }
 
         public bool ValidarDados(Etapas etapa)
@@ -83,11 +91,14 @@ namespace SistemaAtendimento.View
         private void HabilitarCampos()
         {
             txtNome.ReadOnly = false;
+            txtOrdem.ReadOnly = false;
             pnlSituacao.Enabled = true;
 
             btnNovo.Enabled = false;
             btnSalvar.Enabled = true;
             btnCancelar.Enabled = true;
+            btnEditar.Enabled = false;
+            btnExcluir.Enabled = false;
         }
         private void LimparCampos()
         {
@@ -96,20 +107,20 @@ namespace SistemaAtendimento.View
             pnlSituacao.Enabled = true;
 
             rdbAtivo.Checked = true;
-            rdbInativo.Checked = true;
+            rdbInativo.Checked = false;
         }
         public void DesabilitarCampos()
         {
             LimparCampos();
             txtNome.ReadOnly = true;
             txtOrdem.ReadOnly = true;
-            pnlSituacao.Enabled = true;
+            pnlSituacao.Enabled = false;
 
-            btnNovo.Enabled = false;
+            btnNovo.Enabled = true;
             btnEditar.Enabled = false;
             btnExcluir.Enabled = false;
-            btnSalvar.Enabled = true;
-            btnCancelar.Enabled = true;
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
 
         }
 
@@ -134,6 +145,7 @@ namespace SistemaAtendimento.View
                 btnNovo.Enabled = false;
                 btnCancelar.Enabled = true;
                 btnExcluir.Enabled = true;
+                btnSalvar.Enabled = false;
 
 
 
@@ -167,6 +179,11 @@ namespace SistemaAtendimento.View
                 _etapaController.Excluir(id);
             }
 
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
         }
     }
 }

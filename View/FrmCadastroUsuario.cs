@@ -35,20 +35,57 @@ namespace SistemaAtendimento.View
 
         public void ExibirUsuarios(List<Usuarios> usuarios)
         {
+            dgvUsuario.DataSource = null;
             dgvUsuario.DataSource = usuarios;
         }
 
         public void DesabilitarCampos()
         {
-            txtNome.Enabled = false;
-            txtSenha.Enabled = false;
-            txtCodigo.Enabled = false;
-            // continue com os outros campos do formulário
+            txtCodigo.ReadOnly = true;
+            txtNome.ReadOnly = true;
+            txtSenha.ReadOnly = true;
+            cbxPerfil.Enabled = false;
+
+            btnNovo.Enabled = true;
+            btnSalvar.Enabled = false;
+            btnCancelar.Enabled = false;
+            btnEditar.Enabled = false;
+            btnExcluir.Enabled = false;
+
+            LimparCampos();
+        }
+
+        private void HabilitarCampos()
+        {
+            txtNome.ReadOnly = false;
+            txtSenha.ReadOnly = false;
+            cbxPerfil.Enabled = true; // habilita combo de perfil
+
+            btnNovo.Enabled = false;
+            btnSalvar.Enabled = true;
+            btnCancelar.Enabled = true;
+            btnEditar.Enabled = false;
+            btnExcluir.Enabled = false;
+        }
+
+        private void LimparCampos()
+        {
+            txtCodigo.Clear();
+            txtNome.Clear();
+            txtSenha.Clear();
+            cbxPerfil.SelectedIndex = -1; // limpa seleção do combo
         }
 
         private void FrmCadastroUsuario_Load(object sender, EventArgs e)
         {
             _usuarioController.ListarUsuarios();
+            DesabilitarCampos();
+        }
+
+        private void btnNovo_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos();
+            LimparCampos(); // opcional, mas recomendado para limpar campos antes de criar novo usuário
         }
     }
 

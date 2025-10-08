@@ -189,6 +189,7 @@
             btnNovo.Text = "Novo";
             btnNovo.TextAlign = ContentAlignment.MiddleRight;
             btnNovo.UseVisualStyleBackColor = true;
+            btnNovo.Click += btnNovo_Click;
             // 
             // btnSalvar
             // 

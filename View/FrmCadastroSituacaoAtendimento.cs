@@ -35,7 +35,7 @@ namespace SistemaAtendimento.View
         private void FrmCadastroSituacaoAtendimento_Load(object sender, EventArgs e)
         {
             _situacaoAtendimentoController.ListarStatus();
-
+            DesabilitarCampos(); // ✅ bloqueia tudo e deixa só o “Novo” ativo
         }
 
         private void HabilitarCampos()
@@ -69,7 +69,7 @@ namespace SistemaAtendimento.View
 
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                _situacaoAtendimentoController.Salvar(status); 
+                _situacaoAtendimentoController.Salvar(status);
             }
             else
             {
@@ -77,6 +77,7 @@ namespace SistemaAtendimento.View
                 _situacaoAtendimentoController.Atualizar(status);
             }
 
+            _situacaoAtendimentoController.ListarStatus();
             DesabilitarCampos();
         }
 
@@ -95,6 +96,7 @@ namespace SistemaAtendimento.View
                 txtCor.Focus();
                 return false;
             }
+
             return true;
         }
 
@@ -113,8 +115,7 @@ namespace SistemaAtendimento.View
 
             txtNome.ReadOnly = true;
             txtCor.ReadOnly = true;
-            rdbAtivo.Enabled = false;
-            rdbInativo.Enabled = false;
+            pnlSituacao.Enabled = false;
 
             btnNovo.Enabled = true;
             btnSalvar.Enabled = false;
@@ -139,8 +140,13 @@ namespace SistemaAtendimento.View
                 txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
                 txtCor.Text = linhaSelecionada.Cells["Cor"].Value.ToString();
 
+                bool ativo = Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
                 rdbAtivo.Checked = Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
                 rdbInativo.Checked = !Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
+
+                txtNome.ReadOnly = true;
+                txtCor.ReadOnly = true;
+                pnlSituacao.Enabled = false;
 
                 btnEditar.Enabled = true;
                 btnNovo.Enabled = false;
@@ -152,7 +158,7 @@ namespace SistemaAtendimento.View
         private void btnEditar_Click(object sender, EventArgs e)
         {
             HabilitarCampos();
-            btnEditar.Enabled = false;
+
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
@@ -164,10 +170,13 @@ namespace SistemaAtendimento.View
             }
 
             DialogResult resultado = MessageBox.Show($"Deseja Excluir esta Situação de Atendimento?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            
             if (resultado == DialogResult.Yes)
             {
                 int id = Convert.ToInt32(txtCodigo.Text);
                 _situacaoAtendimentoController.Excluir(id);
+                _situacaoAtendimentoController.ListarStatus();
+                DesabilitarCampos();
             }
         }
     }
