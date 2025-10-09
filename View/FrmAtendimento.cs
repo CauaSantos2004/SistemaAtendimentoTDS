@@ -17,5 +17,20 @@ namespace SistemaAtendimento.View
             InitializeComponent();
         }
 
+        private void btnPesquisarAtendimento_Click(object sender, EventArgs e)
+        {
+            FrmConsultaAtendimento frmConsultaAtendimento = new FrmConsultaAtendimento();
+            frmConsultaAtendimento.ShowDialog();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmAtendimento_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

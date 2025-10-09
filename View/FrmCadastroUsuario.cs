@@ -41,16 +41,18 @@ namespace SistemaAtendimento.View
 
         public void DesabilitarCampos()
         {
-            txtCodigo.ReadOnly = true;
+            LimparCampos();
+
             txtNome.ReadOnly = true;
+            txtEmail.ReadOnly = true;
             txtSenha.ReadOnly = true;
             cbxPerfil.Enabled = false;
 
             btnNovo.Enabled = true;
             btnSalvar.Enabled = false;
-            btnCancelar.Enabled = false;
             btnEditar.Enabled = false;
             btnExcluir.Enabled = false;
+            btnCancelar.Enabled = false;
 
             LimparCampos();
         }
@@ -58,8 +60,9 @@ namespace SistemaAtendimento.View
         private void HabilitarCampos()
         {
             txtNome.ReadOnly = false;
+            txtEmail.ReadOnly = false;
             txtSenha.ReadOnly = false;
-            cbxPerfil.Enabled = true; // habilita combo de perfil
+            cbxPerfil.Enabled = true;
 
             btnNovo.Enabled = false;
             btnSalvar.Enabled = true;
@@ -72,8 +75,9 @@ namespace SistemaAtendimento.View
         {
             txtCodigo.Clear();
             txtNome.Clear();
+            txtEmail.Clear();
             txtSenha.Clear();
-            cbxPerfil.SelectedIndex = -1; // limpa seleção do combo
+            cbxPerfil.SelectedIndex = -1;
         }
 
         private void FrmCadastroUsuario_Load(object sender, EventArgs e)
@@ -94,12 +98,67 @@ namespace SistemaAtendimento.View
             {
                 Id = string.IsNullOrEmpty(txtCodigo.Text) ? 0 : Convert.ToInt32(txtCodigo.Text),
                 Nome = txtNome.Text,
+                Email = txtEmail.Text,
                 Senha = txtSenha.Text,
                 Perfil = cbxPerfil.Text,
             };
 
-            _controller.Salvar(usuario);
+            _usuarioController.Salvar(usuario);
 
+        }
+
+        private void dgvUsuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow linhaSelecionada = dgvUsuario.Rows[e.RowIndex];
+
+                txtCodigo.Text = linhaSelecionada.Cells["Id"].Value.ToString();
+                txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
+                txtEmail.Text = linhaSelecionada.Cells["Email"].Value.ToString();
+                txtSenha.Text = linhaSelecionada.Cells["Senha"].Value.ToString();
+                cbxPerfil.Text = linhaSelecionada.Cells["Perfil"].Value.ToString();
+
+                btnEditar.Enabled = true;
+                btnExcluir.Enabled = true;
+                btnCancelar.Enabled = true;
+                btnNovo.Enabled = false;
+                btnSalvar.Enabled = false;
+            }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            DesabilitarCampos();
+        }
+
+        private void btnExcluir_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                ExibirMensagem("Selecione um usuário para excluir.");
+                return;
+            }
+
+            DialogResult resultado = MessageBox.Show(
+                "Tem certeza que deseja excluir este usuário?",
+                "Confirmação",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (resultado == DialogResult.Yes)
+            {
+                int id = Convert.ToInt32(txtCodigo.Text);
+                _usuarioController.Excluir(id);
+            }
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            HabilitarCampos(); // habilita os campos para edição
+            btnEditar.Enabled = false;
+            btnSalvar.Enabled = true;
         }
     }
 

@@ -26,6 +26,7 @@ namespace SistemaAtendimento.Repositories
                             {
                                 Id = Convert.ToInt32(leitor["id"]),
                                 Nome = leitor["nome"].ToString(),
+                                Email = leitor["email"].ToString(),
                                 Senha = leitor["senha"].ToString(),
                                 Perfil = leitor["perfil"].ToString(),
                             });
@@ -41,17 +42,19 @@ namespace SistemaAtendimento.Repositories
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "INSERT INTO usuarios (nome, email, senha, perfil, ativo) VALUES (@nome, @email, @senha, @perfil, @ativo)";
+                string sql = "INSERT INTO usuarios (Nome, Email, Senha, Perfil) VALUES (@Nome, @Email, @Senha, @Perfil)";
+
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-                    comando.Parameters.AddWithValue("@nome", usuario.Nome);
-                    comando.Parameters.AddWithValue("@email", usuario.Email);
-                    comando.Parameters.AddWithValue("@senha", usuario.Senha);
-                    comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
+                    comando.Parameters.AddWithValue("@Nome", usuario.Nome);
+                    comando.Parameters.AddWithValue("@Email", usuario.Email);
+                    comando.Parameters.AddWithValue("@Senha", usuario.Senha);
+                    comando.Parameters.AddWithValue("@Perfil", usuario.Perfil);
 
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
+
             }
         }
 
@@ -64,6 +67,7 @@ namespace SistemaAtendimento.Repositories
                 {
                     comando.Parameters.AddWithValue("@id", usuario.Id);
                     comando.Parameters.AddWithValue("@nome", usuario.Nome);
+                    comando.Parameters.AddWithValue("@email", usuario.Email);
                     comando.Parameters.AddWithValue("@senha", usuario.Senha);
                     comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
 

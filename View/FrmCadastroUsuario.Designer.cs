@@ -35,6 +35,8 @@
             txtCodigo = new TextBox();
             txtNome = new TextBox();
             grbDadosUsuario = new GroupBox();
+            txtEmail = new TextBox();
+            lblEmail = new Label();
             cbxPerfil = new ComboBox();
             txtSenha = new TextBox();
             lblPerfil = new Label();
@@ -90,6 +92,8 @@
             // 
             // grbDadosUsuario
             // 
+            grbDadosUsuario.Controls.Add(txtEmail);
+            grbDadosUsuario.Controls.Add(lblEmail);
             grbDadosUsuario.Controls.Add(cbxPerfil);
             grbDadosUsuario.Controls.Add(txtSenha);
             grbDadosUsuario.Controls.Add(lblPerfil);
@@ -105,26 +109,42 @@
             grbDadosUsuario.TabStop = false;
             grbDadosUsuario.Text = "Dados do Usúario";
             // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(22, 118);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(291, 23);
+            txtEmail.TabIndex = 7;
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(22, 100);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(36, 15);
+            lblEmail.TabIndex = 6;
+            lblEmail.Text = "Email";
+            // 
             // cbxPerfil
             // 
             cbxPerfil.FormattingEnabled = true;
             cbxPerfil.Items.AddRange(new object[] { "Administrador", "Usúario" });
-            cbxPerfil.Location = new Point(335, 102);
+            cbxPerfil.Location = new Point(512, 118);
             cbxPerfil.Name = "cbxPerfil";
             cbxPerfil.Size = new Size(245, 23);
             cbxPerfil.TabIndex = 4;
             // 
             // txtSenha
             // 
-            txtSenha.Location = new Point(20, 102);
+            txtSenha.Location = new Point(319, 118);
             txtSenha.Name = "txtSenha";
-            txtSenha.Size = new Size(270, 23);
+            txtSenha.Size = new Size(187, 23);
             txtSenha.TabIndex = 3;
             // 
             // lblPerfil
             // 
             lblPerfil.AutoSize = true;
-            lblPerfil.Location = new Point(335, 84);
+            lblPerfil.Location = new Point(512, 100);
             lblPerfil.Name = "lblPerfil";
             lblPerfil.Size = new Size(34, 15);
             lblPerfil.TabIndex = 5;
@@ -133,7 +153,7 @@
             // lblSenha
             // 
             lblSenha.AutoSize = true;
-            lblSenha.Location = new Point(20, 84);
+            lblSenha.Location = new Point(319, 100);
             lblSenha.Name = "lblSenha";
             lblSenha.Size = new Size(39, 15);
             lblSenha.TabIndex = 4;
@@ -217,6 +237,7 @@
             btnEditar.Text = "Editar";
             btnEditar.TextAlign = ContentAlignment.MiddleRight;
             btnEditar.UseVisualStyleBackColor = true;
+            btnEditar.Click += btnEditar_Click;
             // 
             // btnCancelar
             // 
@@ -230,6 +251,7 @@
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
             btnCancelar.UseVisualStyleBackColor = true;
+            btnCancelar.Click += btnCancelar_Click;
             // 
             // btnExcluir
             // 
@@ -243,6 +265,7 @@
             btnExcluir.Text = "Excluir";
             btnExcluir.TextAlign = ContentAlignment.MiddleRight;
             btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // grbListaUsuario
             // 
@@ -261,6 +284,7 @@
             dgvUsuario.Name = "dgvUsuario";
             dgvUsuario.Size = new Size(764, 133);
             dgvUsuario.TabIndex = 0;
+            dgvUsuario.CellContentClick += dgvUsuario_CellContentClick;
             // 
             // FrmCadastroUsuario
             // 
@@ -310,5 +334,7 @@
         private GroupBox grbListaUsuario;
         private DataGridView dgvUsuario;
         private ImageList imlIcones;
+        private TextBox txtEmail;
+        private Label lblEmail;
     }
 }

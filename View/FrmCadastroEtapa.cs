@@ -50,7 +50,7 @@ namespace SistemaAtendimento.View
             // Se não tiver código, é uma nova etapa → INSERIR
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                _etapaController.Atualizar(etapa);
+                _etapaController.Atualizar(etapa); // aqui estava errado
             }
             else // senão, é edição → ATUALIZAR
             {

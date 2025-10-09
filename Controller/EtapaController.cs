@@ -77,5 +77,23 @@ namespace SistemaAtendimento.Controller
 
         }
 
+        public void Inserir(Etapas etapa)
+        {
+            try
+            {
+                _EtapasRepository.Inserir(etapa);
+                _frmCadastroEtapas.ExibirMensagem("Etapa cadastrada com sucesso!");
+                ListarEtapas(); // atualiza a lista após inserir
+                _frmCadastroEtapas.DesabilitarCampos();
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroEtapas.ExibirMensagem($"Erro ao cadastrar etapa: {ex.Message}");
+            }
+        }
+
+
+
+
     }
 }

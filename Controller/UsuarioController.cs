@@ -8,12 +8,12 @@ namespace SistemaAtendimento.Controller
 {
     public class UsuarioController
     {
-        private FrmCadastroUsuario _view;
+        private FrmCadastroUsuario _frmCadastroUsuario;
         private UsuarioRepository _usuarioRepository;
 
         public UsuarioController(FrmCadastroUsuario view)
         {
-            _view = view;
+            _frmCadastroUsuario = view;
             _usuarioRepository = new UsuarioRepository();
         }
 
@@ -22,11 +22,11 @@ namespace SistemaAtendimento.Controller
             try
             {
                 var listarUsuarios = _usuarioRepository.Listar();
-                _view.ExibirUsuarios(listarUsuarios); // chama o método da tela
+                _frmCadastroUsuario.ExibirUsuarios(listarUsuarios); // chama o método da tela
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagem($"Erro ao listar usuários: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao listar usuários: {ex.Message}");
             }
         }
 
@@ -39,13 +39,13 @@ namespace SistemaAtendimento.Controller
                 else
                     _usuarioRepository.Atualizar(usuario);
 
-                _view.ExibirMensagem("Usuário salvo com sucesso!");
+                _frmCadastroUsuario.ExibirMensagem("Usuário salvo com sucesso!");
                 ListarUsuarios();
-                _view.DesabilitarCampos();
+                _frmCadastroUsuario.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagem($"Erro ao salvar usuário: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao salvar usuário: {ex.Message}");
             }
         }
 
@@ -54,12 +54,14 @@ namespace SistemaAtendimento.Controller
             try
             {
                 _usuarioRepository.Excluir(id);
-                _view.ExibirMensagem("Usuário excluído com sucesso!");
-                ListarUsuarios();
+                _frmCadastroUsuario.ExibirMensagem("Usuário excluído com sucesso!");
+
+                ListarUsuarios(); // Atualiza o DataGrid
+                _frmCadastroUsuario.DesabilitarCampos(); // Reseta a tela
             }
             catch (Exception ex)
             {
-                _view.ExibirMensagem($"Erro ao excluir usuário: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao excluir o usuário: {ex.Message}");
             }
         }
     }

@@ -41,9 +41,6 @@
             cbxNomeCliente = new ComboBox();
             txtCodigoCliente = new TextBox();
             cbxSituacaoAtendimento = new ComboBox();
-            this.txtObservacaoAtendimento = new TextBox();
-            dtpAberturaAtendimento = new DateTimePicker();
-            lblAtendimento = new Label();
             txtCodigoAtendimento = new TextBox();
             btnNovo = new Button();
             imageList1 = new ImageList(components);
@@ -58,6 +55,9 @@
             btnSalvar = new Button();
             btnEditar = new Button();
             btnFinalizar = new Button();
+            lblAtendimento = new Label();
+            dtpAberturaAtendimento = new DateTimePicker();
+            txtObservacaoAtendimento = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvEtapasAtendimento).BeginInit();
             SuspendLayout();
             // 
@@ -157,36 +157,11 @@
             cbxSituacaoAtendimento.Size = new Size(214, 23);
             cbxSituacaoAtendimento.TabIndex = 12;
             // 
-            // txtObservacaoAtendimento
-            // 
-            this.txtObservacaoAtendimento.Location = new Point(259, 149);
-            this.txtObservacaoAtendimento.Multiline = true;
-            this.txtObservacaoAtendimento.Name = "txtObservacaoAtendimento";
-            this.txtObservacaoAtendimento.Size = new Size(529, 74);
-            this.txtObservacaoAtendimento.TabIndex = 13;
-            // 
-            // dtpAberturaAtendimento
-            // 
-            dtpAberturaAtendimento.Location = new Point(598, 93);
-            dtpAberturaAtendimento.Name = "dtpAberturaAtendimento";
-            dtpAberturaAtendimento.Size = new Size(190, 23);
-            dtpAberturaAtendimento.TabIndex = 14;
-            // 
-            // lblAtendimento
-            // 
-            lblAtendimento.AutoSize = true;
-            lblAtendimento.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblAtendimento.Location = new Point(539, 29);
-            lblAtendimento.Name = "lblAtendimento";
-            lblAtendimento.Size = new Size(149, 30);
-            lblAtendimento.TabIndex = 15;
-            lblAtendimento.Text = "Atendimento:";
-            // 
             // txtCodigoAtendimento
             // 
-            txtCodigoAtendimento.Location = new Point(694, 36);
+            txtCodigoAtendimento.Location = new Point(671, 29);
             txtCodigoAtendimento.Name = "txtCodigoAtendimento";
-            txtCodigoAtendimento.Size = new Size(94, 23);
+            txtCodigoAtendimento.Size = new Size(117, 23);
             txtCodigoAtendimento.TabIndex = 16;
             // 
             // btnNovo
@@ -277,7 +252,7 @@
             dgvEtapasAtendimento.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvEtapasAtendimento.Location = new Point(342, 305);
             dgvEtapasAtendimento.Name = "dgvEtapasAtendimento";
-            dgvEtapasAtendimento.Size = new Size(446, 215);
+            dgvEtapasAtendimento.Size = new Size(446, 228);
             dgvEtapasAtendimento.TabIndex = 23;
             // 
             // btnPesquisarAtendimento
@@ -285,13 +260,14 @@
             btnPesquisarAtendimento.ImageAlign = ContentAlignment.MiddleLeft;
             btnPesquisarAtendimento.ImageKey = "icone-pesquisar.png";
             btnPesquisarAtendimento.ImageList = imageList1;
-            btnPesquisarAtendimento.Location = new Point(12, 36);
+            btnPesquisarAtendimento.Location = new Point(12, 28);
             btnPesquisarAtendimento.Name = "btnPesquisarAtendimento";
             btnPesquisarAtendimento.Size = new Size(160, 28);
             btnPesquisarAtendimento.TabIndex = 24;
             btnPesquisarAtendimento.Text = "Pesquisar Atendimento";
             btnPesquisarAtendimento.TextAlign = ContentAlignment.MiddleRight;
             btnPesquisarAtendimento.UseVisualStyleBackColor = true;
+            btnPesquisarAtendimento.Click += btnPesquisarAtendimento_Click;
             // 
             // btnExcluir
             // 
@@ -336,19 +312,48 @@
             // 
             btnFinalizar.Image = (Image)resources.GetObject("btnFinalizar.Image");
             btnFinalizar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnFinalizar.Location = new Point(612, 240);
+            btnFinalizar.Location = new Point(611, 240);
             btnFinalizar.Name = "btnFinalizar";
-            btnFinalizar.Size = new Size(176, 46);
+            btnFinalizar.Size = new Size(177, 46);
             btnFinalizar.TabIndex = 28;
             btnFinalizar.Text = "Finalizar Atendimento";
             btnFinalizar.TextAlign = ContentAlignment.MiddleRight;
             btnFinalizar.UseVisualStyleBackColor = true;
+            // 
+            // lblAtendimento
+            // 
+            lblAtendimento.AutoSize = true;
+            lblAtendimento.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblAtendimento.Location = new Point(531, 27);
+            lblAtendimento.Name = "lblAtendimento";
+            lblAtendimento.Size = new Size(134, 25);
+            lblAtendimento.TabIndex = 29;
+            lblAtendimento.Text = "Atendimento:";
+            lblAtendimento.Click += this.label1_Click;
+            // 
+            // dtpAberturaAtendimento
+            // 
+            dtpAberturaAtendimento.Location = new Point(598, 93);
+            dtpAberturaAtendimento.Name = "dtpAberturaAtendimento";
+            dtpAberturaAtendimento.Size = new Size(190, 23);
+            dtpAberturaAtendimento.TabIndex = 30;
+            // 
+            // txtObservacaoAtendimento
+            // 
+            txtObservacaoAtendimento.Location = new Point(259, 149);
+            txtObservacaoAtendimento.Multiline = true;
+            txtObservacaoAtendimento.Name = "txtObservacaoAtendimento";
+            txtObservacaoAtendimento.Size = new Size(529, 85);
+            txtObservacaoAtendimento.TabIndex = 31;
             // 
             // FrmAtendimento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 588);
+            Controls.Add(txtObservacaoAtendimento);
+            Controls.Add(dtpAberturaAtendimento);
+            Controls.Add(lblAtendimento);
             Controls.Add(btnFinalizar);
             Controls.Add(btnEditar);
             Controls.Add(btnSalvar);
@@ -362,9 +367,6 @@
             Controls.Add(btnCancelar);
             Controls.Add(btnNovo);
             Controls.Add(txtCodigoAtendimento);
-            Controls.Add(lblAtendimento);
-            Controls.Add(dtpAberturaAtendimento);
-            Controls.Add(this.txtObservacaoAtendimento);
             Controls.Add(cbxSituacaoAtendimento);
             Controls.Add(txtCodigoCliente);
             Controls.Add(cbxNomeCliente);
@@ -378,6 +380,7 @@
             Controls.Add(lblCodigoCliente);
             Name = "FrmAtendimento";
             Text = "Atendiemnto";
+            Load += FrmAtendimento_Load;
             ((System.ComponentModel.ISupportInitialize)dgvEtapasAtendimento).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -385,7 +388,6 @@
 
         #endregion
 
-        private Label lblDadosCliente;
         private Label lblCodigoCliente;
         private Label lblNome;
         private Label lblDataAbertura;
@@ -397,9 +399,9 @@
         private ComboBox cbxNomeCliente;
         private TextBox txtCodigoCliente;
         private ComboBox cbxSituacaoAtendimento;
-        private TextBox txtObservacoes;
-        private DateTimePicker dtpAberturaAtendimento;
-        private Label lblAtendimento;
+        private DateTimePicker dtpAberturaAtendimento; // Mantenha apenas uma vez
+        private TextBox txtObservacaoAtendimento;
+        private Label lblAtendimento; // Mantenha apenas uma vez
         private TextBox txtCodigoAtendimento;
         private Button btnNovo;
         private Button btnCancelar;
