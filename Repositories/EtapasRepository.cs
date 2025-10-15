@@ -77,5 +77,22 @@ namespace SistemaAtendimento.Repositories
             }
         
         }
+
+        public void Excluir(int id)
+        {
+            using (var conexao = ConexaoDB.GetConexao())
+            {
+                string sql = "DELETE FROM Etapas WHERE Id = @id";
+
+                using (var comando = new SqlCommand(sql, conexao))
+                {
+                    comando.Parameters.AddWithValue("@id", id);
+
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

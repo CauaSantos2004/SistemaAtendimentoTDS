@@ -62,13 +62,12 @@ namespace SistemaAtendimento.Controller
         {
             try
             {
-                _EtapasRepository.Equals(id);
-                _frmCadastroEtapas.ExibirMensagem("Etapa excluida com sucesso!");
+                _EtapasRepository.Excluir(id); // ✅ chama o método certo
 
-                ListarEtapas();
+                _frmCadastroEtapas.ExibirMensagem("Etapa excluída com sucesso!");
 
+                ListarEtapas(); // atualiza a lista na tela
                 _frmCadastroEtapas.DesabilitarCampos();
-
             }
             catch (Exception ex)
             {

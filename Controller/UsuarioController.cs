@@ -3,6 +3,7 @@ using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace SistemaAtendimento.Controller
 {
@@ -55,7 +56,6 @@ namespace SistemaAtendimento.Controller
             {
                 _usuarioRepository.Excluir(id);
                 _frmCadastroUsuario.ExibirMensagem("Usuário excluído com sucesso!");
-
                 ListarUsuarios(); // Atualiza o DataGrid
                 _frmCadastroUsuario.DesabilitarCampos(); // Reseta a tela
             }
@@ -63,6 +63,12 @@ namespace SistemaAtendimento.Controller
             {
                 _frmCadastroUsuario.ExibirMensagem($"Erro ao excluir o usuário: {ex.Message}");
             }
+        }
+
+        public DataTable PesquisarUsuarios(string termo)
+        {
+            UsuarioRepository repository = new UsuarioRepository();
+            return repository.PesquisarUsuarios(termo);
         }
     }
 }

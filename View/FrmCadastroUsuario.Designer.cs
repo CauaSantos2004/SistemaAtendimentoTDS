@@ -184,6 +184,7 @@
             btnPesquisar.Size = new Size(41, 25);
             btnPesquisar.TabIndex = 11;
             btnPesquisar.UseVisualStyleBackColor = true;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // imlIcones
             // 

@@ -70,15 +70,14 @@ namespace SistemaAtendimento
                 Ativo = rdbAtivo.Checked,
             };
 
-            if (!ValidarDados(cliente))
-                return;
-
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                _clienteController.Atualizar(cliente);
+                // Se o código está vazio, é um novo cliente — então salva (INSERT)
+                _clienteController.Salvar(cliente);
             }
             else
             {
+                // Se tem código, então é um cliente existente — atualiza (UPDATE)
                 cliente.Id = Convert.ToInt32(txtCodigo.Text);
                 _clienteController.Atualizar(cliente);
             }

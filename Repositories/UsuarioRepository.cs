@@ -3,6 +3,7 @@ using SistemaAtendimento.Model;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace SistemaAtendimento.Repositories
 {
@@ -60,19 +61,22 @@ namespace SistemaAtendimento.Repositories
 
         public void Atualizar(Usuarios usuario)
         {
-            using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "UPDATE usuarios SET nome=@nome, email=@email, senha=@senha, perfil=@perfil, ativo=@ativo WHERE id=@id";
-                using (var comando = new SqlCommand(sql, conexao))
+                using (var conexao = ConexaoDB.GetConexao())
                 {
-                    comando.Parameters.AddWithValue("@id", usuario.Id);
-                    comando.Parameters.AddWithValue("@nome", usuario.Nome);
-                    comando.Parameters.AddWithValue("@email", usuario.Email);
-                    comando.Parameters.AddWithValue("@senha", usuario.Senha);
-                    comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
+                    string sql = "UPDATE usuarios SET nome=@nome, email=@email, senha=@senha, perfil=@perfil WHERE id=@id";
 
-                    conexao.Open();
-                    comando.ExecuteNonQuery();
+                    using (var comando = new SqlCommand(sql, conexao))
+                    {
+                        comando.Parameters.AddWithValue("@id", usuario.Id);
+                        comando.Parameters.AddWithValue("@nome", usuario.Nome);
+                        comando.Parameters.AddWithValue("@email", usuario.Email);
+                        comando.Parameters.AddWithValue("@senha", usuario.Senha);
+                        comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
+
+                        conexao.Open();
+                        comando.ExecuteNonQuery();
+                    }
                 }
             }
         }
@@ -90,5 +94,33 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
+
+        public DataTable PesquisarUsuarios(string termo)
+        {
+            DataTable tabela = new DataTable();
+
+            using (var conexao = ConexaoDB.GetConexao())
+            {
+                string sql = @"SELECT * FROM Usuarios
+                       WHERE Nome LIKE @termo
+                          OR Email LIKE @termo
+                          OR Perfil LIKE @termo";
+
+                using (var comando = new SqlCommand(sql, conexao))
+                {
+                    comando.Parameters.AddWithValue("@termo", "%" + termo + "%");
+
+                    conexao.Open();
+
+                    SqlDataAdapter da = new SqlDataAdapter(comando);
+                    da.Fill(tabela);
+                }
+            }
+
+            return tabela;
+        }
+
+
+
     }
 }

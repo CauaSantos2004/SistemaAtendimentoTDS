@@ -113,12 +113,14 @@ namespace SistemaAtendimento.View
             {
                 DataGridViewRow linhaSelecionada = dgvUsuario.Rows[e.RowIndex];
 
+                // Carrega os dados da linha selecionada para os campos
                 txtCodigo.Text = linhaSelecionada.Cells["Id"].Value.ToString();
                 txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
                 txtEmail.Text = linhaSelecionada.Cells["Email"].Value.ToString();
                 txtSenha.Text = linhaSelecionada.Cells["Senha"].Value.ToString();
                 cbxPerfil.Text = linhaSelecionada.Cells["Perfil"].Value.ToString();
 
+                // Habilita as ações de edição e exclusão
                 btnEditar.Enabled = true;
                 btnExcluir.Enabled = true;
                 btnCancelar.Enabled = true;
@@ -159,6 +161,14 @@ namespace SistemaAtendimento.View
             HabilitarCampos(); // habilita os campos para edição
             btnEditar.Enabled = false;
             btnSalvar.Enabled = true;
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+
+            UsuarioController controller = new UsuarioController(this);
+            dgvUsuario.DataSource = controller.PesquisarUsuarios(termo);
         }
     }
 
