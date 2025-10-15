@@ -61,24 +61,24 @@ namespace SistemaAtendimento.Repositories
 
         public void Atualizar(Usuarios usuario)
         {
+
+            using (var conexao = ConexaoDB.GetConexao())
             {
-                using (var conexao = ConexaoDB.GetConexao())
+                string sql = "UPDATE usuarios SET nome=@nome, email=@email, senha=@senha, perfil=@perfil WHERE id=@id";
+
+                using (var comando = new SqlCommand(sql, conexao))
                 {
-                    string sql = "UPDATE usuarios SET nome=@nome, email=@email, senha=@senha, perfil=@perfil WHERE id=@id";
+                    comando.Parameters.AddWithValue("@id", usuario.Id);
+                    comando.Parameters.AddWithValue("@nome", usuario.Nome);
+                    comando.Parameters.AddWithValue("@email", usuario.Email);
+                    comando.Parameters.AddWithValue("@senha", usuario.Senha);
+                    comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
 
-                    using (var comando = new SqlCommand(sql, conexao))
-                    {
-                        comando.Parameters.AddWithValue("@id", usuario.Id);
-                        comando.Parameters.AddWithValue("@nome", usuario.Nome);
-                        comando.Parameters.AddWithValue("@email", usuario.Email);
-                        comando.Parameters.AddWithValue("@senha", usuario.Senha);
-                        comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
-
-                        conexao.Open();
-                        comando.ExecuteNonQuery();
-                    }
+                    conexao.Open();
+                    comando.ExecuteNonQuery();
                 }
             }
+
         }
 
         public void Excluir(int id)

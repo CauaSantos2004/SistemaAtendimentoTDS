@@ -35,8 +35,17 @@ namespace SistemaAtendimento.View
 
         public void ExibirUsuarios(List<Usuarios> usuarios)
         {
-            dgvUsuario.DataSource = null;
-            dgvUsuario.DataSource = usuarios;
+            {
+                // 1. Limpa a fonte de dados (Garante que a ligação anterior seja removida)
+                dgvUsuario.DataSource = null;
+
+                // 2. Atribui a nova lista
+                dgvUsuario.DataSource = usuarios;
+
+                // 3. Força a atualização da grade na tela.
+                // Isso é crucial para que o Windows Forms perceba a mudança e redesenhe.
+                dgvUsuario.Refresh();
+            }
         }
 
         public void DesabilitarCampos()
@@ -96,14 +105,24 @@ namespace SistemaAtendimento.View
         {
             Usuarios usuario = new Usuarios
             {
-                Id = string.IsNullOrEmpty(txtCodigo.Text) ? 0 : Convert.ToInt32(txtCodigo.Text),
                 Nome = txtNome.Text,
                 Email = txtEmail.Text,
                 Senha = txtSenha.Text,
                 Perfil = cbxPerfil.Text,
             };
 
-            _usuarioController.Salvar(usuario);
+            // VERIFICA SE É NOVO (ID vazio) ou EDIÇÃO (ID preenchido)
+            if (string.IsNullOrEmpty(txtCodigo.Text))
+            {
+                // NOVO USUÁRIO: chama Inserir
+                _usuarioController.Inserir(usuario);
+            }
+            else
+            {
+                // USUÁRIO EXISTENTE: chama Atualizar
+                usuario.Id = Convert.ToInt32(txtCodigo.Text);
+                _usuarioController.Atualizar(usuario);
+            }
 
         }
 

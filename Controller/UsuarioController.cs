@@ -23,7 +23,7 @@ namespace SistemaAtendimento.Controller
             try
             {
                 var listarUsuarios = _usuarioRepository.Listar();
-                _frmCadastroUsuario.ExibirUsuarios(listarUsuarios); // chama o método da tela
+                _frmCadastroUsuario.ExibirUsuarios(listarUsuarios);
             }
             catch (Exception ex)
             {
@@ -31,16 +31,14 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Salvar(Usuarios usuario)
+        public void Inserir(Usuarios usuario)
         {
             try
             {
-                if (usuario.Id == 0)
-                    _usuarioRepository.Inserir(usuario); // novo usuário
-                else
-                    _usuarioRepository.Atualizar(usuario);
+                _usuarioRepository.Inserir(usuario);
 
                 _frmCadastroUsuario.ExibirMensagem("Usuário salvo com sucesso!");
+
                 ListarUsuarios();
                 _frmCadastroUsuario.DesabilitarCampos();
             }
@@ -50,14 +48,32 @@ namespace SistemaAtendimento.Controller
             }
         }
 
+        public void Atualizar(Usuarios usuario)
+        {
+            try
+            {
+                _usuarioRepository.Atualizar(usuario);
+
+                _frmCadastroUsuario.ExibirMensagem("Usuário atualizado com sucesso!");
+
+                ListarUsuarios();
+                _frmCadastroUsuario.DesabilitarCampos();
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao atualizar usuário: {ex.Message}");
+            }
+        }
+
+
         public void Excluir(int id)
         {
             try
             {
                 _usuarioRepository.Excluir(id);
                 _frmCadastroUsuario.ExibirMensagem("Usuário excluído com sucesso!");
-                ListarUsuarios(); // Atualiza o DataGrid
-                _frmCadastroUsuario.DesabilitarCampos(); // Reseta a tela
+                ListarUsuarios();
+                _frmCadastroUsuario.DesabilitarCampos();
             }
             catch (Exception ex)
             {
