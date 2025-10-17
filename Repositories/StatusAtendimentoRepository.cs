@@ -11,7 +11,7 @@ namespace SistemaAtendimento.Repositories
 {
     public class StatusAtendimentoRepository
     {
-        public List<StatusAtendimento> Listar()
+        public List<StatusAtendimento> Listar(string termo = "")
         {
             var lista = new List<StatusAtendimento>();
 
@@ -47,7 +47,6 @@ namespace SistemaAtendimento.Repositories
             using (var conexao = ConexaoDB.GetConexao())
             {
                 string sql = "INSERT INTO situacao_atendimentos (nome, cor, ativo) VALUES (@nome, @cor, @ativo)";
-
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@nome", status.Nome);

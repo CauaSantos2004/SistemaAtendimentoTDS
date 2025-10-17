@@ -43,7 +43,7 @@
             rdbInativo = new RadioButton();
             rdbAtivo = new RadioButton();
             lblSituacao = new Label();
-            textPesquisar = new TextBox();
+            txtPesquisar = new TextBox();
             btnPesquisar = new Button();
             imageList1 = new ImageList(components);
             btnCancelar = new Button();
@@ -181,12 +181,12 @@
             lblSituacao.TabIndex = 7;
             lblSituacao.Text = "Situação";
             // 
-            // textPesquisar
+            // txtPesquisar
             // 
-            textPesquisar.Location = new Point(518, 222);
-            textPesquisar.Name = "textPesquisar";
-            textPesquisar.Size = new Size(220, 23);
-            textPesquisar.TabIndex = 10;
+            txtPesquisar.Location = new Point(518, 222);
+            txtPesquisar.Name = "txtPesquisar";
+            txtPesquisar.Size = new Size(220, 23);
+            txtPesquisar.TabIndex = 10;
             // 
             // btnPesquisar
             // 
@@ -197,6 +197,7 @@
             btnPesquisar.Size = new Size(44, 25);
             btnPesquisar.TabIndex = 11;
             btnPesquisar.UseVisualStyleBackColor = true;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // imageList1
             // 
@@ -305,7 +306,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(grbListaSituacoesAtendimento);
-            Controls.Add(textPesquisar);
+            Controls.Add(txtPesquisar);
             Controls.Add(btnPesquisar);
             Controls.Add(btnCancelar);
             Controls.Add(btnExcluir);
@@ -343,7 +344,7 @@
         private TextBox txtCor;
         private TextBox txtNome;
         private TextBox txtCodigo;
-        private TextBox textPesquisar;
+        private TextBox txtPesquisar;
         private Button btnPesquisar;
         private Button btnNovo;
         private Button btnSalvar;

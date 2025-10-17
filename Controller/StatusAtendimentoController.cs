@@ -11,25 +11,25 @@ namespace SistemaAtendimento.Controller
 {
     public class StatusAtendimentoController
     {
-        private FrmCadastroSituacaoAtendimento _frmStatus;
-        private StatusAtendimentoRepository _repository;
+        private FrmCadastroSituacaoAtendimento _frmSituacaoAtendimento;
+        private StatusAtendimentoRepository _situacaoAtendimentoRepository;
 
         public StatusAtendimentoController(FrmCadastroSituacaoAtendimento view)
         {
-            _frmStatus = view;
-            _repository = new StatusAtendimentoRepository();
+            _frmSituacaoAtendimento = view;
+            _situacaoAtendimentoRepository = new StatusAtendimentoRepository();
         }
 
-        public void ListarStatus()
+        public void ListarSituacao(string termo = "")
         {
             try
             {
-                var lista = _repository.Listar();
-                _frmStatus.ExibirStatus(lista);
+                var lista = _situacaoAtendimentoRepository.Listar(termo);
+                _frmSituacaoAtendimento.ExibirStatus(lista);
             }
             catch (Exception ex)
             {
-                _frmStatus.ExibirMensagem($"Erro ao carregar os status de atendimento: {ex.Message}");
+                _frmSituacaoAtendimento.ExibirMensagem($"Erro ao carregar os status de atendimento: {ex.Message}");
             }
         }
 
@@ -37,15 +37,15 @@ namespace SistemaAtendimento.Controller
         {
             try
             {
-                _repository.Inserir(status);
-                _frmStatus.ExibirMensagem("Status de atendimento cadastrado com sucesso!");
+                _situacaoAtendimentoRepository.Inserir(status);
+                _frmSituacaoAtendimento.ExibirMensagem("Status de atendimento cadastrado com sucesso!");
 
-                ListarStatus();
-                _frmStatus.DesabilitarCampos();
+                ListarSituacao();
+                _frmSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmStatus.ExibirMensagem($"Erro ao cadastrar status: {ex.Message}");
+                _frmSituacaoAtendimento.ExibirMensagem($"Erro ao cadastrar status: {ex.Message}");
             }
         }
 
@@ -53,15 +53,15 @@ namespace SistemaAtendimento.Controller
         {
             try
             {
-                _repository.Atualizar(status);
-                _frmStatus.ExibirMensagem("Status de atendimento atualizado com sucesso!");
+                _situacaoAtendimentoRepository.Atualizar(status);
+                _frmSituacaoAtendimento.ExibirMensagem("Status de atendimento atualizado com sucesso!");
 
-                ListarStatus();
-                _frmStatus.DesabilitarCampos();
+                ListarSituacao();
+                _frmSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmStatus.ExibirMensagem($"Erro ao atualizar status: {ex.Message}");
+                _frmSituacaoAtendimento.ExibirMensagem($"Erro ao atualizar status: {ex.Message}");
             }
         }
 
@@ -69,15 +69,15 @@ namespace SistemaAtendimento.Controller
         {
             try
             {
-                _repository.Excluir(id);
-                _frmStatus.ExibirMensagem("Status de atendimento excluído com sucesso!");
+                _situacaoAtendimentoRepository.Excluir(id);
+                _frmSituacaoAtendimento.ExibirMensagem("Status de atendimento excluído com sucesso!");
 
-                ListarStatus();
-                _frmStatus.DesabilitarCampos();
+                ListarSituacao();
+                _frmSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmStatus.ExibirMensagem($"Erro ao excluir status: {ex.Message}");
+                _frmSituacaoAtendimento.ExibirMensagem($"Erro ao excluir status: {ex.Message}");
             }
         }
     }

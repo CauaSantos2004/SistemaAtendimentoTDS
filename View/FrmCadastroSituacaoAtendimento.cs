@@ -34,7 +34,7 @@ namespace SistemaAtendimento.View
 
         private void FrmCadastroSituacaoAtendimento_Load(object sender, EventArgs e)
         {
-            _situacaoAtendimentoController.ListarStatus();
+            _situacaoAtendimentoController.ListarSituacao();
             DesabilitarCampos(); // ✅ bloqueia tudo e deixa só o “Novo” ativo
         }
 
@@ -77,7 +77,7 @@ namespace SistemaAtendimento.View
                 _situacaoAtendimentoController.Atualizar(status);
             }
 
-            _situacaoAtendimentoController.ListarStatus();
+            _situacaoAtendimentoController.ListarSituacao();
             DesabilitarCampos();
         }
 
@@ -144,6 +144,7 @@ namespace SistemaAtendimento.View
                 rdbAtivo.Checked = Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
                 rdbInativo.Checked = !Convert.ToBoolean(linhaSelecionada.Cells["Ativo"].Value);
 
+
                 txtNome.ReadOnly = true;
                 txtCor.ReadOnly = true;
                 pnlSituacao.Enabled = false;
@@ -170,14 +171,20 @@ namespace SistemaAtendimento.View
             }
 
             DialogResult resultado = MessageBox.Show($"Deseja Excluir esta Situação de Atendimento?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            
+
             if (resultado == DialogResult.Yes)
             {
                 int id = Convert.ToInt32(txtCodigo.Text);
                 _situacaoAtendimentoController.Excluir(id);
-                _situacaoAtendimentoController.ListarStatus();
+                _situacaoAtendimentoController.ListarSituacao();
                 DesabilitarCampos();
             }
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+            _situacaoAtendimentoController.ListarSituacao(termo);
         }
     }
 }
