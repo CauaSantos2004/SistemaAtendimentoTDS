@@ -91,7 +91,21 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-
+        public void PesquisarEtapas(string termo)
+        {
+            try
+            {
+                var todasEtapas = _EtapasRepository.Listar();
+                var resultado = todasEtapas
+                    .Where(e => e.Nome.Contains(termo, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+                _frmCadastroEtapas.ExibirEtapas(resultado);
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroEtapas.ExibirMensagem($"Erro ao pesquisar etapas: {ex.Message}");
+            }
+        }
 
 
     }

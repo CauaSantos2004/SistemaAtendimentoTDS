@@ -44,10 +44,8 @@ namespace SistemaAtendimento.Repositories
             using (var conexao = ConexaoDB.GetConexao())
             {
                 string sql = "INSERT INTO etapas (nome, ordem, ativo) VALUES (@nome, @ordem, @ativo)";
-
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-                    comando.Parameters.AddWithValue("@id", etapas.Id);
                     comando.Parameters.AddWithValue("@nome", etapas.Nome);
                     comando.Parameters.AddWithValue("@ordem", etapas.Ordem);
                     comando.Parameters.AddWithValue("@ativo", etapas.Ativo);

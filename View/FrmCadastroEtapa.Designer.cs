@@ -261,6 +261,7 @@
             btnPesquisar.Size = new Size(44, 25);
             btnPesquisar.TabIndex = 11;
             btnPesquisar.UseVisualStyleBackColor = true;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // lblPesquisar
             // 

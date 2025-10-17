@@ -34,31 +34,30 @@ namespace SistemaAtendimento.View
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            // Primeiro valida os campos antes de tentar converter
+            // Valida os campos antes de converter
             if (!ValidarDados(null))
                 return;
 
-            // Agora que sabemos que os campos estão preenchidos,
-            // podemos criar o objeto com segurança
+            // Cria o objeto Etapas com os dados da tela
             Etapas etapa = new Etapas()
             {
                 Nome = txtNome.Text,
-                Ordem = int.Parse(txtOrdem.Text), // agora é seguro converter
+                Ordem = int.Parse(txtOrdem.Text),
                 Ativo = rdbAtivo.Checked,
             };
 
-            // Se não tiver código, é uma nova etapa → INSERIR
+            // Se não tiver código → é nova etapa → INSERIR
             if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                _etapaController.Atualizar(etapa); // aqui estava errado
+                _etapaController.Inserir(etapa); // ✅ Corrigido aqui!
             }
-            else // senão, é edição → ATUALIZAR
+            else // Se tiver código → ATUALIZAR
             {
                 etapa.Id = Convert.ToInt32(txtCodigo.Text);
                 _etapaController.Atualizar(etapa);
             }
 
-            // Depois de salvar, desabilita os campos novamente
+            // Atualiza a tela
             DesabilitarCampos();
         }
 
@@ -184,6 +183,12 @@ namespace SistemaAtendimento.View
         private void btnNovo_Click(object sender, EventArgs e)
         {
             HabilitarCampos();
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+            _etapaController.PesquisarEtapas(termo);
         }
     }
 }

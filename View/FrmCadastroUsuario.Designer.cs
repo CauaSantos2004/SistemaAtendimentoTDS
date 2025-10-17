@@ -286,6 +286,7 @@
             dgvUsuario.Size = new Size(764, 133);
             dgvUsuario.TabIndex = 0;
             dgvUsuario.CellContentClick += dgvUsuario_CellContentClick;
+            dgvUsuario.CellDoubleClick += dgvUsuario_CellDoubleClick;
             // 
             // FrmCadastroUsuario
             // 

@@ -128,24 +128,7 @@ namespace SistemaAtendimento.View
 
         private void dgvUsuario_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                DataGridViewRow linhaSelecionada = dgvUsuario.Rows[e.RowIndex];
 
-                // Carrega os dados da linha selecionada para os campos
-                txtCodigo.Text = linhaSelecionada.Cells["Id"].Value.ToString();
-                txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
-                txtEmail.Text = linhaSelecionada.Cells["Email"].Value.ToString();
-                txtSenha.Text = linhaSelecionada.Cells["Senha"].Value.ToString();
-                cbxPerfil.Text = linhaSelecionada.Cells["Perfil"].Value.ToString();
-
-                // Habilita as ações de edição e exclusão
-                btnEditar.Enabled = true;
-                btnExcluir.Enabled = true;
-                btnCancelar.Enabled = true;
-                btnNovo.Enabled = false;
-                btnSalvar.Enabled = false;
-            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -188,6 +171,26 @@ namespace SistemaAtendimento.View
 
             UsuarioController controller = new UsuarioController(this);
             dgvUsuario.DataSource = controller.PesquisarUsuarios(termo);
+        }
+
+        private void dgvUsuario_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow linhaSelecionada = dgvUsuario.Rows[e.RowIndex];
+
+                txtCodigo.Text = linhaSelecionada.Cells["Id"].Value.ToString();
+                txtNome.Text = linhaSelecionada.Cells["Nome"].Value.ToString();
+                txtEmail.Text = linhaSelecionada.Cells["Email"].Value.ToString();
+                txtSenha.Text = linhaSelecionada.Cells["Senha"].Value.ToString();
+                cbxPerfil.Text = linhaSelecionada.Cells["Perfil"].Value.ToString();
+
+                btnEditar.Enabled = true;
+                btnExcluir.Enabled = true;
+                btnCancelar.Enabled = true;
+                btnNovo.Enabled = false;
+                btnSalvar.Enabled = false;
+            }
         }
     }
 
