@@ -190,5 +190,15 @@ namespace SistemaAtendimento.View
             string termo = txtPesquisar.Text.Trim();
             _etapaController.PesquisarEtapas(termo);
         }
+
+        private void txtPesquisar_TextChanged(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+
+            if (string.IsNullOrEmpty(termo))
+            {
+                _etapaController.ListarEtapas(); // ✅ Atualiza com todos
+            }
+        }
     }
 }

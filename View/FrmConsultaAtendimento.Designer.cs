@@ -33,8 +33,8 @@
             dgvConsultaAtendimento = new DataGridView();
             txtFiltro = new TextBox();
             btnPesquisar = new Button();
-            cbxFiltro = new ComboBox();
             imageList1 = new ImageList(components);
+            cbxFiltro = new ComboBox();
             groupBox1 = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)dgvConsultaAtendimento).BeginInit();
             groupBox1.SuspendLayout();
@@ -68,15 +68,7 @@
             btnPesquisar.Text = "Pesquisar";
             btnPesquisar.TextAlign = ContentAlignment.MiddleLeft;
             btnPesquisar.UseVisualStyleBackColor = true;
-            // 
-            // cbxFiltro
-            // 
-            cbxFiltro.FormattingEnabled = true;
-            cbxFiltro.Items.AddRange(new object[] { "Código do Atendimento", "Nome do Cliente", "CPF", "CNPJ" });
-            cbxFiltro.Location = new Point(6, 19);
-            cbxFiltro.Name = "cbxFiltro";
-            cbxFiltro.Size = new Size(169, 23);
-            cbxFiltro.TabIndex = 4;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // imageList1
             // 
@@ -90,6 +82,15 @@
             imageList1.Images.SetKeyName(4, "icone-novo.png");
             imageList1.Images.SetKeyName(5, "icone-pesquisar.png");
             imageList1.Images.SetKeyName(6, "icone-salvar.png");
+            // 
+            // cbxFiltro
+            // 
+            cbxFiltro.FormattingEnabled = true;
+            cbxFiltro.Items.AddRange(new object[] { "Código do Atendimento", "Nome do Cliente", "CPF", "CNPJ" });
+            cbxFiltro.Location = new Point(6, 19);
+            cbxFiltro.Name = "cbxFiltro";
+            cbxFiltro.Size = new Size(169, 23);
+            cbxFiltro.TabIndex = 4;
             // 
             // groupBox1
             // 
@@ -112,6 +113,7 @@
             Controls.Add(dgvConsultaAtendimento);
             Name = "FrmConsultaAtendimento";
             Text = "Consultas de Atendimentos";
+            Load += FrmConsultaAtendimento_Load;
             ((System.ComponentModel.ISupportInitialize)dgvConsultaAtendimento).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

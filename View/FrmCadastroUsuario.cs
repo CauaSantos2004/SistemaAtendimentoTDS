@@ -192,6 +192,20 @@ namespace SistemaAtendimento.View
                 btnSalvar.Enabled = false;
             }
         }
+
+        private void txtPesquisar_TextChanged(object sender, EventArgs e)
+        {
+            //string termo = txtPesquisar.Text.Trim();
+
+            //if (string.IsNullOrEmpty(termo))
+            //{
+            //    _usuarioController.ListarUsuarios; // ✅ volta a mostrar todos os usuários
+            //}
+            //else
+            //{
+            //    _usuarioController.ListarUsiarios(termo); // ✅ filtra conforme o texto digitado
+            //}
+        }
     }
 
 

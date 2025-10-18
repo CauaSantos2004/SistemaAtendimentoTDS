@@ -19,8 +19,17 @@ namespace SistemaAtendimento.Repositories
             {
                 string sql = "SELECT * FROM situacao_atendimentos";
 
+                // Se tiver termo de busca, adiciona o filtro
+                if (!string.IsNullOrWhiteSpace(termo))
+                {
+                    sql += " WHERE nome LIKE @termo OR cor LIKE @termo";
+                }
+
                 using (var comando = new SqlCommand(sql, conexao))
                 {
+                    if (!string.IsNullOrWhiteSpace(termo))
+                        comando.Parameters.AddWithValue("@termo", $"%{termo}%");
+
                     conexao.Open();
 
                     using (var linhas = comando.ExecuteReader())
@@ -41,6 +50,7 @@ namespace SistemaAtendimento.Repositories
 
             return lista;
         }
+
 
         public void Inserir(StatusAtendimento status)
         {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
 using SistemaAtendimento.Model;
+using SistemaAtendimento.Model.SistemaAtendimento.Model;
 using SistemaAtendimento.View;
 
 namespace SistemaAtendimento.Repositories
@@ -29,6 +30,7 @@ namespace SistemaAtendimento.Repositories
                 // relacionados (cliente, usuário e situação).
                 string sql = @"SELECT a.*, 
                                       c.nome AS cliente_nome, 
+                                      c.cpf_cnpj AS cliente_cpf_cnpj,
                                       s.nome AS situacao_nome, 
                                       u.nome AS usuario_nome, 
                                       c.cpf_cnpj
@@ -72,14 +74,16 @@ namespace SistemaAtendimento.Repositories
                                 Id = Convert.ToInt32(linhas["id"]),
                                 ClienteId = Convert.ToInt32(linhas["cliente_id"]),
                                 UsuarioId = Convert.ToInt32(linhas["usuario_id"]),
-                                DataAbertura = Convert.ToDateTime(linhas["data_abertura"]),
-                                DataFechamento = Convert.ToDateTime(linhas["data_fechamento"]),
+                                DataAbertura = linhas["data_abertura"] as DateTime?, // pode ser nula
+                                DataFechamento = linhas["data_fechamento"] as DateTime?, // pode ser nula
                                 Observacao = linhas["observacao"].ToString(),
                                 SituacaoAtendimentoId = Convert.ToInt32(linhas["situacao_atendimento_id"]),
                                 ClienteNome = linhas["cliente_nome"].ToString(),
+                                Cpf_Cnpj = linhas["cpf_cnpj"].ToString(), //Coluna Adicionada na Lista
                                 SituacaoAtendimentoNome = linhas["situacao_nome"].ToString(),
                                 UsuarioNome = linhas["usuario_nome"].ToString()
                             });
+
                         }
                     }
                 }

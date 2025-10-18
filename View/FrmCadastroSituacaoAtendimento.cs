@@ -186,5 +186,15 @@ namespace SistemaAtendimento.View
             string termo = txtPesquisar.Text.Trim();
             _situacaoAtendimentoController.ListarSituacao(termo);
         }
+
+        private void txtPesquisar_TextChanged(object sender, EventArgs e)
+        {
+            string termo = txtPesquisar.Text.Trim();
+
+            if (string.IsNullOrEmpty(termo))
+            {
+                _situacaoAtendimentoController.ListarSituacao(); // ✅ Atualiza a lista com todos os registros
+            }
+        }
     }
 }
