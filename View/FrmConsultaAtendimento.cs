@@ -36,12 +36,15 @@ namespace SistemaAtendimento.View
         public void ExibirAtendimentos(List<Atendimentos> atendimentos)
         {
             dgvConsultaAtendimento.DataSource = atendimentos;
+            dgvConsultaAtendimento.Refresh();
+
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
             string termo = txtFiltro.Text.Trim();
-            _consultaAtendimentoController.ListarAtendimento(termo);
+            string condicao = cbxFiltro.Text.Trim();
+            _consultaAtendimentoController.ListarAtendimento(termo, condicao);
         }
     }
 }
