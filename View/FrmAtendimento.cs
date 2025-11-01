@@ -16,15 +16,15 @@ namespace SistemaAtendimento.View
     {
         private AtendimentoController _atendimentoController; //adicionada esta linha
         private StatusAtendimentoController _statusAtendimentoController; //adicionada esta linha
-        private FrmCadastroSituacaoAtendimento _frmSituacao ; // adicionar referência à tela de situação
-        private FrmCadastroEtapa _frmEtapa; // adicionar referência à tela de etapa atendimento
+        private FrmCadastroSituacaoAtendimento _cadastroSituacaoAtendimentoController ; // adicionar referência à tela de situação
+        private FrmCadastroEtapa _cadastroEtapaController; // adicionar referência à tela de etapa atendimento
+
         public FrmAtendimento()
         {
             InitializeComponent();
             _atendimentoController = new AtendimentoController(this); //adicionada esta linha
-                                                                      // Criar a tela de situação e passar para o controller
-            _frmSituacao = new FrmCadastroSituacaoAtendimento();
-            _statusAtendimentoController = new StatusAtendimentoController(_frmSituacao);
+            _cadastroSituacaoAtendimentoController = new FrmCadastroSituacaoAtendimento();
+            _statusAtendimentoController = new StatusAtendimentoController(_cadastroSituacaoAtendimentoController);
         }
 
         private void btnPesquisarAtendimento_Click(object sender, EventArgs e)
@@ -64,6 +64,7 @@ namespace SistemaAtendimento.View
        
         }
 
+        //função para carregar as etapas atendimento, adicionada esta parte
         private void CarregarEtapas()
         {
             //obter a lista de etapas atendimento do controller
