@@ -33,7 +33,7 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Salvar(StatusAtendimento status)
+        public void Salvar(StausAtendimento status)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Atualizar(StatusAtendimento status)
+        public void Atualizar(StausAtendimento status)
         {
             try
             {

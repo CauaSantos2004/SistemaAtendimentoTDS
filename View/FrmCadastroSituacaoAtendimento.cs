@@ -22,7 +22,7 @@ namespace SistemaAtendimento.View
             _situacaoAtendimentoController = new StatusAtendimentoController(this);
         }
 
-        public void ExibirStatus(List<StatusAtendimento> statusAtendimentos)
+        public void ExibirStatus(List<StausAtendimento> statusAtendimentos)
         {
             dgvListaSituacaoAtendimento.DataSource = statusAtendimentos;
         }
@@ -57,7 +57,7 @@ namespace SistemaAtendimento.View
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-            StatusAtendimento status = new StatusAtendimento
+            StausAtendimento status = new StausAtendimento
             {
                 Nome = txtNome.Text,
                 Cor = txtCor.Text,
@@ -81,7 +81,7 @@ namespace SistemaAtendimento.View
             DesabilitarCampos();
         }
 
-        public bool ValidarDados(StatusAtendimento status)
+        public bool ValidarDados(StausAtendimento status)
         {
             if (string.IsNullOrWhiteSpace(status.Nome))
             {

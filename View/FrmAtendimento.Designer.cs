@@ -141,6 +141,7 @@
             cbxNomeCliente.Name = "cbxNomeCliente";
             cbxNomeCliente.Size = new Size(457, 23);
             cbxNomeCliente.TabIndex = 9;
+            cbxNomeCliente.SelectedIndexChanged += cbxNomeCliente_SelectedIndexChanged;
             // 
             // txtCodigoCliente
             // 
@@ -329,7 +330,7 @@
             lblAtendimento.Size = new Size(134, 25);
             lblAtendimento.TabIndex = 29;
             lblAtendimento.Text = "Atendimento:";
-            lblAtendimento.Click += this.label1_Click;
+            lblAtendimento.Click += label1_Click;
             // 
             // dtpAberturaAtendimento
             // 

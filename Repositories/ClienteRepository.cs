@@ -13,6 +13,8 @@ namespace SistemaAtendimento.Repositories
 {
     public class ClienteRepository
     {
+
+        //funçao para listar todos os clientes
         public List<Clientes> Listar(string termo = "")
         {
             var clientes = new List<Clientes>();
