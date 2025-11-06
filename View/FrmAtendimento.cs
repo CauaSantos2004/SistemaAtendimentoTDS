@@ -13,24 +13,27 @@ using SistemaAtendimento.Model.SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.View
 {
-    public partial class FrmAtendimento : Form
+    public partial class FrmAtendimento : Form 
     {
         private AtendimentoController _atendimentoController; //adicionada esta linha
         private StatusAtendimentoController _statusAtendimentoController; //adicionada esta linha
         private FrmCadastroSituacaoAtendimento _cadastroSituacaoAtendimentoController; // adicionar referência à tela de situação
         private FrmCadastroEtapa _cadastroEtapaController; // adicionar referência à tela de etapa atendimento
 
-        public FrmAtendimento()
+        public FrmAtendimento() //construtor do formulário
         {
+            //inicializa os componentes do formulário
             InitializeComponent();
+
             _atendimentoController = new AtendimentoController(this); //adicionada esta linha
             _cadastroSituacaoAtendimentoController = new FrmCadastroSituacaoAtendimento();
             _statusAtendimentoController = new StatusAtendimentoController(_cadastroSituacaoAtendimentoController);
+            _cadastroEtapaController = new FrmCadastroEtapa();
         }
 
         private void btnPesquisarAtendimento_Click(object sender, EventArgs e)
         {
-            FrmConsultaAtendimento frmConsultaAtendimento = new FrmConsultaAtendimento();
+            FrmConsultaAtendimento frmConsultaAtendimento = new FrmConsultaAtendimento(); 
             frmConsultaAtendimento.ShowDialog();
         }
 
@@ -55,7 +58,7 @@ namespace SistemaAtendimento.View
         {
             //obter a lista de status atendimento do controller
             var statusAtendimento = _atendimentoController.ListarSituacaoAtendimento(); //adicionada esta linha
-            cbxSituacaoAtendimento.DataSource = statusAtendimento;
+            cbxSituacaoAtendimento.DataSource = statusAtendimento; 
             cbxSituacaoAtendimento.DisplayMember = "Nome"; //adicionada esta linha, para mostrar a descrição no combobox
             cbxSituacaoAtendimento.SelectedIndex = -1; //adicionada esta linha, para não selecionar nenhum item inicialmente
             cbxSituacaoAtendimento.ValueMember = "Id"; //adicionada esta linha, para definir o valor do item como o Id do status atendimento
@@ -83,11 +86,11 @@ namespace SistemaAtendimento.View
 
         }
 
-        private void FrmAtendimento_Load(object sender, EventArgs e)
+        private void FrmAtendimento_Load(object sender, EventArgs e) //
         {
-            CarregarClientes(); //adicionada esta linha
-            CarregarSituacaoAtendimento(); //adicionada esta linha
-            CarregarEtapas(); //adicionada esta linha
+            CarregarClientes(); //adicionada esta linha, para carregar os clientes no combobox ao carregar o formulário
+            CarregarSituacaoAtendimento(); //adicionada esta linha, para carregar os status atendimento no combobox ao carregar o formulário
+            CarregarEtapas(); //adicionada esta linha, para carregar as etapas atendimento no combobox ao carregar o formulário
         }
 
         private void cbxNomeCliente_SelectedIndexChanged(object sender, EventArgs e)
@@ -149,8 +152,8 @@ namespace SistemaAtendimento.View
             txtCodigoCliente.Clear();
             cbxNomeCliente.SelectedIndex = -1;
             cbxSituacaoAtendimento.SelectedIndex = -1;
-            txtObservacaoAtendimento.Clear();
-            dtpAberturaAtendimento.Value = DateTime.Now;
+            txtObservacaoAtendimento.Clear(); 
+            dtpAberturaAtendimento.Value = DateTime.Now; //define a data atual como padrão
         }
 
         private void lblObservacoes2_Click(object sender, EventArgs e)
@@ -168,23 +171,62 @@ namespace SistemaAtendimento.View
             Atendimentos atendimento = new Atendimentos //criando um objeto atendimento para salvar os dados
             {
                 //todas as colunas da tabela Atendimentos do banco de dados
-                ClienteId = Convert.ToInt32(txtCodigoCliente.Text), //convertendo o código do cliente para int
+                ClienteId = string.IsNullOrWhiteSpace(txtCodigoCliente.Text) ? null : Convert.ToInt32(txtCodigoCliente.Text), //verifica se o campo código do cliente está vazio, se estiver atribui null, se não converte para int
                 UsuarioId = 1,
-                SituacaoAtendimentoId = Convert.ToInt32(cbxSituacaoAtendimento.SelectedValue), //convertendo o código da situação do atendimento para int e pegando do combobox
+                SituacaoAtendimentoId = cbxSituacaoAtendimento.SelectedValue == null ? null : Convert.ToInt32 (cbxSituacaoAtendimento.SelectedValue), //convertendo o código da situação do atendimento para int e pegando do combobox
                 DataAbertura = dtpAberturaAtendimento.Value,
                 Observacao = txtObservacaoAtendimento.Text //
             };
 
             if(!ValidarDados(atendimento)) //chama a função para validar os dados antes de salvar o atendimento
                 return;
-
+            _atendimentoController.Salvar(atendimento); //chama a função para salvar o atendimento no banco de dados
         }
+
+        //função para exibir mensagens na tela
+        public void ExibirMensagem(string mensagem)
+        {
+            MessageBox.Show(mensagem); //exibe a mensagem em uma caixa de diálogo
+        }
+
+        //função para validar os dados antes de salvar o atendimento
         private bool ValidarDados(Atendimentos atendimento)
         {
-            //Criar regras de validação de campos
+            //validação do campo cliente
+            if (string.IsNullOrWhiteSpace(cbxNomeCliente.Text)) //se o campo cliente estiver vazio
+            {
+                ExibirMensagem("O campo Cliente é obrigatório. Por favor, selecione um cliente.");
+                cbxNomeCliente.Focus(); //coloca o cursor no combobox do Nome
 
-           return true;
+                return false;
+            }
+
+            //validação do campo situação do atendimento
+            if (cbxSituacaoAtendimento.SelectedValue == null) //se o campo situação do atendimento estiver vazio
+            {
+                ExibirMensagem("O campo Situação do Atendimento é obrigatório. Por favor, selecione uma situação.");
+                cbxSituacaoAtendimento.Focus(); //coloca o cursor no combobox da Situação do Atendimento
+
+                return false;
+
+            }
+
+            //validação do campo observação do atendimento
+            if (string.IsNullOrWhiteSpace(txtObservacaoAtendimento.Text)) //se o campo observação estiver vazio
+            {
+                ExibirMensagem("O campo Observação é obrigatório. Por favor, preencha a observação do atendimento.");
+                txtObservacaoAtendimento.Focus(); //coloca o cursor no textbox da Observação
+
+                return false; 
+            }
+            return true;
+        
+        
         }
+        
+
+
+
 
     }
 }

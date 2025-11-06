@@ -139,8 +139,8 @@ namespace SistemaAtendimento.Repositories
             using (var conexao = ConexaoDB.GetConexao())
             {
                 string sql = @"INSERT INTO atendimentos 
-                               (cliente_id, usuario_id, data_abertura, data_fechamento, observacao, situacao_atendimento_id)
-                               VALUES (@cliente_id, @usuario_id, @data_abertura, @data_fechamento, @observacao, @situacao_atendimento_id)";
+                               (cliente_id, usuario_id, data_abertura, observacao, situacao_atendimento_id)
+                               VALUES (@cliente_id, @usuario_id, @data_abertura, @observacao, @situacao_atendimento_id)";
 
                 // Observação:
                 // O SQL acima não altera nada do objeto, apenas define quais colunas serão inseridas.
@@ -152,7 +152,6 @@ namespace SistemaAtendimento.Repositories
                     comando.Parameters.AddWithValue("@cliente_id", atendimentos.ClienteId);
                     comando.Parameters.AddWithValue("@usuario_id", atendimentos.UsuarioId);
                     comando.Parameters.AddWithValue("@data_abertura", atendimentos.DataAbertura);
-                    comando.Parameters.AddWithValue("@data_fechamento", atendimentos.DataFechamento);
                     comando.Parameters.AddWithValue("@observacao", atendimentos.Observacao);
                     comando.Parameters.AddWithValue("@situacao_atendimento_id", atendimentos.SituacaoAtendimentoId);
 

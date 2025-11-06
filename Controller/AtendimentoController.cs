@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SistemaAtendimento.Model;
+using SistemaAtendimento.Model.SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
 
@@ -41,16 +42,36 @@ namespace SistemaAtendimento.Controller
         {
             return _clienteRepository.Listar();
         }
-        
-        //
+
+        //função para listar todas as situações do atendimento
         public List<StausAtendimento> ListarSituacaoAtendimento() //adicionada esta parte
         {
             return _statusAtendimentoRepository.Listar();
         }
 
+        //função para listar todas as etapas do atendimento
         public List<Etapas> ListarEtapasAtendimento() //adicionada esta parte
         {
             return _etapasRepository.Listar();
         }
+
+        //função para salvar o atendimento
+        public void Salvar(Atendimentos atendimento)
+        {
+            // bloco try catch para tratar erros
+            try
+            {
+                _atendimentoRepository.Inserir(atendimento); // chama o metodo inserir do repositorio
+                _frmAtendimento.ExibirMensagem("Atendimento salvo com sucesso!"); // mensagem de sucesso
+            }
+
+            catch (Exception ex)
+            {
+                _frmAtendimento.ExibirMensagem($"Erro ao salvar atendimento: {ex.Message}"); //mensagem de erro
+            }
+        }
+
+
+
     }
 }

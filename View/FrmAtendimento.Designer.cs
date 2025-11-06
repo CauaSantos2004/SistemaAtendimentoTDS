@@ -178,7 +178,7 @@
             btnCancelar.ImageList = imageList1;
             btnCancelar.Location = new Point(290, 245);
             btnCancelar.Name = "btnCancelar";
-            btnCancelar.Size = new Size(81, 37);
+            btnCancelar.Size = new Size(84, 37);
             btnCancelar.TabIndex = 18;
             btnCancelar.Text = "Cancelar";
             btnCancelar.TextAlign = ContentAlignment.MiddleRight;
