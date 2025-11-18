@@ -20,15 +20,22 @@ namespace SistemaAtendimento.View
         private FrmCadastroSituacaoAtendimento _cadastroSituacaoAtendimentoController; // adicionar referência à tela de situação
         private FrmCadastroEtapa _cadastroEtapaController; // adicionar referência à tela de etapa atendimento
 
-        public FrmAtendimento() //construtor do formulário
+        private int? _atendimentoId;
+
+        //construtor do formulário 
+        public FrmAtendimento(int? atendimentoId = null)// passando um registro
         {
             //inicializa os componentes do formulário
             InitializeComponent();
 
-            _atendimentoController = new AtendimentoController(this); //adicionada esta linha
+            _atendimentoController = new AtendimentoController(this);
+
+            _atendimentoId = atendimentoId; 
+
             _cadastroSituacaoAtendimentoController = new FrmCadastroSituacaoAtendimento();
             _statusAtendimentoController = new StatusAtendimentoController(_cadastroSituacaoAtendimentoController);
             _cadastroEtapaController = new FrmCadastroEtapa();
+
         }
 
         private void btnPesquisarAtendimento_Click(object sender, EventArgs e)
@@ -91,6 +98,42 @@ namespace SistemaAtendimento.View
             CarregarClientes(); //adicionada esta linha, para carregar os clientes no combobox ao carregar o formulário
             CarregarSituacaoAtendimento(); //adicionada esta linha, para carregar os status atendimento no combobox ao carregar o formulário
             CarregarEtapas(); //adicionada esta linha, para carregar as etapas atendimento no combobox ao carregar o formulário
+            
+            if(_atendimentoId.HasValue) 
+            {
+                // gurdar o atendimento retornado pelo controller em uma variável
+                var atendimento = _atendimentoController.BuscarAtendimentoPorId(_atendimentoId.Value);
+
+                //se o atendimento for diferente de null, preencher os campos com os dados do atendimento
+                if (atendimento != null)
+                {
+                    PreencherCampos(atendimento);
+                }
+            }
+
+        }
+
+        //função para preencher os campos com os dados do atendimento selecionado
+        private void PreencherCampos(Atendimentos atendimento)
+        {
+            txtCodigoAtendimento.Text = atendimento.Id.ToString(); //coloca o Id do atendimento no textbox
+            txtCodigoCliente.Text = atendimento.ClienteId.ToString(); //coloca o Id do cliente no textbox
+            cbxNomeCliente.SelectedValue = atendimento.ClienteId; //adiciona o nome do cliente no combobox
+            cbxSituacaoAtendimento.SelectedValue = atendimento.SituacaoAtendimentoId; // adiciona a situação do atendimento no combobox
+            dtpAberturaAtendimento.Value = atendimento.DataAbertura ?? DateTime.Now; //adiciona a data de abertura do atendimento ou a data atual se for null
+            txtObservacaoAtendimento.Text = atendimento.Observacao; //adiciona a observação do atendimento no textbox
+
+            
+            btnFinalizar.Enabled = true; //habilita o botão finalizar 
+            btnNovo.Enabled = false; //desabilita o botão novo
+            btnSalvar.Enabled = true; //habilita o botão salvar
+            btnCancelar.Enabled = true; //habilita o botão cancelar
+            btnExcluir.Enabled = true; //habilita o botão excluir
+
+            cbxSituacaoAtendimento.Enabled = true; //habilita o combobox de situação do atendimento
+            txtObservacaoAtendimento.ReadOnly = false; //habilita o textbox de observação do atendimento
+
+            grbEtapaAtendimento.Enabled = false; //desabilita o groupbox de etapa do atendimento
         }
 
         private void cbxNomeCliente_SelectedIndexChanged(object sender, EventArgs e)
@@ -139,6 +182,8 @@ namespace SistemaAtendimento.View
             cbxNomeCliente.Enabled = false;
             dtpAberturaAtendimento.Enabled = false;
             cbxSituacaoAtendimento.Enabled = false;
+
+            btnFinalizar.Enabled = false;
             txtObservacaoAtendimento.ReadOnly = true;
 
             //Desabilita os botões

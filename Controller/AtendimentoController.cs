@@ -71,7 +71,11 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-
+        //função para buscar atendimento por id
+        public Atendimentos? BuscarAtendimentoPorId(int id)
+        {
+            return _atendimentoRepository.BuscarPorId(id); //chama o metodo buscar por id do repositorio
+        }
 
     }
 }

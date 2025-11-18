@@ -132,6 +132,15 @@ namespace SistemaAtendimento.Repositories
             return lista;
         }
 
+
+        // Método para buscar um atendimento específico pelo ID.
+        public Atendimentos BuscarPorId(int id)
+        {
+            var resultado = Listar(id.ToString(), "Código do Atendimento"); //reutiliza o método Listar para buscar por ID
+            return resultado.FirstOrDefault(); //retorna o primeiro resultado ou null se não encontrar
+        }
+
+
         // Método para inserir um novo atendimento no banco.
         // Recebe um objeto 'Atendimentos' preenchido e salva os dados na tabela.
         public void Inserir(Atendimentos atendimentos)
