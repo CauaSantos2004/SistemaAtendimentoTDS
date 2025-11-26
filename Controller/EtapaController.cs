@@ -1,112 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Identity.Client;
 using SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
 
 namespace SistemaAtendimento.Controller
 {
-    public class EtapasController
+    public class EtapaController
     {
-        public FrmCadastroEtapa _frmCadastroEtapas;
-        public EtapasRepository _EtapasRepository;
+        private FrmCadastroEtapa _frmCadastroEtapa;
+        private EtapaRepository _etapaRepository;
 
-        public EtapasController(FrmCadastroEtapa view)
+        public EtapaController(FrmCadastroEtapa view)
         {
-            _frmCadastroEtapas = view;
-            _EtapasRepository = new EtapasRepository();
+            _frmCadastroEtapa = view;
+            _etapaRepository = new EtapaRepository();
         }
-        public void ListarEtapas()
+
+        public void ListarEtapas(string termo = "")
         {
             try
             {
-                var listaretapas = _EtapasRepository.Listar();
-
-                _frmCadastroEtapas.ExibirEtapas(listaretapas);
+                var listaEtapas = _etapaRepository.Listar(termo);
+                _frmCadastroEtapa.ExibirEtapas(listaEtapas);
             }
             catch (Exception ex)
             {
-                _frmCadastroEtapas.ExibirMensagem($"erro ao carregar as etapas: {ex.Message}");
+                _frmCadastroEtapa.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}");
             }
-            // catch (Exception ex)
-            {
-                // _frmCadastroEtapas.ExibirMensagem($"erro ao Cadastrar o Clientes: {ex.Message}");
-            }
+
         }
-        public void Atualizar(Etapas etapa) //método de atualizar
+        public void Salvar(Etapas etapa)
         {
-            //criar o try catch
+
             try
             {
-                _EtapasRepository.Atualizar(etapa);
-                _frmCadastroEtapas.ExibirMensagem($"Etapa atualizada com sucesso!");
+                _etapaRepository.Inserir(etapa);
+                _frmCadastroEtapa.ExibirMensagem($"Cliente cadastrado com Sucesso:");
 
+                //atualizar dataGrid 
                 ListarEtapas();
-                //Atualizar DataGrid
 
-                _frmCadastroEtapas.DesabilitarCampos();
+                _frmCadastroEtapa.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroEtapas.ExibirMensagem($"Erro ao atualizar etapa: {ex.Message}");
+                _frmCadastroEtapa.ExibirMensagem($"Erro ao Cadastrar o Cliente: {ex.Message}");
+            }
+        } 
+        
+        public void Atualizar(Etapas etapa)
+        {
+
+            try
+            {
+                _etapaRepository.Atualizar(etapa);
+                _frmCadastroEtapa.ExibirMensagem($"Cliente atualizado com Sucesso:");
+
+                //atualizar dataGrid 
+                ListarEtapas();
+
+                _frmCadastroEtapa.DesabilitarCampos();
+            }
+            catch (Exception ex)
+            {
+                _frmCadastroEtapa.ExibirMensagem($"Erro ao atualizar o Cliente: {ex.Message}");
             }
         }
-
-        public void Excluir(int id) //método de excluir
+        public void Excluir(int id)
         {
             try
             {
-                _EtapasRepository.Excluir(id); // ✅ chama o método certo
-
-                _frmCadastroEtapas.ExibirMensagem("Etapa excluída com sucesso!");
-
-                ListarEtapas(); // atualiza a lista na tela
-                _frmCadastroEtapas.DesabilitarCampos();
+                _etapaRepository.Excluir(id);
+                _frmCadastroEtapa.ExibirMensagem($"Etapa excluída com Sucesso:");
+                //atualizar dataGrid 
+                ListarEtapas();
+                _frmCadastroEtapa.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroEtapas.ExibirMensagem($"Erro ao excluir a etapa: {ex.Message}");
-            }
-
-        }
-
-        public void Inserir(Etapas etapa)
-        {
-            try
-            {
-                _EtapasRepository.Inserir(etapa);
-                _frmCadastroEtapas.ExibirMensagem("Etapa cadastrada com sucesso!");
-                ListarEtapas(); // atualiza a lista após inserir
-                _frmCadastroEtapas.DesabilitarCampos();
-            }
-            catch (Exception ex)
-            {
-                _frmCadastroEtapas.ExibirMensagem($"Erro ao cadastrar etapa: {ex.Message}");
+                _frmCadastroEtapa.ExibirMensagem($"Erro ao excluir a Etapa: {ex.Message}");
             }
         }
-
-        public void PesquisarEtapas(string termo)
-        {
-            try
-            {
-                var todasEtapas = _EtapasRepository.Listar();
-                var resultado = todasEtapas
-                    .Where(e => e.Nome.Contains(termo, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-                _frmCadastroEtapas.ExibirEtapas(resultado);
-            }
-            catch (Exception ex)
-            {
-                _frmCadastroEtapas.ExibirMensagem($"Erro ao pesquisar etapas: {ex.Message}");
-            }
-        }
-
-
     }
 }
+    
+

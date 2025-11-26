@@ -33,93 +33,86 @@
             dgvConsultaAtendimento = new DataGridView();
             txtFiltro = new TextBox();
             btnPesquisar = new Button();
-            imageList1 = new ImageList(components);
+            imlIcones = new ImageList(components);
             cbxFiltro = new ComboBox();
-            groupBox1 = new GroupBox();
+            grbFiltro = new GroupBox();
             ((System.ComponentModel.ISupportInitialize)dgvConsultaAtendimento).BeginInit();
-            groupBox1.SuspendLayout();
+            grbFiltro.SuspendLayout();
             SuspendLayout();
             // 
             // dgvConsultaAtendimento
             // 
             dgvConsultaAtendimento.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvConsultaAtendimento.Location = new Point(12, 97);
+            dgvConsultaAtendimento.Location = new Point(16, 72);
             dgvConsultaAtendimento.Name = "dgvConsultaAtendimento";
             dgvConsultaAtendimento.ReadOnly = true;
             dgvConsultaAtendimento.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvConsultaAtendimento.Size = new Size(776, 327);
+            dgvConsultaAtendimento.Size = new Size(624, 312);
             dgvConsultaAtendimento.TabIndex = 0;
             dgvConsultaAtendimento.CellDoubleClick += dgvConsultaAtendimento_CellDoubleClick;
             // 
             // txtFiltro
             // 
-            txtFiltro.Location = new Point(192, 19);
+            txtFiltro.Location = new Point(176, 24);
             txtFiltro.Name = "txtFiltro";
-            txtFiltro.Size = new Size(458, 23);
+            txtFiltro.Size = new Size(336, 23);
             txtFiltro.TabIndex = 2;
             // 
             // btnPesquisar
             // 
-            btnPesquisar.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPesquisar.ImageAlign = ContentAlignment.MiddleRight;
-            btnPesquisar.ImageIndex = 5;
-            btnPesquisar.ImageList = imageList1;
-            btnPesquisar.Location = new Point(673, 13);
+            btnPesquisar.Font = new Font("Segoe UI", 10F);
+            btnPesquisar.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPesquisar.ImageIndex = 0;
+            btnPesquisar.ImageList = imlIcones;
+            btnPesquisar.Location = new Point(528, 24);
             btnPesquisar.Name = "btnPesquisar";
-            btnPesquisar.Size = new Size(97, 31);
+            btnPesquisar.Size = new Size(104, 32);
             btnPesquisar.TabIndex = 3;
             btnPesquisar.Text = "Pesquisar";
-            btnPesquisar.TextAlign = ContentAlignment.MiddleLeft;
             btnPesquisar.UseVisualStyleBackColor = true;
             btnPesquisar.Click += btnPesquisar_Click;
             // 
-            // imageList1
+            // imlIcones
             // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageStream = (ImageListStreamer)resources.GetObject("imageList1.ImageStream");
-            imageList1.TransparentColor = Color.Transparent;
-            imageList1.Images.SetKeyName(0, "Finalizar.png");
-            imageList1.Images.SetKeyName(1, "icone-cancelar.png");
-            imageList1.Images.SetKeyName(2, "icone-editar.png");
-            imageList1.Images.SetKeyName(3, "icone-excluir.png");
-            imageList1.Images.SetKeyName(4, "icone-novo.png");
-            imageList1.Images.SetKeyName(5, "icone-pesquisar.png");
-            imageList1.Images.SetKeyName(6, "icone-salvar.png");
+            imlIcones.ColorDepth = ColorDepth.Depth32Bit;
+            imlIcones.ImageStream = (ImageListStreamer)resources.GetObject("imlIcones.ImageStream");
+            imlIcones.TransparentColor = Color.Transparent;
+            imlIcones.Images.SetKeyName(0, "icone-pesquisar.png");
             // 
             // cbxFiltro
             // 
             cbxFiltro.FormattingEnabled = true;
             cbxFiltro.Items.AddRange(new object[] { "Código do Atendimento", "Nome do Cliente", "CPF", "CNPJ" });
-            cbxFiltro.Location = new Point(6, 19);
+            cbxFiltro.Location = new Point(8, 24);
             cbxFiltro.Name = "cbxFiltro";
-            cbxFiltro.Size = new Size(169, 23);
+            cbxFiltro.Size = new Size(160, 23);
             cbxFiltro.TabIndex = 4;
             // 
-            // groupBox1
+            // grbFiltro
             // 
-            groupBox1.Controls.Add(txtFiltro);
-            groupBox1.Controls.Add(cbxFiltro);
-            groupBox1.Controls.Add(btnPesquisar);
-            groupBox1.Location = new Point(12, 31);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(776, 50);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Filtrar Por:";
+            grbFiltro.Controls.Add(cbxFiltro);
+            grbFiltro.Controls.Add(dgvConsultaAtendimento);
+            grbFiltro.Controls.Add(btnPesquisar);
+            grbFiltro.Controls.Add(txtFiltro);
+            grbFiltro.Location = new Point(8, 16);
+            grbFiltro.Name = "grbFiltro";
+            grbFiltro.Size = new Size(648, 392);
+            grbFiltro.TabIndex = 6;
+            grbFiltro.TabStop = false;
+            grbFiltro.Text = "Filtrar por :";
             // 
             // FrmConsultaAtendimento
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(groupBox1);
-            Controls.Add(dgvConsultaAtendimento);
+            ClientSize = new Size(664, 415);
+            Controls.Add(grbFiltro);
             Name = "FrmConsultaAtendimento";
             Text = "Consultas de Atendimentos";
             Load += FrmConsultaAtendimento_Load;
             ((System.ComponentModel.ISupportInitialize)dgvConsultaAtendimento).EndInit();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            grbFiltro.ResumeLayout(false);
+            grbFiltro.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -129,7 +122,8 @@
         private TextBox txtFiltro;
         private Button btnPesquisar;
         private ComboBox cbxFiltro;
-        private ImageList imageList1;
-        private GroupBox groupBox1;
+        private Label lblFiltrar;
+        private ImageList imlIcones;
+        private GroupBox grbFiltro;
     }
 }

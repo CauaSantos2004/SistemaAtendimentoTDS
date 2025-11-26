@@ -1,90 +1,89 @@
-﻿using SistemaAtendimento.Model;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
-using System;
-using System.Collections.Generic;
-using System.Data;
 
 namespace SistemaAtendimento.Controller
 {
     public class UsuarioController
     {
         private FrmCadastroUsuario _frmCadastroUsuario;
-        private UsuarioRepository _usuarioRepository;
+        private UsuarioRepository _usuarioRepository;   
 
-        public UsuarioController(FrmCadastroUsuario view)
+        public UsuarioController(FrmCadastroUsuario view ) 
         {
             _frmCadastroUsuario = view;
             _usuarioRepository = new UsuarioRepository();
         }
 
-        public void ListarUsuarios()
+        public void ListarUsuarios(string termo = "")
         {
             try
             {
-                var listarUsuarios = _usuarioRepository.Listar();
-                _frmCadastroUsuario.ExibirUsuarios(listarUsuarios);
+                var listaUsuarios = _usuarioRepository.Listar(termo);
+                _frmCadastroUsuario.ExibirUsuarios(listaUsuarios);
             }
             catch (Exception ex)
             {
-                _frmCadastroUsuario.ExibirMensagem($"Erro ao listar usuários: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao carregar os usuários: {ex.Message}");
             }
-        }
 
-        public void Inserir(Usuarios usuario)
+        }
+        public void Salvar(Usuarios usuario)
         {
+
             try
             {
                 _usuarioRepository.Inserir(usuario);
+                _frmCadastroUsuario.ExibirMensagem($"Usuário cadastrado com Sucesso:");
 
-                _frmCadastroUsuario.ExibirMensagem("Usuário salvo com sucesso!");
-
+                //atualizar dataGrid 
                 ListarUsuarios();
+
                 _frmCadastroUsuario.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroUsuario.ExibirMensagem($"Erro ao salvar usuário: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao Cadastrar o Usuário: {ex.Message}");
             }
         }
-
         public void Atualizar(Usuarios usuario)
         {
+
             try
             {
                 _usuarioRepository.Atualizar(usuario);
+                _frmCadastroUsuario.ExibirMensagem($"Usuário atualizado com Sucesso:");
 
-                _frmCadastroUsuario.ExibirMensagem("Usuário atualizado com sucesso!");
-
+                //atualizar dataGrid 
                 ListarUsuarios();
+
                 _frmCadastroUsuario.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroUsuario.ExibirMensagem($"Erro ao atualizar usuário: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao atualizar o Usuário: {ex.Message}");
             }
         }
-
 
         public void Excluir(int id)
         {
             try
             {
                 _usuarioRepository.Excluir(id);
-                _frmCadastroUsuario.ExibirMensagem("Usuário excluído com sucesso!");
+                _frmCadastroUsuario.ExibirMensagem($"Usuário excluído com Sucesso:");
+                //atualizar dataGrid 
                 ListarUsuarios();
                 _frmCadastroUsuario.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroUsuario.ExibirMensagem($"Erro ao excluir o usuário: {ex.Message}");
+                _frmCadastroUsuario.ExibirMensagem($"Erro ao excluir o Usuário {ex.Message}");
             }
-        }
-
-        public DataTable PesquisarUsuarios(string termo)
-        {
-            UsuarioRepository repository = new UsuarioRepository();
-            return repository.PesquisarUsuarios(termo);
         }
     }
 }

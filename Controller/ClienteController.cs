@@ -1,91 +1,91 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SistemaAtendimento.Model;
-using SistemaAtendimento.Repositories;
+using SistemaAtendimento.Repository;
 
 namespace SistemaAtendimento.Controller
 {
     public class ClienteController
     {
-        private FrmCadastroClientes _frmCadastroClientes; //private significa que só vai funcionar nessa classe, não compartilha infirmações com outra
+        private FrmCadastroCliente _frmCadastroCliente;
         private ClienteRepository _clienteRepository;
-        public ClienteController(FrmCadastroClientes view)
+
+        public ClienteController(FrmCadastroCliente view)
         {
-            _frmCadastroClientes = view;
+            _frmCadastroCliente = view;
             _clienteRepository = new ClienteRepository();
         }
 
         public void ListarClientes(string termo = "")
         {
-            try //try e catch pega erros do sistema guarda numa variavel e podemos mostrar o erro de uma forma personalizada (com uma mensagem personalizada)
+            try
             {
                 var listaClientes = _clienteRepository.Listar(termo);
-                _frmCadastroClientes.ExibirClientes(listaClientes);
+                _frmCadastroCliente.ExibirClientes(listaClientes);
             }
-            catch (Exception ex) //guardamos a mensagem de erro aqui em "ex"
+            catch (Exception ex)
             {
-                _frmCadastroClientes.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}"); //mostra a mensagem junto com o erro
+                _frmCadastroCliente.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}");
             }
+
         }
-        public void Salvar(Clientes cliente) //método de salvar
+
+        public void Salvar(Clientes cliente)
         {
-            //criar o try catch
+
             try
             {
                 _clienteRepository.Inserir(cliente);
-                _frmCadastroClientes.ExibirMensagem($"Cliente cadastrado com sucesso!");
-                
+                _frmCadastroCliente.ExibirMensagem($"Cliente cadastrado com Sucesso:");
+               
+                //atualizar dataGrid 
                 ListarClientes();
-                //Atualizar DataGrid
 
-                _frmCadastroClientes.DesabilitarCampos();
+                _frmCadastroCliente.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroClientes.ExibirMensagem($"Erro ao cadastrar o cliente: {ex.Message}");
+                _frmCadastroCliente.ExibirMensagem($"Erro ao Cadastrar o Cliente: {ex.Message}");
             }
         }
 
-        public void Atualizar(Clientes cliente) //método de atualizar
+        public void Atualizar(Clientes cliente)
         {
-            //criar o try catch
+
             try
             {
                 _clienteRepository.Atualizar(cliente);
-                _frmCadastroClientes.ExibirMensagem($"Cliente atualizado com sucesso!");
+                _frmCadastroCliente.ExibirMensagem($"Cliente atualizado com Sucesso:");
 
+                //atualizar dataGrid 
                 ListarClientes();
-                //Atualizar DataGrid
 
-                _frmCadastroClientes.DesabilitarCampos();
+                _frmCadastroCliente.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroClientes.ExibirMensagem($"Erro ao atualizar cliente: {ex.Message}");
+                _frmCadastroCliente.ExibirMensagem($"Erro ao atualizar o Cliente: {ex.Message}");
             }
         }
 
-        public void Excluir(int id) //método de excluir
+        public void Excluir(int id)
         {
             try
             {
                 _clienteRepository.Excluir(id);
-                _frmCadastroClientes.ExibirMensagem("Cliente excluido com sucesso!");
-                
+                _frmCadastroCliente.ExibirMensagem($"Cliente excluído com Sucesso:");
+                //atualizar dataGrid 
                 ListarClientes();
-
-                _frmCadastroClientes.DesabilitarCampos();
-            
+                _frmCadastroCliente.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroClientes.ExibirMensagem($"Erro ao excluir o cliente: {ex.Message}");
+                _frmCadastroCliente.ExibirMensagem($"Erro ao excluir o Cliente: {ex.Message}");
             }
-
         }
-
-    }   
+    }
 }

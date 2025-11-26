@@ -1,91 +1,99 @@
-﻿using SistemaAtendimento.Database;
-using SistemaAtendimento.Model;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+using SistemaAtendimento.Database;
+using SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.Repositories
 {
     public class UsuarioRepository
     {
-        public List<Usuarios> Listar()
+        public List<Usuarios> Listar(string termo = "")
         {
             var usuarios = new List<Usuarios>();
 
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "SELECT * FROM usuarios";
+                string sql = "SELECT * FROM Usuarios";
+
+                if (!string.IsNullOrEmpty(termo))
+                {
+                    sql += " WHERE nome LIKE @termo OR email LIKE @termo";
+                }
+
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-                    conexao.Open();
-                    using (var leitor = comando.ExecuteReader())
+                    if (!string.IsNullOrEmpty(termo))
                     {
-                        while (leitor.Read())
+                        comando.Parameters.AddWithValue("@termo", $"%{termo}%");
+                    }
+
+                    conexao.Open();
+                    using (var linhas = comando.ExecuteReader())
+                    {
+                        while (linhas.Read())
                         {
-                            usuarios.Add(new Usuarios
+                            usuarios.Add(new Usuarios()
                             {
-                                Id = Convert.ToInt32(leitor["id"]),
-                                Nome = leitor["nome"].ToString(),
-                                Email = leitor["email"].ToString(),
-                                Senha = leitor["senha"].ToString(),
-                                Perfil = leitor["perfil"].ToString(),
+                                Id = Convert.ToInt32(linhas["id"]),
+                                Nome = linhas["nome"].ToString(),
+                                Email = linhas["email"].ToString(),
+                                Senha = linhas["senha"].ToString(),
+                                Perfil = linhas["perfil"].ToString(),
                             });
                         }
                     }
                 }
             }
 
-            return usuarios;
+            return usuarios; // agora o método fecha corretamente
         }
 
-        public void Inserir(Usuarios usuario)
+        public void Inserir(Usuarios usuarios)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "INSERT INTO usuarios (Nome, Email, Senha, Perfil) VALUES (@Nome, @Email, @Senha, @Perfil)";
+                string sql = "INSERT INTO Usuarios (nome, email, senha, perfil) VALUES (@nome, @email, @senha, @perfil)";
+                // reparei que você estava usando "clientes" aqui, alterei para "Usuarios"
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-                    comando.Parameters.AddWithValue("@Nome", usuario.Nome);
-                    comando.Parameters.AddWithValue("@Email", usuario.Email);
-                    comando.Parameters.AddWithValue("@Senha", usuario.Senha);
-                    comando.Parameters.AddWithValue("@Perfil", usuario.Perfil);
+                    comando.Parameters.AddWithValue("@nome", usuarios.Nome);
+                    comando.Parameters.AddWithValue("@email", usuarios.Email);
+                    comando.Parameters.AddWithValue("@senha", usuarios.Senha);
+                    comando.Parameters.AddWithValue("@perfil", usuarios.Perfil);
 
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
-
             }
         }
 
         public void Atualizar(Usuarios usuario)
         {
-
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "UPDATE usuarios SET nome=@nome, email=@email, senha=@senha, perfil=@perfil WHERE id=@id";
-
+                string sql = "UPDATE usuarios SET nome = @nome, email = @email, senha = @senha ,perfil = @perfil WHERE id= @id";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@id", usuario.Id);
                     comando.Parameters.AddWithValue("@nome", usuario.Nome);
                     comando.Parameters.AddWithValue("@email", usuario.Email);
-                    comando.Parameters.AddWithValue("@senha", usuario.Senha);
-                    comando.Parameters.AddWithValue("@perfil", usuario.Perfil);
-
-                    conexao.Open();
-                    comando.ExecuteNonQuery();
+                    comando.Parameters.AddWithValue("@senha",usuario.Senha);
+                    comando.Parameters.AddWithValue("@perfil",usuario.Perfil);
+                    conexao.Open();//abre conexão com o banco
+                    comando.ExecuteNonQuery();//executa o comando
                 }
             }
-
         }
-
         public void Excluir(int id)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "DELETE FROM usuarios WHERE id=@id";
+                string sql = "DELETE FROM usuarios WHERE id = @id";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@id", id);
@@ -94,33 +102,5 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
-
-        public DataTable PesquisarUsuarios(string termo)
-        {
-            DataTable tabela = new DataTable();
-
-            using (var conexao = ConexaoDB.GetConexao())
-            {
-                string sql = @"SELECT * FROM Usuarios
-                       WHERE Nome LIKE @termo
-                          OR Email LIKE @termo
-                          OR Perfil LIKE @termo";
-
-                using (var comando = new SqlCommand(sql, conexao))
-                {
-                    comando.Parameters.AddWithValue("@termo", "%" + termo + "%");
-
-                    conexao.Open();
-
-                    SqlDataAdapter da = new SqlDataAdapter(comando);
-                    da.Fill(tabela);
-                }
-            }
-
-            return tabela;
-        }
-
-
-
     }
 }

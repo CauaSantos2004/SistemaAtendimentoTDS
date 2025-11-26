@@ -4,78 +4,96 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SistemaAtendimento.Model;
-using SistemaAtendimento.Model.SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
+using SistemaAtendimento.Repository;
 using SistemaAtendimento.View;
+
 
 namespace SistemaAtendimento.Controller
 {
-    //alterações feitas a partir daqui
-    //vincular o formulario
-    //ligação com o repositorio
-    public class AtendimentoController //adcionada a palavra public
+    
+    public class AtendimentoController
     {
-        //criação das variaveis, adicionada esta duas linhas
+        //vincula com o frm
         private FrmAtendimento _frmAtendimento;
         private AtendimentoRepository _atendimentoRepository;
+        private ClienteRepository _clienteRepository;
+        private EtapaRepository _etapaRepository;
+        private SituacaoAtendimentoRepository _situacaoAtendimentoRepository;
 
-        private ClienteRepository _clienteRepository; //adicionada esta linha do repositorio de cliente
-
-        private StatusAtendimentoRepository _statusAtendimentoRepository; //adicionada esta linha do repositorio de status atendimento
-
-        private EtapasRepository _etapasRepository; //adicionada esta linha do repositorio de etapas atendimento
-
-
-        //construtor do controller, adicionada esta parte
-        public AtendimentoController(FrmAtendimento view) //
+        public AtendimentoController(FrmAtendimento view ) 
         {
             _frmAtendimento = view;
             _atendimentoRepository = new AtendimentoRepository();
-
-            _clienteRepository = new ClienteRepository(); //adicionada esta linha do repositorio de cliente
-            _statusAtendimentoRepository = new StatusAtendimentoRepository(); //adicionada esta linha do repositorio de status atendimento
-            _etapasRepository = new EtapasRepository(); //adicionada esta linha do repositorio de etapas atendimento
+            _clienteRepository = new ClienteRepository();
+            _etapaRepository = new EtapaRepository();
+            _situacaoAtendimentoRepository = new SituacaoAtendimentoRepository();
         }
 
-        //função para listar todos os clientes, adicionada esta parte
-        public List<Clientes> ListarClientes()
+        public List<Clientes> ListarClientes() 
+        
         {
             return _clienteRepository.Listar();
         }
 
-        //função para listar todas as situações do atendimento
-        public List<StausAtendimento> ListarSituacaoAtendimento() //adicionada esta parte
-        {
-            return _statusAtendimentoRepository.Listar();
+        public List<Etapas> ListarEtapas()
+        { 
+        return _etapaRepository.Listar();
         }
 
-        //função para listar todas as etapas do atendimento
-        public List<Etapas> ListarEtapasAtendimento() //adicionada esta parte
+        public List<SituacaoAtendimentos> ListarSituacaoAtendimentos()
         {
-            return _etapasRepository.Listar();
+            return _situacaoAtendimentoRepository.Listar();
         }
-
-        //função para salvar o atendimento
-        public void Salvar(Atendimentos atendimento)
+        public int? Salvar(Atendimentos atendimento)
         {
-            // bloco try catch para tratar erros
+            int? atendimentoId = null;
             try
             {
-                _atendimentoRepository.Inserir(atendimento); // chama o metodo inserir do repositorio
-                _frmAtendimento.ExibirMensagem("Atendimento salvo com sucesso!"); // mensagem de sucesso
+                atendimentoId =  _atendimentoRepository.Inserir(atendimento);
+                _frmAtendimento.ExibirMensagem("Atendimento salvo com sucesso!");
+                
             }
+            catch (Exception ex)
+            { 
+            _frmAtendimento.ExibirMensagem("Erro ao cadastrar atendimento atendimento: " + ex.Message);
+            }
+            return atendimentoId;
 
+        }
+        public void Atualizar(Atendimentos atendimento)
+        {
+            try
+            {
+                
+                _atendimentoRepository.Atualizar(atendimento);
+                _frmAtendimento.ExibirMensagem("Atendimento atualizado com sucesso!");
+                //_frmAtendimento. desabilitarrrrrr
+            }
             catch (Exception ex)
             {
-                _frmAtendimento.ExibirMensagem($"Erro ao salvar atendimento: {ex.Message}"); //mensagem de erro
+                _frmAtendimento.ExibirMensagem("Erro ao atualizar atendimento: " + ex.Message);
             }
         }
 
-        //função para buscar atendimento por id
         public Atendimentos? BuscarAtendimentoPorId(int id)
         {
-            return _atendimentoRepository.BuscarPorId(id); //chama o metodo buscar por id do repositorio
+            return _atendimentoRepository.BuscarPorId(id);
+        }
+
+        public void Excluir(int id)
+        {
+            try
+            {
+                _atendimentoRepository.Excluir(id);
+                _frmAtendimento.ExibirMensagem("Atendimento excluído com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                _frmAtendimento.ExibirMensagem("Erro ao excluir atendimento: " + ex.Message);
+            }
         }
 
     }
 }
+

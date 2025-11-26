@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
 
@@ -10,31 +6,32 @@ namespace SistemaAtendimento.Controller
 {
     public class ConsultaAtendimentoController
     {
-        // Passo 1: Campos da classe
-        private FrmConsultaAtendimento _frmConsultaAtendimento; // referência à tela
-        private AtendimentoRepository _atendimentoRepository;   // referência ao repositório
+        private FrmConsultaAtendimento _frmConsultaAtendimento;
+        private AtendimentoRepository _atendimentoRepository;
 
-        // Passo 2: Construtor da classe recebe a tela como parâmetro
+        // Construtor
         public ConsultaAtendimentoController(FrmConsultaAtendimento view)
         {
-            _frmConsultaAtendimento = view;                  // atribui a tela recebida
-            _atendimentoRepository = new AtendimentoRepository(); // cria uma instância do repositório
+            _frmConsultaAtendimento = view;
+            _atendimentoRepository = new AtendimentoRepository();
         }
-    
-        public void ListarAtendimento(string termo = "", string condicao = "")
+
+        // Método para listar atendimentos
+        public void ListarAtendimentos(string termo = "", string condicao = "")
         {
             try
             {
-                var listaAtendimento = _atendimentoRepository.Listar(termo, condicao);
-                _frmConsultaAtendimento.ExibirAtendimentos(listaAtendimento);
+                // Chama o repositório para buscar os atendimentos
+                var listaAtendimentos = _atendimentoRepository.Listar(termo, condicao);
+
+                // Envia a lista para a View exibir
+                _frmConsultaAtendimento.ExibirAtendimentos(listaAtendimentos);
             }
             catch (Exception ex)
             {
-                _frmConsultaAtendimento.ExibirMensagem($"Erro ao listar os Atendimentos: {ex.Message}");
+                // Mostra mensagem de erro na View
+                _frmConsultaAtendimento.ExibirMensagem($"Erro ao carregar os atendimentos: {ex.Message}");
             }
         }
-
-
-
     }
 }

@@ -1,78 +1,73 @@
-using Microsoft.Data.SqlClient; // Biblioteca para conectar com SQL Server
+using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
-using SistemaAtendimento.View; // Onde está a classe ConexaoDB
+using SistemaAtendimento.View;
 
-namespace SistemaAtendimento // Nome do projeto
+
+
+namespace SistemaAtendimento
 {
     public partial class FrmTelaPrincipal : Form
     {
-        public FrmTelaPrincipal() // Quando essa tela for aberta, o sistema monta todos os botões e elementos visuais
+        public FrmTelaPrincipal()
         {
-            InitializeComponent(); //incializa os componentes do formulário
+            InitializeComponent();
         }
 
-        // Esse é o código que roda quando o botão "Conectar" é clicado
         private void btnConexao_Click(object sender, EventArgs e)
         {
-            try // Aqui o sistema vai tentar se conectar ao banco de dados
+            try
             {
-                // Tenta abrir a conexão com o banco de dados
                 using (SqlConnection conexao = ConexaoDB.GetConexao())
                 {
                     conexao.Open();
-                    MessageBox.Show("Conexão Realizada com sucesso!."); // Se não der erro, mostra mensagem de sucesso
+                    MessageBox.Show("Conexão estabelecida com sucesso!");
                 }
             }
-            catch (Exception ex) // Se der algum erro ao tentar se conectar
+            catch (Exception ex)
             {
-                MessageBox.Show("Erro ao conectar:" + ex.Message); // Se der erro, mostra mensagem de erro com detalhes
+                MessageBox.Show("Erro ao conectar: " + ex.Message);
             }
         }
 
-        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Para chamar um formulario (abrir a tela de clientes no sistema)
-            FrmCadastroClientes frmCadastroClientes = new FrmCadastroClientes();
-            frmCadastroClientes.ShowDialog();
+            FrmCadastroCliente frmCadastroCliente = new FrmCadastroCliente();
+            frmCadastroCliente.Show();
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //programação do botão sair, para sair da tela atual(fecha a tela)
             Application.Exit();
         }
 
         private void usuáriosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //para chamar o formulario (abrir a tela de usuarios no sistema)
             FrmCadastroUsuario frmCadastroUsuario = new FrmCadastroUsuario();
-            frmCadastroUsuario.ShowDialog();
+            frmCadastroUsuario.Show();
         }
 
         private void etapasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //para chamar o formulario (abrir a tela de etapas no sistema)
             FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
-            frmCadastroEtapa.ShowDialog();
+            frmCadastroEtapa.Show();
         }
 
-        private void statusAtendimentosToolStripMenuItem_Click(object sender, EventArgs e)
+        private void situacaoAtendimentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //para chamar o formulario (abrir a tela de sistema atendimento no sistema)
             FrmCadastroSituacaoAtendimento frmCadastroSituacaoAtendimento = new FrmCadastroSituacaoAtendimento();
-            frmCadastroSituacaoAtendimento.ShowDialog();
+            frmCadastroSituacaoAtendimento.Show();
         }
 
         private void novoAtendimentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmAtendimento frmAtendimento = new FrmAtendimento();
-            frmAtendimento.ShowDialog();
+            frmAtendimento.Show();
         }
 
         private void consultasToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmConsultaAtendimento frmConsultaAtendimento = new FrmConsultaAtendimento();
-            frmConsultaAtendimento.ShowDialog();
+            frmConsultaAtendimento.Show();
         }
     }
 }

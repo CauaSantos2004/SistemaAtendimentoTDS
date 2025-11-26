@@ -25,7 +25,7 @@ namespace SistemaAtendimento.Controller
             try
             {
                 var lista = _situacaoAtendimentoRepository.Listar(termo);
-                _frmSituacaoAtendimento.ExibirStatus(lista);
+                _frmSituacaoAtendimento.ExibirSituacaoAtendimentos(lista);
             }
             catch (Exception ex)
             {
@@ -33,7 +33,7 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Salvar(StausAtendimento status)
+        public void Salvar(StausAtendimentos status)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace SistemaAtendimento.Controller
             }
         }
 
-        public void Atualizar(StausAtendimento status)
+        public void Atualizar(StausAtendimentos status)
         {
             try
             {

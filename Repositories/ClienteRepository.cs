@@ -1,47 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
 using SistemaAtendimento.Model;
-using static System.ComponentModel.Design.ObjectSelectorEditor;
 
-namespace SistemaAtendimento.Repositories
+namespace SistemaAtendimento.Repository
 {
     public class ClienteRepository
     {
-
-        //funçao para listar todos os clientes
         public List<Clientes> Listar(string termo = "")
         {
             var clientes = new List<Clientes>();
 
-            using (var conexao = ConexaoDB.GetConexao()) //Criar variavel de conexão com o banco de dados (o using é para controle automatico de memória)
+            using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "SELECT * FROM clientes"; //comando para trazer os dados da tabela cliente
+                string sql = "SELECT * FROM Clientes";
 
                 if (!string.IsNullOrEmpty(termo))
                 {
-                    sql = "SELECT * FROM clientes where nome LIKE @termo OR email LIKE @termo";
+                    sql += " WHERE nome LIKE @termo OR email LIKE @termo";
                 }
 
-                using (var comando = new SqlCommand(sql, conexao)) //comandos a ser executados
+                using (var comando = new SqlCommand(sql, conexao))
                 {
                     if (!string.IsNullOrEmpty(termo))
                     {
-                        comando.Parameters.AddWithValue("@termo", "%" + termo + "%");
+                        comando.Parameters.AddWithValue("@termo", $"%{termo}%");
                     }
 
                     conexao.Open();
 
                     using (var linhas = comando.ExecuteReader())
                     {
-                        while (linhas.Read())  //percorrer a lista
+                        while (linhas.Read())
                         {
-                            clientes.Add(new Clientes() 
+                            clientes.Add(new Clientes()
                             {
                                 Id = Convert.ToInt32(linhas["id"]),
                                 Nome = linhas["nome"].ToString(),
@@ -62,17 +55,18 @@ namespace SistemaAtendimento.Repositories
                         }
                     }
                 }
-
             }
 
-                return clientes;
+            return clientes;
         }
 
         public void Inserir(Clientes cliente)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "INSERT INTO clientes (nome,email, cpf_cnpj, tipo_pessoa, telefone, celular, cep, endereco, numero, complemento, bairro, cidade, estado, ativo) VALUES (@nome,@email, @cpf_cnpj, @tipo_pessoa, @telefone, @celular, @cep, @endereco, @numero, @complemento, @bairro, @cidade, @estado, @ativo)";
+                string sql = @"INSERT INTO clientes 
+                               (nome, email, cpf_cnpj, tipo_pessoa, telefone, celular, cep, endereco, numero, complemento, bairro, cidade, estado, ativo) 
+                               VALUES (@nome, @email, @cpf_cnpj, @tipo_pessoa, @telefone, @celular, @cep, @endereco, @numero, @complemento, @bairro, @cidade, @estado, @ativo)";
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
@@ -101,12 +95,16 @@ namespace SistemaAtendimento.Repositories
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "UPDATE clientes SEt nome=@nome,email=@email, cpf_cnpj=@cpf_cnpj, tipo_pessoa=@tipo_pessoa, telefone=@telefone, celular=@celular, cep=@cep, endereco=@endereco, numero=@numero, complemento=@complemento, bairro=@bairro, cidade=@cidade, estado=@estado, ativo=@ativo WHERE id=@id";
+                string sql = @"UPDATE clientes 
+                               SET nome = @nome, email = @email, cpf_cnpj = @cpf_cnpj, tipo_pessoa = @tipo_pessoa, 
+                                   telefone = @telefone, celular = @celular, cep = @cep, endereco = @endereco, 
+                                   numero = @numero, complemento = @complemento, bairro = @bairro, cidade = @cidade, 
+                                   estado = @estado, ativo = @ativo 
+                               WHERE id = @id";
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-
-                    comando.Parameters.AddWithValue("@id", cliente.Id); ;
+                    comando.Parameters.AddWithValue("@id", cliente.Id);
                     comando.Parameters.AddWithValue("@nome", cliente.Nome);
                     comando.Parameters.AddWithValue("@email", cliente.Email);
                     comando.Parameters.AddWithValue("@cpf_cnpj", cliente.Cpf_Cnpj);
@@ -127,21 +125,20 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
+
         public void Excluir(int id)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "DELETE FROM clientes WHERE id=@id";
+                string sql = "DELETE FROM clientes WHERE id = @id";
 
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-
                     comando.Parameters.AddWithValue("@id", id);
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
             }
         }
-    
     }
 }

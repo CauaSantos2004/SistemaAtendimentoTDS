@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SistemaAtendimento.Controller;
 using SistemaAtendimento.Model;
-using SistemaAtendimento.Model.SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.View
 {
@@ -23,45 +22,57 @@ namespace SistemaAtendimento.View
             _consultaAtendimentoController = new ConsultaAtendimentoController(this);
         }
 
-        //função executada ao carregar o formulário
         private void FrmConsultaAtendimento_Load(object sender, EventArgs e)
         {
-            _consultaAtendimentoController.ListarAtendimento(); //chama o controller para listar os atendimentos
+            _consultaAtendimentoController.ListarAtendimentos();
         }
 
-        //função para exibir mensagens na tela
         public void ExibirMensagem(string mensagem)
         {
             MessageBox.Show(mensagem);
         }
 
-        //função para exibir os atendimentos na grid
         public void ExibirAtendimentos(List<Atendimentos> atendimentos)
-        {  
+        {
             dgvConsultaAtendimento.DataSource = atendimentos;
-            dgvConsultaAtendimento.Refresh();
-
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            //
-            string termo = txtFiltro.Text.Trim(); //pega o texto do filtro
-            string condicao = cbxFiltro.Text.Trim(); //pega a condição do filtro
-            _consultaAtendimentoController.ListarAtendimento(termo, condicao); //chama o controller para listar os atendimentos com o filtro
+            string termo = txtFiltro.Text.Trim();
+            string condicaoSelecionada = cbxFiltro.SelectedItem?.ToString() ?? "";
+
+            string condicaoRepo = "";
+
+            if (condicaoSelecionada == "Código do Atendimento")
+            {
+                condicaoRepo = "Código do Atendimento";
+            }
+            else if (condicaoSelecionada == "Nome do Cliente")
+            {
+                condicaoRepo = "Nome do Cliente";
+            }
+            else if (condicaoSelecionada == "CPF" || condicaoSelecionada == "CNPJ")
+            {
+                condicaoRepo = "CPF/CNPJ";
+            }
+
+            _consultaAtendimentoController.ListarAtendimentos(termo, condicaoRepo);
         }
 
         private void dgvConsultaAtendimento_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
             if (e.RowIndex >= 0)
             {
-                int Id = (int)dgvConsultaAtendimento.Rows[e.RowIndex].Cells["Id"].Value;
+                int id = (int)dgvConsultaAtendimento.Rows[e.RowIndex].Cells["Id"].Value;
 
-                FrmAtendimento frmAtendimento = new FrmAtendimento(Id);
+                // FECHA a tela atual antes de abrir a próxima
+                this.Hide();  // esconde para não aparecer piscando
 
-                frmAtendimento.Show(); // 1. Abre a tela de atendimento
-                this.Close();          // 2. Fecha a tela de consulta
+                FrmAtendimento frmAtendimento = new FrmAtendimento(id);
+                frmAtendimento.ShowDialog(); // abre o atendimento
+
+               this.Close(); // fecha de vez a tela de consulta
             }
         }
     }
