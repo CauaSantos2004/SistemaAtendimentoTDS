@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
 using SistemaAtendimento.Model;
@@ -17,7 +20,7 @@ namespace SistemaAtendimento.Repositories
                 string sql = "SELECT * FROM situacao_atendimentos";
                 if (!string.IsNullOrEmpty(termo))
                 {
-                    sql += " WHERE nome LIKE @termo OR cor LIKE @termo";
+                    sql = "SELECT * FROM situacao_atendimentos WHERE nome LIKE @termo";
                 }
 
                 using (var comando = new SqlCommand(sql, conexao))
@@ -28,13 +31,11 @@ namespace SistemaAtendimento.Repositories
                     }
 
                     conexao.Open();
-
                     using (var linhas = comando.ExecuteReader())
                     {
                         while (linhas.Read())
                         {
-                            situacaoAtendimentos.Add(new SituacaoAtendimentos()
-                            {
+                            situacaoAtendimentos.Add(new SituacaoAtendimentos() {
                                 Id = Convert.ToInt32(linhas["id"]),
                                 Nome = linhas["nome"].ToString(),
                                 Cor = linhas["cor"].ToString(),
@@ -43,8 +44,9 @@ namespace SistemaAtendimento.Repositories
                         }
                     }
                 }
-                return situacaoAtendimentos;
             }
+
+            return situacaoAtendimentos;
         }
 
         public void Inserir(SituacaoAtendimentos situacaoAtendimentos)
@@ -52,13 +54,11 @@ namespace SistemaAtendimento.Repositories
             using (var conexao = ConexaoDB.GetConexao())
             {
                 string sql = "INSERT INTO situacao_atendimentos (nome, cor, ativo) VALUES (@nome, @cor, @ativo)";
-
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@nome", situacaoAtendimentos.Nome);
                     comando.Parameters.AddWithValue("@cor", situacaoAtendimentos.Cor);
                     comando.Parameters.AddWithValue("@ativo", situacaoAtendimentos.Ativo);
-
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
@@ -69,7 +69,7 @@ namespace SistemaAtendimento.Repositories
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "UPDATE SituacaoAtendimentos SET nome = @nome, cor = @cor, ativo = @ativo WHERE id = @id";
+                string sql = "UPDATE situacao_atendimentos SET nome = @nome, cor = @cor, ativo = @ativo WHERE id = @id";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@id", situacaoAtendimentos.Id);
@@ -81,6 +81,7 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
+
         public void Excluir(int id)
         {
             using (var conexao = ConexaoDB.GetConexao())

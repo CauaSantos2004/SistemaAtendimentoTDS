@@ -2,8 +2,6 @@ using Microsoft.Data.SqlClient;
 using SistemaAtendimento.Database;
 using SistemaAtendimento.View;
 
-
-
 namespace SistemaAtendimento
 {
     public partial class FrmTelaPrincipal : Form
@@ -20,19 +18,19 @@ namespace SistemaAtendimento
                 using (SqlConnection conexao = ConexaoDB.GetConexao())
                 {
                     conexao.Open();
-                    MessageBox.Show("Conexão estabelecida com sucesso!");
+                    MessageBox.Show("Conexão Realizada com Sucesso!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao conectar: " + ex.Message);
+                MessageBox.Show("Erro ao conectar:" + ex.Message);
             }
         }
 
-        private void clienteToolStripMenuItem_Click(object sender, EventArgs e)
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmCadastroCliente frmCadastroCliente = new FrmCadastroCliente();
-            frmCadastroCliente.Show();
+            frmCadastroCliente.ShowDialog();
         }
 
         private void sairToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,18 +44,6 @@ namespace SistemaAtendimento
             frmCadastroUsuario.Show();
         }
 
-        private void etapasToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
-            frmCadastroEtapa.Show();
-        }
-
-        private void situacaoAtendimentoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FrmCadastroSituacaoAtendimento frmCadastroSituacaoAtendimento = new FrmCadastroSituacaoAtendimento();
-            frmCadastroSituacaoAtendimento.Show();
-        }
-
         private void novoAtendimentoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmAtendimento frmAtendimento = new FrmAtendimento();
@@ -68,6 +54,18 @@ namespace SistemaAtendimento
         {
             FrmConsultaAtendimento frmConsultaAtendimento = new FrmConsultaAtendimento();
             frmConsultaAtendimento.Show();
+        }
+
+        private void etapasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCadastroEtapa frmCadastroEtapa = new FrmCadastroEtapa();
+            frmCadastroEtapa.Show();
+        }
+
+        private void situacaoAtendimentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FrmCadastroSituacaoAtendimento frmCadastroSituacaoAtendimento = new FrmCadastroSituacaoAtendimento();
+            frmCadastroSituacaoAtendimento.Show();
         }
     }
 }

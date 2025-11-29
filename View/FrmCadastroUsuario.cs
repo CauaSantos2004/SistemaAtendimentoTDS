@@ -21,56 +21,62 @@ namespace SistemaAtendimento.View
             _usuarioController = new UsuarioController(this);
         }
 
-        private void FrmCadastroUsuario_Load(object sender, EventArgs e)//evento criado ao, NÃO PODE SER DIGITADO
-        {
-            _usuarioController.ListarUsuarios();
-
-            dgvListaUsuarios.Dock = DockStyle.Fill;
-            dgvListaUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            //dgvListaSituacaoAtendimento.ScrollBars = ScrollBars.Both;
-            dgvListaUsuarios.BackgroundColor = Color.White; // tira o cinza
-        }
-
         public void ExibirMensagem(string mensagem)
         {
             MessageBox.Show(mensagem);
         }
 
-        public void ExibirUsuarios(List<Usuarios> usuarios)
+        internal void ExibirUsuarios(List<Usuarios> usuarios)
         {
-            dgvListaUsuarios.DataSource = usuarios;
+            dgvUsuarios.DataSource = usuarios;
+        }
+
+        private void FrmCadastroUsuario_Load(object sender, EventArgs e)
+        {
+            _usuarioController.ListarUsuarios();
+
+            dgvUsuarios.Columns["Id"].HeaderText = "Código";
+            dgvUsuarios.Columns["Nome"].HeaderText = "Nome Completo";
+            dgvUsuarios.Columns["Email"].HeaderText = "Email";
+            // dgvUsuarios.Columns["Senha"].Visible = false; // Oculta a coluna Senha
+            dgvUsuarios.Columns["Senha"].HeaderText = "Senha";
+            dgvUsuarios.Columns["Perfil"].HeaderText = "Perfil";
+
+            // Preenche o grid com ajuste automático
+            dgvUsuarios.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+
+            // Ajuste individual:
+            dgvUsuarios.Columns["Id"].Width = 60;
+            dgvUsuarios.Columns["Nome"].Width = 200;
+            dgvUsuarios.Columns["Email"].Width = 200;
+            dgvUsuarios.Columns["Senha"].Width = 100;
+            dgvUsuarios.Columns["Perfil"].Width = 100;
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
-
-            Usuarios usuario = new Usuarios
+            Usuarios usuario = new Usuarios()
             {
                 Nome = txtNome.Text,
                 Email = txtEmail.Text,
                 Senha = txtSenha.Text,
                 Perfil = cbxPerfil.Text,
-
             };
 
-            if (!ValidarDados(usuario))
-                return;
-
-            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+            if (string.IsNullOrEmpty(txtCodigo.Text))
             {
-                //novo cliente
                 _usuarioController.Salvar(usuario);
             }
             else
             {
-                //editar cliente
                 usuario.Id = Convert.ToInt32(txtCodigo.Text);
-                //implementar metodo editar no controller e repository
                 _usuarioController.Atualizar(usuario);
             }
+
+
         }
 
-        public bool ValidarDados(Usuarios usuario)
+        private bool ValidaDados(Usuarios usuario)
         {
             if (string.IsNullOrWhiteSpace(txtNome.Text))
             {
@@ -78,24 +84,21 @@ namespace SistemaAtendimento.View
                 txtNome.Focus();
                 return false;
             }
-
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 ExibirMensagem("O campo Email é obrigatório.");
                 txtEmail.Focus();
                 return false;
             }
-
             if (string.IsNullOrWhiteSpace(txtSenha.Text))
             {
                 ExibirMensagem("O campo Senha é obrigatório.");
                 txtSenha.Focus();
                 return false;
             }
-
             if (string.IsNullOrWhiteSpace(cbxPerfil.Text))
             {
-                ExibirMensagem("O campo Perfil é obrigatório.");
+                ExibirMensagem("O campo Senha é obrigatório.");
                 cbxPerfil.Focus();
                 return false;
             }
@@ -110,11 +113,9 @@ namespace SistemaAtendimento.View
             txtSenha.ReadOnly = false;
             cbxPerfil.Enabled = true;
 
-
             btnNovo.Enabled = false;
             btnSalvar.Enabled = true;
             btnCancelar.Enabled = true;
-
         }
 
         private void LimparCampos()
@@ -124,12 +125,12 @@ namespace SistemaAtendimento.View
             txtEmail.Clear();
             txtSenha.Clear();
             cbxPerfil.Text = "";
-
         }
 
         public void DesabilitarCampos()
         {
             LimparCampos();
+
             txtNome.ReadOnly = true;
             txtEmail.ReadOnly = true;
             txtSenha.ReadOnly = true;
@@ -137,9 +138,9 @@ namespace SistemaAtendimento.View
 
             btnNovo.Enabled = true;
             btnSalvar.Enabled = false;
-            btnCancelar.Enabled = false;
             btnEditar.Enabled = false;
             btnExcluir.Enabled = false;
+            btnCancelar.Enabled = false;
         }
 
         private void btnNovo_Click(object sender, EventArgs e)
@@ -152,24 +153,22 @@ namespace SistemaAtendimento.View
             DesabilitarCampos();
         }
 
-        private void dgvListaUsuarios_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgvUsuarios_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                DataGridViewRow LinhaSelecionada = dgvListaUsuarios.Rows[e.RowIndex];
+                DataGridViewRow row = dgvUsuarios.Rows[e.RowIndex];
 
-                txtCodigo.Text = LinhaSelecionada.Cells["Id"].Value.ToString();
-                txtNome.Text = LinhaSelecionada.Cells["Nome"].Value.ToString();
-                txtEmail.Text = LinhaSelecionada.Cells["Email"].Value.ToString();
-                txtSenha.Text = LinhaSelecionada.Cells["Senha"].Value.ToString();
-                cbxPerfil.Text = LinhaSelecionada.Cells["Perfil"].Value.ToString();
+                txtCodigo.Text = row.Cells["Id"].Value.ToString();
+                txtNome.Text = row.Cells["Nome"].Value.ToString();
+                txtEmail.Text = row.Cells["Email"].Value.ToString();
+                txtSenha.Text = row.Cells["Senha"].Value.ToString();
+                cbxPerfil.Text = row.Cells["Perfil"].Value.ToString();
 
-
-                // Habilitar os botões de editar e excluir
-                btnEditar.Enabled = true;
                 btnNovo.Enabled = false;
-                btnCancelar.Enabled = true;
+                btnEditar.Enabled = true;
                 btnExcluir.Enabled = true;
+                btnCancelar.Enabled = true;
             }
         }
 
@@ -181,26 +180,25 @@ namespace SistemaAtendimento.View
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+            if (string.IsNullOrEmpty(txtCodigo.Text))
             {
                 ExibirMensagem("Selecione um usuário para excluir.");
                 return;
             }
-
-
-            DialogResult resultado = MessageBox.Show("Tem certeza que deseja excluir este usuário?", "Confirmação de Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (resultado == DialogResult.Yes)
+            else
             {
-                int id = Convert.ToInt32(txtCodigo.Text);
-                _usuarioController.Excluir(id);
-
+                DialogResult resultado = MessageBox.Show($"Deseja Excluir este Usuário?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    int id = Convert.ToInt32(txtCodigo.Text);
+                    _usuarioController.Excluir(id);
+                }
             }
         }
 
         private void btnPesquisar_Click(object sender, EventArgs e)
         {
-            string termo = txtPesquisar.Text.Trim();//trim tira os espaços brancos, " diego rodrigues ", tira espaço do inicio e fim 
+            string termo = txtPesquisar.Text.Trim();
             _usuarioController.ListarUsuarios(termo);
         }
     }

@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using SistemaAtendimento.Model;
 using SistemaAtendimento.Repositories;
 using SistemaAtendimento.View;
@@ -10,65 +13,55 @@ namespace SistemaAtendimento.Controller
     {
         private FrmCadastroSituacaoAtendimento _frmCadastroSituacaoAtendimento;
         private SituacaoAtendimentoRepository _situacaoAtendimentoRepository;
-
-        public SituacaoAtendimentoController(FrmCadastroSituacaoAtendimento view)
+        public SituacaoAtendimentoController(FrmCadastroSituacaoAtendimento view) //Método Construtor
         {
             _frmCadastroSituacaoAtendimento = view;
             _situacaoAtendimentoRepository = new SituacaoAtendimentoRepository();
         }
 
-        public void ListarSituacaoAtendimentos(string termo = "")
+        public void ListarSituacaoAtendimento(string termo = "")
         {
             try
             {
                 var listaSituacaoAtendimentos = _situacaoAtendimentoRepository.Listar(termo);
-                _frmCadastroSituacaoAtendimento.ExibirSituacaoAtendimentos(listaSituacaoAtendimentos);
+                _frmCadastroSituacaoAtendimento.ExibirSituacaoAtendimento(listaSituacaoAtendimentos);
             }
             catch (Exception ex)
             {
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao carregar as situações de atendimento: {ex.Message}");
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao carregar os clientes: {ex.Message}");
             }
         }
 
         public void Salvar(SituacaoAtendimentos situacaoAtendimento)
         {
-
             try
             {
                 _situacaoAtendimentoRepository.Inserir(situacaoAtendimento);
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($" Situacao de Atendimento cadastrado com Sucesso:");
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Situação Atendimento cadastrado com sucesso!");
 
-                //atualizar dataGrid 
-                ListarSituacaoAtendimentos();
+                ListarSituacaoAtendimento();
 
                 _frmCadastroSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao Cadastrar a Situacao de Atendimento: {ex.Message}");
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao Cadastrar Situação Atendimento: {ex.Message}");
             }
-
-
         }
+
         public void Atualizar(SituacaoAtendimentos situacaoAtendimento)
         {
-
             try
             {
                 _situacaoAtendimentoRepository.Atualizar(situacaoAtendimento);
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($" Situacao de Atendimento atualizada com Sucesso:");
-
-                //atualizar dataGrid 
-                ListarSituacaoAtendimentos();
-
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Situação Atendimento atualizado com sucesso!");
+                ListarSituacaoAtendimento();
                 _frmCadastroSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao  Atualizar Situacao de Atendimento: {ex.Message}");
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao Atualizar Situação Atendimento: {ex.Message}");
             }
-
-
         }
 
         public void Excluir(int id)
@@ -76,14 +69,13 @@ namespace SistemaAtendimento.Controller
             try
             {
                 _situacaoAtendimentoRepository.Excluir(id);
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Situação Atendimento excluído com Sucesso:");
-                //atualizar dataGrid 
-                ListarSituacaoAtendimentos();
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Situação Atendimento excluído com sucesso!");
+                ListarSituacaoAtendimento();
                 _frmCadastroSituacaoAtendimento.DesabilitarCampos();
             }
             catch (Exception ex)
             {
-                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao excluir Situação Atendimento: {ex.Message}");
+                _frmCadastroSituacaoAtendimento.ExibirMensagem($"Erro ao Excluir Situação Atendimento: {ex.Message}");
             }
         }
     }

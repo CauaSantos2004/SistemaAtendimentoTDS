@@ -13,7 +13,10 @@ namespace SistemaAtendimento.Database
         public static SqlConnection GetConexao()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["SistemaAtendimentoDB"].ConnectionString;
+
             return new SqlConnection(connectionString);
+
+
         }
     }
 }

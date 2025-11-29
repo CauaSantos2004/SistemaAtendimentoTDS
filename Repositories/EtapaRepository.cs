@@ -9,20 +9,18 @@ using SistemaAtendimento.Model;
 
 namespace SistemaAtendimento.Repositories
 {
-    public class EtapaRepository
+    internal class EtapaRepository
     {
-        // Método para listar todas as etapas
         public List<Etapas> Listar(string termo = "")
         {
             var etapas = new List<Etapas>();
 
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "SELECT * FROM Etapas";
-
+                string sql = "SELECT * FROM etapas";
                 if (!string.IsNullOrEmpty(termo))
                 {
-                    sql += " WHERE nome LIKE @termo OR ordem LIKE @termo";
+                    sql = "SELECT * FROM etapas WHERE nome LIKE @termo";
                 }
 
                 using (var comando = new SqlCommand(sql, conexao))
@@ -33,7 +31,6 @@ namespace SistemaAtendimento.Repositories
                     }
 
                     conexao.Open();
-
                     using (var linhas = comando.ExecuteReader())
                     {
                         while (linhas.Read())
@@ -53,19 +50,16 @@ namespace SistemaAtendimento.Repositories
             return etapas;
         }
 
-        // Método para inserir uma nova etapa
-        public void Inserir(Etapas etapa)
+        public void Inserir(Etapas etapas)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "INSERT INTO Etapas (nome, ordem, ativo) VALUES (@nome, @ordem, @ativo)";
-
+                string sql = "INSERT INTO etapas (nome, ordem, ativo) VALUES (@nome, @ordem, @ativo)";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
-                    comando.Parameters.AddWithValue("@nome", etapa.Nome);
-                    comando.Parameters.AddWithValue("@ordem", etapa.Ordem);
-                    comando.Parameters.AddWithValue("@ativo", etapa.Ativo);
-
+                    comando.Parameters.AddWithValue("@nome", etapas.Nome);
+                    comando.Parameters.AddWithValue("@ordem", etapas.Ordem);
+                    comando.Parameters.AddWithValue("@ativo", etapas.Ativo);
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
@@ -76,27 +70,28 @@ namespace SistemaAtendimento.Repositories
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "UPDATE Etapas SET nome = @nome, ordem = @ordem, ativo = @ativo WHERE id = @id";
+                string sql = "UPDATE etapas SET nome = @nome, ordem = @ordem, ativo = @ativo WHERE id = @id";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@id", etapa.Id);
                     comando.Parameters.AddWithValue("@nome", etapa.Nome);
                     comando.Parameters.AddWithValue("@ordem", etapa.Ordem);
                     comando.Parameters.AddWithValue("@ativo", etapa.Ativo);
-
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
             }
         }
+
         public void Excluir(int id)
         {
             using (var conexao = ConexaoDB.GetConexao())
             {
-                string sql = "DELETE FROM etapas WHERE id = @id";
+                string sql = "DELETE FROM etapas WHERE id=@id";
                 using (var comando = new SqlCommand(sql, conexao))
                 {
                     comando.Parameters.AddWithValue("@id", id);
+
                     conexao.Open();
                     comando.ExecuteNonQuery();
                 }
