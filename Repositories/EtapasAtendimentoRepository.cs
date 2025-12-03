@@ -20,8 +20,9 @@ namespace SistemaAtendimento.Repositories
             using (var conexao = ConexaoDB.GetConexao())  // Craia a variavel de conexao com o banco de dados
             {
                 //comando SQL para selecionar as etapas de atendimento pelo ID do atendimento
-                string sql = @"SELECT * FROM etapa_atendimentos WHERWE 
-                                atendimento_id = @atendimentoId";
+                string sql = @"SELECT * FROM etapa_atendimentos 
+               WHERE atendimento_id = @atendimentoId";
+
 
                 using (var comando = new SqlCommand(sql, conexao)) //cria o comando SQL
                 {
@@ -93,11 +94,6 @@ namespace SistemaAtendimento.Repositories
                 }
             }
         }
-
-
-
-
-
 
     }
 }
